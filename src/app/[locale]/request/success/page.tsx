@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
+import { site } from "@/lib/site";
 
 export default async function SuccessPage({
   params,
@@ -15,14 +16,16 @@ export default async function SuccessPage({
   const nav = await getTranslations("nav");
 
   return (
-    <div className="mx-auto max-w-xl px-4 py-24 text-center">
-      <h1 className="font-serif text-4xl">{copy("successTitle")}</h1>
-      <p className="mt-4 text-lg">{copy("successText", { ref: ref || "—" })}</p>
-      <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+    <div className="shell max-w-2xl py-28 text-center">
+      <p className="eyebrow text-rust">{locale === "ru" ? "Заявка принята" : "Request received"}</p>
+      <h1 className="mt-4 font-serif text-4xl md:text-5xl">{copy("successTitle")}</h1>
+      <p className="mt-6 text-xl leading-relaxed text-ink-soft">{copy("successText", { ref: ref || "—" })}</p>
+      <p className="mt-4 font-serif text-3xl text-navy">{ref || "—"}</p>
+      <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
         <Link href="/" className="btn btn-navy">
           {nav("home")}
         </Link>
-        <a href="https://wa.me/992935001122" className="btn btn-primary" target="_blank" rel="noreferrer">
+        <a href={site.whatsappHref} className="btn btn-primary" target="_blank" rel="noreferrer">
           {nav("whatsapp")}
         </a>
       </div>

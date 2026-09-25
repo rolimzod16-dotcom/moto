@@ -2,7 +2,9 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { routes } from "@/lib/content";
-import { t } from "@/lib/utils";
+import { mapEmbed, t } from "@/lib/utils";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { InquiryBand } from "@/components/InquiryBand";
 
 export default async function RouteDetailPage({
   params,
@@ -14,6 +16,7 @@ export default async function RouteDetailPage({
   const route = routes.find((item) => item.slug === slug);
   if (!route) notFound();
   const copy = await getTranslations("routes");
+  const nav = await getTranslations("nav");
 
   const blocks = [
     [copy("start"), t(route.startFinish, locale)],
@@ -26,22 +29,36 @@ export default async function RouteDetailPage({
 
   return (
     <article className="detail-page">
-      <div className="relative h-[58vh] min-h-[440px]"><img src={route.images[0]} alt="" className="h-full w-full object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent" /></div>
-      <div className="mx-auto max-w-4xl px-5 py-20 sm:px-8">
-        <h1 className="font-serif text-4xl md:text-5xl">{t(route.title, locale)}</h1>
-        <p className="mt-4 text-lg">{t(route.summary, locale)}</p>
-        <div className="mt-8 space-y-6">
+      <div className="relative min-h-[48vh] overflow-hidden bg-navy-deep text-cream">
+        <img src={route.images[0]} alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        <div className="shell relative flex min-h-[48vh] flex-col justify-end pb-12 pt-28">
+          <Breadcrumbs
+            items={[
+              { href: "/", label: nav("home") },
+              { href: "/routes", label: nav("routes") },
+              { label: t(route.title, locale) },
+            ]}
+          />
+          <h1 className="max-w-4xl font-serif text-4xl md:text-6xl">{t(route.title, locale)}</h1>
+          <p className="mt-4 max-w-2xl text-lg text-cream/85">{t(route.summary, locale)}</p>
+        </div>
+      </div>
+      <div className="shell grid gap-10 py-16 lg:grid-cols-[1fr_.9fr]">
+        <div className="space-y-8">
           {blocks.map(([label, value]) => (
             <section key={label}>
-              <h2 className="font-serif text-2xl">{label}</h2>
-              <p className="mt-2 text-ink-soft">{value}</p>
+              <h2 className="font-serif text-3xl">{label}</h2>
+              <p className="mt-3 text-lg text-ink-soft">{value}</p>
             </section>
           ))}
+          <Link href={`/request?type=TOUR&route=${route.slug}`} className="btn btn-primary">
+            {copy("request")}
+          </Link>
         </div>
-        <Link href={`/request?type=TOUR&route=${route.slug}`} className="btn btn-primary mt-10">
-          {copy("request")}
-        </Link>
+        <iframe title={t(route.title, locale)} src={mapEmbed(route.mapQuery)} className="h-[420px] w-full rounded-2xl border-0" loading="lazy" />
       </div>
+      <InquiryBand locale={locale} />
     </article>
   );
 }

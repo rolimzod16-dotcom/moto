@@ -3,6 +3,9 @@
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
+import { tours, vehicles } from "@/lib/content";
+import { motorcycleUnits } from "@/lib/motorcycle-units";
+import { t as tr } from "@/lib/utils";
 
 const TYPES = ["MOTORCYCLE", "CAR", "TOUR", "GROUP", "CONTACT"] as const;
 
@@ -133,6 +136,20 @@ export function RequestForm({
         else void submit();
       }}
     >
+      {(() => {
+        const selectedTour = tours.find((item) => item.slug === defaultTour);
+        const selectedBike = motorcycleUnits.find((item) => item.slug === defaultVehicle);
+        const selectedCar = vehicles.find((item) => item.slug === defaultVehicle);
+        if (!selectedTour && !selectedBike && !selectedCar && !defaultRoute) return null;
+        return (
+          <p className="rounded-2xl bg-paper-2 px-4 py-3 font-semibold">
+            {selectedTour ? tr(selectedTour.title, locale) : null}
+            {selectedBike ? `${selectedBike.model} ${selectedBike.unitNumber}` : null}
+            {selectedCar && !selectedBike ? `${selectedCar.make} ${selectedCar.model}` : null}
+            {defaultRoute ? ` · ${defaultRoute}` : null}
+          </p>
+        );
+      })()}
       <p className="font-semibold text-navy">{t("step", { n: step, total })}</p>
       <div className="h-2 rounded bg-paper-2">
         <div className="h-2 rounded bg-rust" style={{ width: `${(step / total) * 100}%` }} />

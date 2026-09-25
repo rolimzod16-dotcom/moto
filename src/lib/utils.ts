@@ -14,6 +14,15 @@ export function t(value: Localized | string, locale: string) {
   return locale === "ru" ? value.ru || value.en : value.en;
 }
 
+export function upcomingDates(dates: string[]) {
+  const today = new Date().toISOString().slice(0, 10);
+  return dates.filter((date) => date >= today);
+}
+
+export function mapEmbed(query: string) {
+  return `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
+}
+
 export function formatStatus(status: string, locale: string) {
   const map: Record<string, Localized> = {
     AVAILABLE: { en: "Available", ru: "Доступно" },

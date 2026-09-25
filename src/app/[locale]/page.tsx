@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowRight, Check, Compass, Gauge, MapPin, ShieldCheck, Users } from "lucide-react";
 import { Link } from "@/i18n/routing";
-import { routes, advantages } from "@/lib/content";
+import { routes, advantages, tours } from "@/lib/content";
 import { motorcycleUnits } from "@/lib/motorcycle-units";
 import { site } from "@/lib/site";
 import { t } from "@/lib/utils";
@@ -41,6 +41,29 @@ export default async function HomePage({ params }: Props) {
     <section className="shell intro-section"><div className="intro-copy"><p className="eyebrow">{copy("The Pamir, properly prepared", "Памир, подготовленный правильно")}</p><h2 className="section-title">{copy("A serious journey, without making it feel complicated.", "Серьёзное путешествие — без лишней сложности.")}</h2></div><div className="intro-body"><p>{copy("The Pamir Highway is remote, high and deeply rewarding. We make the logistics clear before you arrive: the road, the altitude, the permits, the bike, the people beside you and the support behind you.", "Памирский тракт удалённый, высокогорный и невероятно красивый. До приезда мы заранее объясним дорогу, высоту, разрешения, технику, состав группы и поддержку в пути.")}</p><Link href="/about" className="text-link">{copy("Meet the local team", "Познакомиться с командой")} <ArrowRight size={18} /></Link></div></section>
 
     <section className="finder-section"><div className="shell"><div className="finder-card"><div><p className="eyebrow text-gold">{copy("Start here", "Начните здесь")}</p><h2>{copy("Choose your way across Tajikistan", "Выберите свой способ увидеть Таджикистан")}</h2></div><div className="finder-links"><Link href="/tours"><strong>01</strong><span>{copy("Browse tours", "Смотреть туры")}</span><ArrowRight size={18} /></Link><Link href="/routes"><strong>02</strong><span>{copy("Compare routes", "Сравнить маршруты")}</span><ArrowRight size={18} /></Link><Link href="/request"><strong>03</strong><span>{copy("Tell us your dates", "Рассказать о датах")}</span><ArrowRight size={18} /></Link></div></div></div></section>
+
+    <section className="shell section-block">
+      <div className="section-heading-row">
+        <div>
+          <p className="eyebrow">{copy("Tours", "Туры")}</p>
+          <h2 className="section-title">{copy("Choose how you want to ride.", "Выберите, как вы хотите ехать.")}</h2>
+        </div>
+        <Link href="/tours" className="text-link">{nav("tours")} <ArrowRight size={18} /></Link>
+      </div>
+      <div className="grid gap-6 lg:grid-cols-3">
+        {tours.map((tour) => (
+          <Link key={tour.slug} href={`/tours/${tour.slug}`} className="feature-card no-underline">
+            <img src={tour.images[0]} alt="" className="h-52 w-full object-cover" />
+            <div className="p-6">
+              <p className="eyebrow text-rust">{tour.durationDays} {copy("days", "дней")}</p>
+              <h3 className="mt-3 font-serif text-2xl text-ink">{t(tour.title, locale)}</h3>
+              <p className="mt-3 text-ink-soft">{t(tour.summary, locale)}</p>
+              <p className="mt-4 text-sm font-semibold text-navy">{copy("Price on request", "Цена по запросу")}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
 
     <section className="shell section-block"><div className="section-heading-row"><div><p className="eyebrow">{copy("Journeys", "Путешествия")}</p><h2 className="section-title">{copy("Routes worth the ride.", "Маршруты, ради которых едут.")}</h2></div><Link href="/routes" className="text-link">{nav("routes")} <ArrowRight size={18} /></Link></div><div className="route-grid">{routes.slice(0, 3).map((route, index) => <Link key={route.slug} href={`/routes/${route.slug}`} className={`route-card route-card-${index + 1}`}><img src={route.images[0]} alt="" /><div className="route-card-shade" /><div className="route-card-content"><span className="route-number">0{index + 1}</span><div><h3>{t(route.title, locale)}</h3><p>{t(route.summary, locale)}</p><span className="route-card-link">{copy("Explore route", "Изучить маршрут")} <ArrowRight size={16} /></span></div></div></Link>)}</div></section>
 

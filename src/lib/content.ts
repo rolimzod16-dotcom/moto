@@ -138,7 +138,7 @@ export const tours = [
       ru: "Сопровождаемый проезд по одной из самых высоких дорог мира, с механиком и машиной 4x4.",
     } satisfies Localized,
     durationDays: 12,
-    dates: ["2026-06-15", "2026-07-12", "2026-08-09", "2026-09-06"],
+    dates: ["2027-06-14", "2027-07-12", "2027-08-09", "2027-09-06"],
     groupSize: "4–8 riders",
     vehicleType: "Honda CRF300L",
     difficulty: "Demanding",
@@ -180,6 +180,20 @@ export const tours = [
       en: "Price on request. Group and private departures quoted after dates and group size.",
       ru: "Цена по запросу. Групповые и индивидуальные даты считаются после уточнения состава.",
     },
+    lodging: {
+      en: "Simple hotels in towns and homestays in the valleys. Rooms are clean and practical, not luxury.",
+      ru: "Простые гостиницы в городах и хоумстеев в долинах. Чисто и по делу, без люкса.",
+    },
+    experience: {
+      en: "Recent mixed-surface riding, a valid motorcycle licence, and comfort at altitude. We brief every rider in Dushanbe.",
+      ru: "Недавний опыт смешанных дорог, действующие права и готовность к высоте. Брифинг в Душанбе.",
+    },
+    support: {
+      en: "English-speaking motorcycle guide, mechanic and a support 4x4 for luggage, spares and recovery.",
+      ru: "Мотогид с английским, механик и 4x4 для багажа, запчастей и эвакуации.",
+    },
+    roadLabel: { en: "Gravel, broken asphalt, high passes", ru: "Гравий, разбитый асфальт, перевалы" },
+    mapQuery: "Pamir Highway Tajikistan",
     images: ["/images/group-ride.jpg", "/images/hero.jpg", "/images/karakul.jpg"],
   },
   {
@@ -191,7 +205,7 @@ export const tours = [
       ru: "Более короткий сопровождаемый маршрут вдоль Пянджа, с кишлаками и крепостями.",
     } satisfies Localized,
     durationDays: 8,
-    dates: ["2026-06-22", "2026-07-20", "2026-08-17"],
+    dates: ["2027-06-21", "2027-07-19", "2027-08-16"],
     groupSize: "4–8 riders",
     vehicleType: "Honda CRF300L",
     difficulty: "Moderate to demanding",
@@ -225,6 +239,20 @@ export const tours = [
       en: "Price on request.",
       ru: "Цена по запросу.",
     },
+    lodging: {
+      en: "Village guesthouses and a hotel night in Khorog.",
+      ru: "Хоумстеев в кишлаках и ночь в гостинице Хорога.",
+    },
+    experience: {
+      en: "Steady off-road control and patience with slow village roads.",
+      ru: "Спокойное управление на грунте и терпение на узких участках у кишлаков.",
+    },
+    support: {
+      en: "Guide, optional mechanic and 4x4 backup.",
+      ru: "Гид, по запросу механик и машина 4x4.",
+    },
+    roadLabel: { en: "Narrow valley gravel and dust", ru: "Узкий долинный гравий и пыль" },
+    mapQuery: "Wakhan Valley Tajikistan",
     images: ["/images/wakhan.jpg", "/images/guesthouse.jpg"],
   },
   {
@@ -260,6 +288,20 @@ export const tours = [
       en: "Private quotation after dates and group size.",
       ru: "Индивидуальный расчёт после дат и состава группы.",
     },
+    lodging: {
+      en: "Matched to the itinerary you choose.",
+      ru: "Под выбранный маршрут.",
+    },
+    experience: {
+      en: "We match the route to licence, height and recent riding.",
+      ru: "Маршрут подбираем под права, рост и недавний опыт.",
+    },
+    support: {
+      en: "Any mix of guide, mechanic, 4x4, hotels and transfers.",
+      ru: "Любое сочетание гида, механика, 4x4, гостиниц и трансферов.",
+    },
+    roadLabel: { en: "Built around your route", ru: "Под ваш маршрут" },
+    mapQuery: "Pamirs Tajikistan",
     images: ["/images/riders.jpg", "/images/murghab.jpg"],
   },
 ];
@@ -279,6 +321,7 @@ export const routes = [
     permits: { en: "GBAO permit required. Cross-border travel only with written approval.", ru: "Нужно разрешение GBAO. Пересечение границ только с письменным согласованием." },
     supportOptions: { en: "Guide, mechanic, support 4x4, hotels and recovery.", ru: "Гид, механик, машина 4x4, гостиницы и эвакуация." },
     images: ["/images/hero.jpg", "/images/group-ride.jpg"],
+    mapQuery: "Pamir Highway Tajikistan",
   },
   {
     slug: "wakhan-valley",
@@ -294,6 +337,7 @@ export const routes = [
     permits: { en: "GBAO permit. Border areas are not a crossing without approval.", ru: "Разрешение GBAO. Приграничье не является переходом без согласования." },
     supportOptions: { en: "Local guide, 4x4 backup and booked homestays.", ru: "Местный гид, 4x4 и забронированные хоумстеев." },
     images: ["/images/wakhan.jpg", "/images/guesthouse.jpg"],
+    mapQuery: "Wakhan Valley Tajikistan",
   },
   {
     slug: "murghab",
@@ -309,6 +353,7 @@ export const routes = [
     permits: { en: "GBAO permit.", ru: "Разрешение GBAO." },
     supportOptions: { en: "Warm layers in the support car, booked rooms, spare fuel.", ru: "Тёплые вещи в машине сопровождения, комнаты, запас топлива." },
     images: ["/images/murghab.jpg"],
+    mapQuery: "Murghab Tajikistan",
   },
   {
     slug: "karakul",
@@ -324,6 +369,7 @@ export const routes = [
     permits: { en: "GBAO permit. Kyrgyz border only with written approval and papers.", ru: "GBAO. Граница с Кыргызстаном только с письменным согласованием." },
     supportOptions: { en: "Support vehicle strongly recommended.", ru: "Машина сопровождения настоятельно рекомендуется." },
     images: ["/images/karakul.jpg"],
+    mapQuery: "Karakul Lake Tajikistan",
   },
   {
     slug: "tailor-made",
@@ -339,6 +385,7 @@ export const routes = [
     permits: { en: "We list every permit before you travel.", ru: "Все разрешения перечисляем до поездки." },
     supportOptions: { en: "Any mix of guide, mechanic, 4x4, hotels and transfers.", ru: "Любое сочетание гида, механика, 4x4, гостиниц и трансферов." },
     images: ["/images/riders.jpg", "/images/wakhan.jpg"],
+    mapQuery: "Fann Mountains Tajikistan",
   },
 ];
 

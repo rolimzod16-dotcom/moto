@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { BrandMark } from "./BrandMark";
-import { navCompany, navPlan, navPrimary, site } from "@/lib/site";
+import { navMain, navMore, site } from "@/lib/site";
 
 export async function Footer() {
   const t = await getTranslations("nav");
@@ -10,11 +10,11 @@ export async function Footer() {
 
   return (
     <footer className="mt-auto bg-navy-deep text-cream">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 md:grid-cols-4">
+      <div className="shell grid gap-12 py-20 md:grid-cols-4">
         <div className="md:col-span-2">
           <BrandMark light />
-          <p className="mt-4 max-w-md text-cream/85">{f("blurb")}</p>
-          <p className="mt-4">
+          <p className="mt-5 max-w-md text-lg text-cream/80">{f("blurb")}</p>
+          <p className="mt-6">
             <a className="text-gold" href={site.phoneHref}>
               {site.phone}
             </a>
@@ -25,11 +25,11 @@ export async function Footer() {
           </p>
         </div>
         <div>
-          <h2 className="font-serif text-xl">{f("explore")}</h2>
-          <ul className="mt-3 space-y-2">
-            {navPrimary.map((item) => (
+          <h2 className="font-serif text-2xl">{f("explore")}</h2>
+          <ul className="mt-4 space-y-3">
+            {navMain.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-cream/90 hover:text-gold">
+                <Link href={item.href} className="text-cream/85 hover:text-gold">
                   {t(item.key)}
                 </Link>
               </li>
@@ -37,22 +37,20 @@ export async function Footer() {
           </ul>
         </div>
         <div>
-          <h2 className="font-serif text-xl">{f("plan")}</h2>
-          <ul className="mt-3 space-y-2">
-            {[...navPlan, ...navCompany, { href: "/request", key: "request" as const }].map(
-              (item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="text-cream/90 hover:text-gold">
-                    {t(item.key)}
-                  </Link>
-                </li>
-              ),
-            )}
+          <h2 className="font-serif text-2xl">{f("plan")}</h2>
+          <ul className="mt-4 space-y-3">
+            {[...navMore, { href: "/request", key: "request" as const }].map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="text-cream/85 hover:text-gold">
+                  {t(item.key)}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/15 px-5 py-6 sm:px-8 text-sm text-cream/75">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 md:flex-row md:justify-between">
+      <div className="border-t border-white/10">
+        <div className="shell flex flex-col gap-2 py-6 text-sm text-cream/70 md:flex-row md:justify-between">
           <p>{f("legal")}</p>
           <p>{f("rights", { year })}</p>
         </div>

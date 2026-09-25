@@ -22,7 +22,13 @@ export default async function RequestPage({
   return (
     <>
       <PageHero title={copy("title")} intro={copy("intro")} image="/images/hero.jpg" />
-      <div className="mx-auto max-w-4xl px-5 py-20 sm:px-8"><div className="feature-card p-6 sm:p-10">
+      <div className="shell max-w-4xl py-16 lg:py-24">
+        <p className="mb-8 text-ink-soft">
+          {locale === "ru"
+            ? "Заявка не является бронью. Вы получите номер обращения, затем письменный ответ команды."
+            : "A request is not a booking. You receive a reference number, then a written answer from the team."}
+        </p>
+        <div className="feature-card p-6 sm:p-10">
         <RequestForm
           locale={locale}
           defaultType={type}

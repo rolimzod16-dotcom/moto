@@ -21,19 +21,23 @@ export const site = {
     "https://www.google.com/maps?q=Dushanbe%20Tajikistan&output=embed",
 };
 
-export const navPrimary = [
-  { href: "/motorcycles", key: "motorcycles" },
-  { href: "/cars", key: "cars" },
+export const navMain = [
   { href: "/tours", key: "tours" },
   { href: "/routes", key: "routes" },
+  { href: "/motorcycles", key: "motorcycles" },
+  { href: "/cars", key: "cars" },
+  { href: "/rental-conditions", key: "conditions" },
+  { href: "/about", key: "about" },
+  { href: "/contact", key: "contact" },
 ] as const;
 
-export const navPlan = [
+export const navMore = [
   { href: "/services", key: "services" },
-  { href: "/rental-conditions", key: "conditions" },
   { href: "/faq", key: "faq" },
 ] as const;
 
+export const navPrimary = navMain;
+export const navPlan = navMore;
 export const navCompany = [
   { href: "/about", key: "about" },
   { href: "/contact", key: "contact" },
