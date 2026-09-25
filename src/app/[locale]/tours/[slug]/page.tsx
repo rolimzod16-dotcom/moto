@@ -15,6 +15,7 @@ export default async function TourDetailPage({
   if (!tour) notFound();
   const copy = await getTranslations("tours");
   const isPrivate = tour.type === "private";
+  const upcomingDates = tour.dates.filter((date) => date >= new Date().toISOString().slice(0, 10));
 
   return (
     <article className="detail-page">
@@ -52,11 +53,11 @@ export default async function TourDetailPage({
         </dl>
         <h2 className="mt-10 font-serif text-3xl">{copy("surface")}</h2>
         <p className="mt-2 max-w-4xl">{t(tour.surface, locale)}</p>
-        {tour.dates.length > 0 ? (
+        {upcomingDates.length > 0 ? (
           <>
             <h2 className="mt-10 font-serif text-3xl">{copy("dates")}</h2>
             <ul className="mt-3 flex flex-wrap gap-2">
-              {tour.dates.map((date) => (
+              {upcomingDates.map((date) => (
                 <li key={date} className="rounded-xl bg-paper-2 px-3 py-2 font-semibold">
                   {date}
                 </li>
@@ -65,11 +66,12 @@ export default async function TourDetailPage({
             <p className="mt-2 text-ink-soft">{copy("places")}</p>
           </>
         ) : null}
+        {upcomingDates.length === 0 && <p className="mt-8 rounded-2xl border border-line bg-cream p-5 font-semibold">{locale === "ru" ? "Даты поездки и свободные места уточняйте при заявке." : "Ask us about upcoming dates and availability."}</p>}
         <h2 className="mt-10 font-serif text-3xl">{copy("itinerary")}</h2>
         <ol className="mt-4 space-y-3">
           {tour.itinerary.map((day) => (
             <li key={day.day} className="feature-card p-4">
-              <span className="font-bold text-navy">{copy("duration", { days: day.day }).replace(/\d+ days|дней/, `Day ${day.day}`)}</span>
+              <span className="font-bold text-navy">{locale === "ru" ? `День ${day.day}` : `Day ${day.day}`}</span>
               <p className="mt-1">{locale === "ru" ? day.ru : day.en}</p>
             </li>
           ))}

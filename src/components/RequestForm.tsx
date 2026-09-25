@@ -12,6 +12,7 @@ type Props = {
   defaultVehicle?: string;
   defaultTour?: string;
   defaultRoute?: string;
+  defaultStartDate?: string;
 };
 
 export function RequestForm({
@@ -20,6 +21,7 @@ export function RequestForm({
   defaultVehicle = "",
   defaultTour = "",
   defaultRoute = "",
+  defaultStartDate = "",
 }: Props) {
   const t = useTranslations("request");
   const router = useRouter();
@@ -31,7 +33,7 @@ export function RequestForm({
   const [error, setError] = useState("");
   const [form, setForm] = useState({
     type: startType,
-    startDate: "",
+    startDate: defaultStartDate,
     endDate: "",
     flex: "exact",
     pickup: "Dushanbe",

@@ -17,6 +17,7 @@ export default async function RequestPage({
   const vehicle = typeof query.vehicle === "string" ? query.vehicle : "";
   const tour = typeof query.tour === "string" ? query.tour : "";
   const route = typeof query.route === "string" ? query.route : "";
+  const start = typeof query.start === "string" && /^\d{4}-\d{2}-\d{2}$/.test(query.start) ? query.start : "";
 
   return (
     <>
@@ -28,6 +29,7 @@ export default async function RequestPage({
           defaultVehicle={vehicle}
           defaultTour={tour}
           defaultRoute={route}
+          defaultStartDate={start}
         />
         </div>
       </div>
