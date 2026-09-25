@@ -6,12 +6,14 @@ import { site } from "@/lib/site";
 export function HomeInquiry({ locale }: { locale: string }) {
   const ru = locale === "ru";
   return (
-    <section id="quick-inquiry" className="section-block bg-[#d8e4f1]">
-      <div className="shell overflow-hidden rounded-2xl border border-line bg-white shadow-xl">
+    <section id="quick-inquiry" className="section-block bg-paper">
+      <div className="shell overflow-hidden bg-white shadow-xl">
         <div className="grid lg:grid-cols-12">
-          <div className="bg-navy p-8 text-white lg:col-span-4">
-            <p className="eyebrow text-gold">{ru ? "Сезон открыт" : "Season open"}</p>
-            <h2 className="mt-3 font-serif text-3xl font-extrabold">{ru ? "Спланируйте экспедицию" : "Plan your Pamir expedition"}</h2>
+          <div className="relative isolate flex flex-col justify-end overflow-hidden bg-navy p-8 text-white lg:col-span-4 lg:min-h-[570px]">
+            <img src="/images/karakul.jpg" alt="" className="absolute inset-0 -z-20 h-full w-full object-cover" />
+            <div className="absolute inset-0 -z-10 bg-gradient-to-t from-navy-deep via-navy-deep/80 to-navy-deep/20"/>
+            <p className="eyebrow text-gold">{ru ? "Следующий шаг" : "Your next chapter"}</p>
+            <h2 className="mt-3 font-serif text-3xl font-semibold">{ru ? "Спланируйте экспедицию" : "Plan your Pamir expedition"}</h2>
             <p className="mt-4 text-sm text-white/70">
               {ru
                 ? "Заявка не бронь. Мы ответим письменно после проверки дат, документов и дороги."

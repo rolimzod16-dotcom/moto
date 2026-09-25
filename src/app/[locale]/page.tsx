@@ -1,163 +1,42 @@
 import { setRequestLocale } from "next-intl/server";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Compass, MapPinned, ShieldCheck } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { tours } from "@/lib/content";
 import { t } from "@/lib/utils";
 import { StitchHero } from "@/components/StitchHero";
-import { ElevationProfile } from "@/components/ElevationProfile";
 import { FleetTabs } from "@/components/FleetTabs";
 import { HomeInquiry } from "@/components/HomeInquiry";
 
-type Props = { params: Promise<{ locale: string }> };
-
-const terrain: Record<string, { asphalt: number; gravel: number }> = {
-  "pamir-highway-expedition": { asphalt: 70, gravel: 30 },
-  "wakhan-valley-ride": { asphalt: 55, gravel: 45 },
-  "private-pamir-dates": { asphalt: 40, gravel: 60 },
-};
-
-export default async function HomePage({ params }: Props) {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const ru = locale === "ru";
-  const copy = (en: string, ruText: string) => (ru ? ruText : en);
-
-  return (
-    <>
-      <StitchHero locale={locale} />
-
-      <section id="signature-tours" className="section-block">
-        <div className="shell">
-          <p className="eyebrow text-rust">{copy("Small group deployments · max 8 bikes", "Небольшие группы · до 8 мотоциклов")}</p>
-          <h2 className="section-title mt-2">{copy("Curated expeditions", "Избранные экспедиции")}</h2>
-          <p className="mt-3 max-w-2xl text-ink-soft">
-            {copy(
-              "High-altitude itineraries with a local team, support 4×4 and a written plan before you fly.",
-              "Высокогорные маршруты с местной командой, машиной сопровождения и письменным планом до вылета.",
-            )}
-          </p>
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {tours.map((tour) => {
-              const split = terrain[tour.slug] ?? { asphalt: 50, gravel: 50 };
-              return (
-                <article key={tour.slug} className="feature-card flex flex-col">
-                  <div className="relative h-56 overflow-hidden bg-navy">
-                    <img src={tour.images[0]} alt="" className="h-full w-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent" />
-                    <div className="absolute left-3 top-3 flex gap-1.5">
-                      <span className="rounded bg-navy/80 px-2 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white">
-                        {tour.difficulty}
-                      </span>
-                      <span className="rounded bg-gold px-2 py-1 text-[10px] font-extrabold uppercase text-[#4e1e00]">
-                        {tour.durationDays} {copy("days", "дней")}
-                      </span>
-                    </div>
-                    <p className="absolute bottom-3 left-3 text-xs font-bold text-white">
-                      {tour.highestAltitude.toLocaleString(locale)} m
-                      {tour.distanceKm > 0 ? ` · ${tour.distanceKm.toLocaleString(locale)} km` : ""}
-                    </p>
-                  </div>
-                  <div className="flex flex-1 flex-col p-5">
-                    <h3 className="font-serif text-xl font-bold">{t(tour.title, locale)}</h3>
-                    <p className="mt-2 text-sm text-ink-soft">{t(tour.summary, locale)}</p>
-                    <div className="mt-4 rounded-xl bg-paper-2 p-3">
-                      <div className="mb-1.5 flex justify-between text-[11px] font-bold uppercase tracking-wider text-ink-soft">
-                        <span>{copy("Terrain", "Покрытие")}</span>
-                        <span>
-                          {split.asphalt}% {copy("asphalt", "асфальт")} / {split.gravel}% {copy("gravel", "гравий")}
-                        </span>
-                      </div>
-                      <div className="terrain">
-                        <i style={{ width: `${split.asphalt}%` }} />
-                        <i style={{ width: `${split.gravel}%` }} />
-                      </div>
-                    </div>
-                    <ul className="mt-4 space-y-1.5 text-sm text-ink-soft">
-                      {tour.inclusions.slice(0, 3).map((item) => (
-                        <li key={item.en} className="flex gap-2">
-                          <Check size={16} className="mt-0.5 shrink-0 text-rust" />
-                          {t(item, locale)}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-auto flex items-center justify-between border-t border-line pt-4">
-                      <p className="text-sm font-extrabold text-ink">{copy("Price on request", "Цена по запросу")}</p>
-                      <Link href={`/tours/${tour.slug}`} className="btn btn-navy">
-                        {copy("Itinerary", "Маршрут")}
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <ElevationProfile locale={locale} />
-
-      <section id="expedition-fleet" className="section-block bg-paper-2">
-        <div className="shell">
-          <p className="eyebrow text-rust">{copy("Dushanbe fleet", "Парк в Душанбе")}</p>
-          <h2 className="section-title mt-2">{copy("Built for high passes", "Для высоких перевалов")}</h2>
-          <p className="mt-3 max-w-2xl text-ink-soft">
-            {copy(
-              "Honda CRF300L dual-sport motorcycles and expedition 4×4 vehicles. Availability is confirmed by the team.",
-              "Honda CRF300L и экспедиционные 4×4. Доступность подтверждает команда.",
-            )}
-          </p>
-          <div className="mt-8">
-            <FleetTabs locale={locale} />
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-navy-deep py-16 text-white">
-        <div className="shell">
-          <p className="eyebrow text-gold">{copy("The expedition standard", "Стандарт экспедиции")}</p>
-          <h2 className="mt-2 font-serif text-3xl font-extrabold md:text-4xl">
-            {copy("Remote roads, organised backup", "Далёкая дорога, собранный тыл")}
-          </h2>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              [copy("4×4 support truck", "Машина 4×4"), copy("Luggage, spares and a tired rider have a place to go.", "Багаж, запчасти и место для уставшего райдера.")],
-              [copy("Field mechanic", "Механик"), copy("Daily checks and common CRF300L and 4×4 parts.", "Ежедневный осмотр и ходовые запчасти.")],
-              [copy("Permits", "Разрешения"), copy("GBAO paperwork prepared before you ride east.", "GBAO готовим до выезда на восток.")],
-              [copy("Local team", "Местная команда"), copy("A person on WhatsApp, with a request number you can quote.", "Человек в WhatsApp и номер заявки.")],
-            ].map(([title, text]) => (
-              <article key={title} className="rounded-2xl border border-white/10 bg-navy p-5">
-                <h3 className="font-serif text-lg font-bold">{title}</h3>
-                <p className="mt-2 text-sm text-white/70">{text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-block">
-        <div className="shell grid items-center gap-10 lg:grid-cols-12">
-          <div className="relative lg:col-span-5">
-            <img src="/images/riders.jpg" alt="" className="aspect-[4/5] w-full rounded-2xl object-cover" />
-          </div>
-          <div className="lg:col-span-7">
-            <p className="eyebrow text-rust">{copy("Local team", "Местная команда")}</p>
-            <h2 className="section-title mt-2">
-              {copy("We work the highway. It is home.", "Мы работаем на тракте. Это дом.")}
-            </h2>
-            <p className="mt-4 text-ink-soft">
-              {copy(
-                "Operations in Dushanbe and on the road in Gorno-Badakhshan. A request gets a reference number, then a written answer.",
-                "Офис в Душанбе и работа на дороге в ГБАО. Заявка получает номер, затем письменный ответ.",
-              )}
-            </p>
-            <Link href="/about" className="btn btn-navy mt-6">
-              {copy("About the team", "О команде")} <ArrowRight size={16} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <HomeInquiry locale={locale} />
-    </>
-  );
+  const copy = (en: string, ruText: string) => ru ? ruText : en;
+  return <>
+    <StitchHero locale={locale} />
+    <section className="intro-strip" aria-label={copy("Why travel with us", "Почему с нами")}>
+      <div className="shell intro-strip-inner">
+        <p><span>01</span>{copy("Local team in Dushanbe", "Местная команда в Душанбе")}</p>
+        <p><span>02</span>{copy("Small groups, real support", "Небольшие группы и сопровождение")}</p>
+        <p><span>03</span>{copy("Every detail confirmed before departure", "Все детали до выезда")}</p>
+      </div>
+    </section>
+    <section className="section-block" id="signature-tours"><div className="shell">
+      <div className="editorial-heading">
+        <div><p className="eyebrow text-rust">{copy("The journeys", "Путешествия")}</p><h2 className="section-title mt-4">{copy("Beyond the last paved road.", "Туда, где заканчивается асфальт.")}</h2></div>
+        <div><p className="max-w-md text-ink-soft">{copy("Follow the Pamir Highway, turn into the Wakhan and see Tajikistan at your own pace. Our local team handles the road ahead.", "Проедьте по Памирскому тракту, сверните в Вахан и откройте Таджикистан в своём ритме. Дорогу подготовит местная команда.")}</p><Link href="/tours" className="editorial-link mt-6">{copy("Explore all expeditions", "Все экспедиции")} <ArrowRight size={18}/></Link></div>
+      </div>
+      <div className="journey-grid">{tours.map((tour, index) => <Link href={`/tours/${tour.slug}`} key={tour.slug} className={`journey-card journey-card-${index + 1}`}>
+        <img src={tour.images[0]} alt="" loading="lazy" /><div className="journey-shade" /><span className="journey-number">0{index + 1} / 0{tours.length}</span>
+        <div className="journey-info"><span className="eyebrow">{tour.durationDays} {copy("days", "дней")} · {tour.distanceKm > 0 ? `${tour.distanceKm.toLocaleString(locale)} km` : copy("Private dates", "Частные даты")}</span><h3>{t(tour.title, locale)}</h3><p>{t(tour.summary, locale)}</p><span className="journey-arrow" aria-hidden="true"><ArrowRight size={22}/></span></div>
+      </Link>)}</div>
+    </div></section>
+    <section className="story-section">
+      <div className="story-image"><img src="/images/riders.jpg" alt="" loading="lazy" /><span className="story-caption">Pamir Highway · Tajikistan</span></div>
+      <div className="story-copy"><p className="eyebrow text-gold">{copy("A different way to travel", "Другой способ путешествовать")}</p><h2>{copy("Feel the distance. Remember every turn.", "Почувствуйте дорогу. Запомните каждый поворот.")}</h2><p>{copy("This is more than a bike and a route on a map. It is wide open landscapes, mountain villages and the confidence of knowing someone local is looking after the details.", "Это больше, чем мотоцикл и маршрут на карте. Простор гор, местные деревни и уверенность, что рядом люди, которые знают эту дорогу.")}</p><div className="story-points"><span><Compass size={20}/>{copy("Routes with character", "Маршруты с характером")}</span><span><ShieldCheck size={20}/>{copy("Support on guided rides", "Сопровождение в турах")}</span><span><MapPinned size={20}/>{copy("Local knowledge", "Знание региона")}</span></div><Link href="/about" className="editorial-link light">{copy("Meet the team", "Познакомиться с командой")} <ArrowRight size={18}/></Link></div>
+    </section>
+    <section className="section-block bg-paper-2" id="expedition-fleet"><div className="shell"><div className="editorial-heading"><div><p className="eyebrow text-rust">{copy("The fleet", "Наш транспорт")}</p><h2 className="section-title mt-4">{copy("Ready for the road ahead.", "Готовы к дороге.")}</h2></div><p className="max-w-md text-ink-soft">{copy("Honda CRF300L motorcycles and expedition 4×4 vehicles based in Dushanbe. Send your dates and our team will confirm availability.", "Honda CRF300L и экспедиционные 4×4 в Душанбе. Укажите даты, и команда подтвердит доступность.")}</p></div><FleetTabs locale={locale}/></div></section>
+    <section className="wide-photo"><img src="/images/wakhan.jpg" alt="" loading="lazy" /><div className="shell"><p className="eyebrow text-gold">Wakhan Corridor · Tajikistan</p><h2>{copy("Some roads stay with you.", "Некоторые дороги остаются с вами.")}</h2><Link href="/routes" className="btn btn-light">{copy("Discover the routes", "Открыть маршруты")} <ArrowRight size={18}/></Link></div></section>
+    <HomeInquiry locale={locale}/>
+  </>;
 }
