@@ -6,6 +6,7 @@ import { t } from "@/lib/utils";
 import { StitchHero } from "@/components/StitchHero";
 import { FleetTabs } from "@/components/FleetTabs";
 import { HomeInquiry } from "@/components/HomeInquiry";
+import { RouteJourney } from "@/components/RouteJourney";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -31,6 +32,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="journey-info"><span className="eyebrow">{tour.durationDays} {copy("days", "дней")} · {tour.distanceKm > 0 ? `${tour.distanceKm.toLocaleString(locale)} km` : copy("Private dates", "Частные даты")}</span><h3>{t(tour.title, locale)}</h3><p>{t(tour.summary, locale)}</p><span className="journey-arrow" aria-hidden="true"><ArrowRight size={22}/></span></div>
       </Link>)}</div>
     </div></section>
+    <RouteJourney locale={locale} />
     <section className="story-section">
       <div className="story-image"><img src="/images/riders.jpg" alt="" loading="lazy" /><span className="story-caption">Pamir Highway · Tajikistan</span></div>
       <div className="story-copy"><p className="eyebrow text-gold">{copy("A different way to travel", "Другой способ путешествовать")}</p><h2>{copy("Feel the distance. Remember every turn.", "Почувствуйте дорогу. Запомните каждый поворот.")}</h2><p>{copy("This is more than a bike and a route on a map. It is wide open landscapes, mountain villages and the confidence of knowing someone local is looking after the details.", "Это больше, чем мотоцикл и маршрут на карте. Простор гор, местные деревни и уверенность, что рядом люди, которые знают эту дорогу.")}</p><div className="story-points"><span><Compass size={20}/>{copy("Routes with character", "Маршруты с характером")}</span><span><ShieldCheck size={20}/>{copy("Support on guided rides", "Сопровождение в турах")}</span><span><MapPinned size={20}/>{copy("Local knowledge", "Знание региона")}</span></div><Link href="/about" className="editorial-link light">{copy("Meet the team", "Познакомиться с командой")} <ArrowRight size={18}/></Link></div>

@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
 import { HtmlLang } from "@/components/HtmlLang";
+import { MotionExperience } from "@/components/MotionExperience";
 
 type Props = {
   children: React.ReactNode;
@@ -25,6 +26,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <NextIntlClientProvider messages={messages}>
       <HtmlLang locale={locale} />
+      <MotionExperience />
       <a href="#content" className="skip-link">
         Skip to content
       </a>

@@ -180,6 +180,108 @@ body {
   .trust-grid { gap: .65rem; }
   .route-tile { min-height: 370px; }
 }
+
+/* Interactive expedition story */
+.brand-title { font-size: 1.15rem; line-height: 1.1; white-space: nowrap; }
+.brand-title > span { color: var(--rust); }
+.topline { background: var(--navy-deep); }
+.topline-destination { color: rgba(255,255,255,.7); font-weight: 650; }
+.nav-wrap { box-shadow: 0 1px 0 rgba(20,35,31,.06); }
+.nav-link { position: relative; }
+.nav-link::after { content: ""; position: absolute; inset: auto .65rem .1rem; height: 2px; background: var(--rust); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+.nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+.hero-bottom { display: flex; justify-content: space-between; align-items: end; gap: 2rem; }
+.hero-scroll { display: inline-flex; gap: .7rem; align-items: center; padding-bottom: .9rem; color: #fff; font-size: .7rem; font-weight: 750; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; white-space: nowrap; }
+.hero-scroll svg { transform: rotate(90deg); }
+.clip-bar { flex: 1; }
+.clip-btn::before { display: none; }
+.clip-track { position: absolute; inset: 0 5px auto; height: 2px; overflow: hidden; background: rgba(255,255,255,.38); }
+.clip-btn.active .clip-track { background: rgba(255,255,255,.5); }
+.clip-track-progress { display: block; width: 100%; height: 100%; background: var(--gold); transform-origin: left; animation: clipProgress 8.5s linear forwards; }
+.clip-number { color: var(--gold); padding-right: .18rem; }
+.clip-btn.active { color: #fff; }
+.clip-pause { align-self: center; }
+.btn svg, .editorial-link svg { transition: transform .25s ease; }
+.btn:hover svg, .editorial-link:hover svg { transform: translateX(4px); }
+.journey-card .journey-arrow { transition: background .25s ease, color .25s ease, transform .25s ease; }
+.journey-card:hover .journey-arrow, .journey-card:focus-visible .journey-arrow { background: #fff; color: var(--navy-deep); transform: rotate(-45deg); }
+.mobile-menu { animation: menuEnter .35s cubic-bezier(.2,.8,.25,1) both; }
+.mobile-links a { animation: menuLine .36s both; }
+.mobile-links a:nth-child(2) { animation-delay: .04s; }
+.mobile-links a:nth-child(3) { animation-delay: .08s; }
+.mobile-links a:nth-child(4) { animation-delay: .12s; }
+.mobile-links a:nth-child(5) { animation-delay: .16s; }
+.mobile-links a:nth-child(6) { animation-delay: .20s; }
+.route-experience { background: #14231f; color: #fff; padding-block: clamp(5rem,8vw,9rem); overflow: hidden; }
+.route-experience-heading { display: grid; grid-template-columns: 1.35fr .65fr; align-items: end; gap: 4rem; margin-bottom: 3rem; }
+.route-experience-heading h2 { max-width: 14ch; margin-top: 1rem; font-family: var(--font-display); font-size: clamp(2.5rem,5.3vw,5.4rem); font-weight: 650; line-height: 1.05; letter-spacing: -.05em; }
+.route-experience-heading > p { max-width: 23rem; color: rgba(255,255,255,.68); }
+.route-experience-layout { display: grid; grid-template-columns: minmax(260px,.65fr) minmax(0,1.35fr); gap: clamp(2rem,5vw,6rem); align-items: stretch; }
+.route-experience-stops { display: flex; flex-direction: column; justify-content: center; }
+.route-stop { position: relative; display: flex; align-items: center; gap: 1.3rem; width: 100%; min-height: 6.5rem; padding: 1rem .5rem 1rem 0; border: 0; border-bottom: 1px solid rgba(255,255,255,.18); color: rgba(255,255,255,.58); background: transparent; text-align: left; cursor: pointer; transition: color .3s ease, padding-left .3s ease; }
+.route-stop:hover, .route-stop.active { color: #fff; padding-left: .7rem; }
+.route-stop::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--gold); transform: scaleY(0); transform-origin: top; transition: transform .4s ease; }
+.route-stop.active::before { transform: scaleY(1); }
+.route-stop-index { align-self: center; color: var(--gold); font-size: .72rem; font-weight: 800; letter-spacing: .1em; }
+.route-stop strong { display: block; font-family: var(--font-display); font-size: clamp(1.25rem,2vw,2.2rem); font-weight: 650; line-height: 1.15; letter-spacing: -.035em; }
+.route-stop small { display: block; margin-top: .35rem; font-size: .7rem; letter-spacing: .07em; }
+.route-stop-arrow { margin-left: auto; opacity: 0; transform: translate(-5px,5px); transition: opacity .25s, transform .25s; }
+.route-stop:hover .route-stop-arrow, .route-stop.active .route-stop-arrow { opacity: 1; transform: translate(0,0); }
+.route-experience-link { margin-top: 2.5rem; }
+.route-experience-visual { position: relative; isolation: isolate; min-height: 570px; overflow: hidden; animation: routeScene .7s ease both; }
+.route-experience-visual > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; animation: routeImage 10s ease-out both; }
+.route-experience-visual::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg,rgba(5,16,14,.9),transparent 60%); }
+.route-experience-caption { position: absolute; left: clamp(1.5rem,4vw,3.5rem); right: 2rem; bottom: 2.5rem; display: flex; align-items: start; gap: 1rem; }
+.route-experience-caption > svg { color: var(--gold); flex: none; margin-top: .5rem; }
+.route-experience-caption span { color: var(--gold); font-size: .7rem; font-weight: 800; letter-spacing: .16em; }
+.route-experience-caption h3 { font-family: var(--font-display); font-size: clamp(2rem,3.2vw,3.8rem); letter-spacing: -.045em; line-height: 1.1; }
+.route-experience-caption p { max-width: 32rem; margin-top: .6rem; color: rgba(255,255,255,.84); }
+@keyframes clipProgress { to { transform: scaleX(1); } from { transform: scaleX(0); } }
+@keyframes menuEnter { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes menuLine { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes routeScene { from { opacity: .4; } to { opacity: 1; } }
+@keyframes routeImage { from { transform: scale(1.1); } to { transform: scale(1); } }
+@keyframes heroDrift { from { transform: scale(1.04); } to { transform: scale(1.12); } }
+@media (prefers-reduced-motion: no-preference) {
+  .motion-reveal { opacity: 0; transform: translateY(38px); transition: opacity .85s cubic-bezier(.2,.7,.2,1), transform .85s cubic-bezier(.2,.7,.2,1); }
+  .motion-reveal.motion-visible { opacity: 1; transform: translateY(0); }
+  .journey-card:nth-child(2).motion-reveal, .feature-card:nth-child(2).motion-reveal { transition-delay: .09s; }
+  .journey-card:nth-child(3).motion-reveal, .feature-card:nth-child(3).motion-reveal { transition-delay: .17s; }
+  .home-hero-image.scene-active > img { animation: heroDrift 12s ease-out both; }
+  .hero-copy > * { animation: menuLine .8s both; }
+  .hero-copy > h1 { animation-delay: .1s; }
+  .hero-copy > p:nth-of-type(2) { animation-delay: .2s; }
+  .hero-copy > .hero-actions { animation-delay: .3s; }
+}
+@media (max-width: 900px) {
+  .route-experience-heading { grid-template-columns: 1fr; gap: 1rem; }
+  .route-experience-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .route-experience-stops { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .5rem; }
+  .route-stop { min-height: 5.5rem; padding: .6rem .35rem; gap: .5rem; }
+  .route-stop:hover, .route-stop.active { padding-left: .35rem; }
+  .route-stop small, .route-stop-arrow { display: none; }
+  .route-stop strong { font-size: 1.1rem; }
+  .route-experience-link { grid-column: 1 / -1; margin-top: 1rem; }
+  .route-experience-visual { min-height: 440px; }
+}
+@media (max-width: 640px) {
+  .brand-title { font-size: 1rem; }
+  .hero-scroll { display: none; }
+  .hero-bottom { display: block; }
+  .route-experience { padding-block: 4rem; }
+  .route-experience-heading h2 { font-size: clamp(2.2rem,9vw,3rem); }
+  .route-experience-stops { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .route-stop { min-height: 4.7rem; }
+  .route-stop strong { font-size: 1rem; }
+  .route-experience-visual { min-height: 390px; }
+  .route-experience-caption { left: 1.25rem; right: 1.25rem; bottom: 1.4rem; }
+  .route-experience-caption h3 { font-size: 2rem; }
+  .route-experience-caption p { font-size: .85rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .clip-track-progress, .mobile-menu, .mobile-links a, .route-experience-visual, .route-experience-visual img, .home-hero-image img { animation: none !important; }
+}
 @media (max-width: 640px) {
   body { font-size: 1rem; line-height: 1.55; }
   .shell { width: min(100% - 2rem, 1360px); }
