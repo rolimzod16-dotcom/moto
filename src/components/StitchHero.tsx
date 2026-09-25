@@ -67,7 +67,7 @@ export function StitchHero({ locale }: { locale: string }) {
         </div>
       ))}
       <div className="home-hero-overlay" />
-      <div className="shell relative z-10 grid gap-8 pb-4 pt-28 lg:grid-cols-12">
+      <div className="shell hero-main relative z-10 grid gap-8 pb-4 pt-28 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <p className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/15 px-3 py-1 text-[11px] font-extrabold uppercase tracking-widest text-gold">Tajikistan · M41 · Wakhan</p>
           <h1 className="mt-4">{copy("Ride the Pamirs:", "Памир:")}<br /><span className="text-gold">{copy("Roof of the world", "крыша мира")}</span></h1>

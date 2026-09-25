@@ -168,3 +168,68 @@ body {
 .home-hero-image { pointer-events: none; }
 .clip-pause { flex: 0 0 2.5rem; min-width: 2.5rem; display: inline-flex; align-items: center; justify-content: center; }
 @media (max-width: 450px) { .clip-bar { display: grid; grid-template-columns: repeat(2, 1fr) 2.5rem; } .clip-btn { min-width: 0; } }
+
+/* Smaller devices: keep the desktop composition, scale the information down. */
+@media (max-width: 1023px) {
+  .nav-inner { min-height: 4.1rem; gap: .75rem; }
+  .section-block { padding-block: 3.5rem; }
+  .shell { width: min(100% - 2.5rem, 1360px); }
+  .home-hero { min-height: 0; padding-block: 1.8rem 1.2rem; }
+  .home-hero .hero-main { padding-top: 2rem; }
+  .mission-card { padding: 1.1rem; }
+  .trust-grid { gap: .65rem; }
+  .route-tile { min-height: 370px; }
+}
+@media (max-width: 640px) {
+  body { font-size: 1rem; line-height: 1.55; }
+  .shell { width: min(100% - 2rem, 1360px); }
+  .site-header .topline-inner { min-height: 1.8rem; }
+  .nav-inner { min-height: 3.8rem; }
+  .mobile-request { display: none; }
+  .mobile-links { margin-top: 1.35rem; }
+  .mobile-links a { font-size: 1.05rem; padding-block: .75rem; }
+  .section-block { padding-block: 3rem; }
+  .section-title { font-size: clamp(1.5rem, 6.5vw, 1.85rem); line-height: 1.2; }
+  #content h1 { font-size: clamp(1.8rem, 8vw, 2.15rem); line-height: 1.13; overflow-wrap: anywhere; }
+  #content h2:not(.section-title) { font-size: clamp(1.4rem, 6vw, 1.7rem); line-height: 1.2; overflow-wrap: anywhere; }
+  #content h3 { font-size: clamp(1.15rem, 5vw, 1.4rem); line-height: 1.25; overflow-wrap: anywhere; }
+  .home-hero { padding-block: 1.1rem; }
+  .home-hero .hero-main { padding-top: 1.25rem; gap: 1rem; }
+  .home-hero h1 { font-size: clamp(1.85rem, 8vw, 2.25rem); line-height: 1.08; }
+  .hero-lede { margin-top: .7rem; font-size: .94rem; line-height: 1.5; }
+  .hero-actions { margin-top: 1rem; gap: .55rem; }
+  .hero-actions .btn { flex: 1 1 100%; }
+  .btn { font-size: .79rem; letter-spacing: .015em; padding: .58rem .85rem; min-height: 2.75rem; }
+  .metric-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .35rem; margin-top: .95rem; }
+  .metric-card { display: block; min-width: 0; padding: .55rem .45rem; border-radius: .5rem; }
+  .metric-card svg { width: 17px; height: 17px; }
+  .metric-card span { font-size: .55rem; line-height: 1.25; }
+  .metric-card b { font-size: .7rem; line-height: 1.25; overflow-wrap: anywhere; }
+  .mission-card { padding: .85rem; }
+  .mission-opt { padding: .7rem; margin-top: .45rem; }
+  .mission-opt h3 { font-size: .98rem; }
+  .mission-opt p { font-size: .78rem; line-height: 1.45; }
+  .clip-bar { margin-top: .75rem; }
+  .clip-btn { min-height: 2.25rem; font-size: .56rem; letter-spacing: 0; }
+  .trust-grid { gap: .5rem; padding: .7rem; }
+  .trust-item { gap: .4rem; align-items: flex-start; }
+  .trust-item svg { width: 15px; height: 15px; }
+  .trust-item p { font-size: .7rem; line-height: 1.3; }
+  .trust-item small { font-size: .58rem; line-height: 1.35; letter-spacing: 0; }
+  .feature-card { border-radius: .7rem; }
+  .feature-card img { max-height: 13rem; }
+  .route-tile { min-height: 300px; padding: 1.25rem; }
+  .fact-pill { font-size: .7rem; padding: .35rem .55rem; }
+  .field input, .field select, .field textarea { font-size: 1rem; }
+  #content details { padding: 1rem; }
+  .elev { padding-block: 2rem; }
+  .elev svg { height: 7rem; }
+}
+@media (max-width: 375px) {
+  .topline { font-size: .62rem; }
+  .nav-inner .font-serif { font-size: .88rem; }
+  .nav-inner img { width: 2.15rem; height: 2.15rem; }
+  .nav-inner .brand-subtitle { display: none; }
+  .home-hero h1 { font-size: 1.8rem; }
+  .clip-bar { grid-template-columns: repeat(2, minmax(0, 1fr)) 2.5rem; }
+}

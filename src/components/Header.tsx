@@ -97,7 +97,9 @@ export function Header() {
                 </Link>
               ))}
             </nav>
-            <div className="mobile-menu-foot">
+            <div className="mobile-menu-foot flex-col items-stretch">
+              <Link href="/request" className="btn btn-primary w-full" onClick={() => setOpen(false)}>{t("request")}</Link>
+              <LanguageSwitcher onLight />
               <a href={site.whatsappHref} className="btn btn-primary w-full" target="_blank" rel="noreferrer">
                 WhatsApp {site.phone}
               </a>
