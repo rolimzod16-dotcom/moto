@@ -18,10 +18,10 @@ export default async function CarDetailPage({
   const home = await getTranslations("home");
 
   return (
-    <article>
+    <article className="detail-page">
       <div className="grid md:grid-cols-2">
-        <img src={car.images[0]} alt={`${car.make} ${car.model}`} className="h-[320px] w-full object-cover md:h-[480px]" />
-        <div className="bg-navy px-6 py-12 text-cream md:px-12">
+        <img src={car.images[0]} alt={`${car.make} ${car.model}`} className="h-[430px] w-full object-cover md:h-[560px]" />
+        <div className="bg-navy-deep px-6 py-16 text-cream md:px-12">
           <StatusBadge status={car.publicStatus} />
           <h1 className="mt-4 font-serif text-4xl">
             {car.make} {car.model}
@@ -33,7 +33,7 @@ export default async function CarDetailPage({
           </Link>
         </div>
       </div>
-      <div className="mx-auto max-w-6xl px-4 py-12">
+      <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
         <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[
             [copy("year"), String(car.year)],
@@ -43,14 +43,14 @@ export default async function CarDetailPage({
             [copy("passengers"), String(car.passengers)],
             [copy("luggage"), car.luggage],
           ].map(([label, value]) => (
-            <div key={label} className="rounded border border-line bg-cream p-4">
+            <div key={label} className="feature-card p-4">
               <dt className="text-sm font-bold uppercase tracking-wide text-ink-soft">{label}</dt>
               <dd className="mt-1 text-lg">{value}</dd>
             </div>
           ))}
         </dl>
         <h2 className="mt-10 font-serif text-3xl">{copy("suitability")}</h2>
-        <p className="mt-3 max-w-3xl">{t(car.routeSuitability, locale)}</p>
+        <p className="mt-3 max-w-4xl">{t(car.routeSuitability, locale)}</p>
         <h2 className="mt-8 font-serif text-3xl">{copy("options")}</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5">
           {car.serviceOptions.map((item) => (

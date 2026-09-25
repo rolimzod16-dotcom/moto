@@ -18,8 +18,8 @@ export default async function ConditionsPage({ params }: { params: Promise<{ loc
   return (
     <>
       <PageHero title={copy("title")} intro={copy("intro")} />
-      <div className="mx-auto max-w-3xl px-4 py-12">
-        <p className="rounded border border-gold bg-paper-2 p-4">{copy("disclaimer")}</p>
+      <div className="mx-auto max-w-4xl px-5 py-20 sm:px-8">
+        <p className="rounded-2xl border border-gold bg-paper-2 p-4">{copy("disclaimer")}</p>
         {sections.map(([title, body]) => (
           <section key={title} className="mt-10">
             <h2 className="font-serif text-3xl">{copy(title)}</h2>

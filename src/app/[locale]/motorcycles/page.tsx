@@ -18,11 +18,11 @@ export default async function MotorcyclesPage({
   return (
     <>
       <PageHero title={copy("title")} intro={copy("intro")} image="/images/motorcycle-crf300l.jpg" />
-      <div className="mx-auto max-w-6xl px-4 py-12">
-        <p className="mb-8 max-w-3xl text-lg text-ink-soft">{copy("gridIntro")}</p>
+      <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
+        <p className="mb-8 max-w-4xl text-lg text-ink-soft">{copy("gridIntro")}</p>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {motorcycleUnits.map((bike) => (
-            <article key={bike.slug} className="flex flex-col overflow-hidden rounded border border-line bg-cream">
+            <article key={bike.slug} className="flex flex-col overflow-hidden feature-card">
               <img src={bike.images[0]} alt={`${bike.model} ${bike.unitNumber}`} className="h-52 w-full object-cover" />
               <div className="flex flex-1 flex-col p-5">
                 <div className="flex items-start justify-between gap-3">

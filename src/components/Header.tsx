@@ -19,8 +19,8 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40">
-      <div className="bg-navy text-cream">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-2 text-[0.95rem]">
+      <div className="bg-navy-deep text-cream">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-4 py-2 text-[0.95rem]">
           <p className="font-medium">
             <a href={site.phoneHref} className="font-semibold text-cream underline-offset-2 hover:underline">
               {t("call")} {site.phone}
@@ -39,15 +39,15 @@ export function Header() {
         </div>
       </div>
 
-      <div className="border-b border-line bg-paper/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
+      <div className="border-b border-line bg-cream/95 shadow-sm backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
           <BrandMark />
           <nav className="ml-auto hidden items-center gap-1 lg:flex" aria-label="Main">
             {navPrimary.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded px-3 py-2 text-[1.05rem] font-semibold no-underline ${
+                className={`rounded-full px-3 py-2 text-[1.05rem] font-semibold no-underline ${
                   isActive(item.href) ? "bg-paper-2 text-navy" : "text-ink hover:bg-paper-2"
                 }`}
               >
@@ -61,14 +61,14 @@ export function Header() {
             >
               <button
                 type="button"
-                className="rounded px-3 py-2 text-[1.05rem] font-semibold hover:bg-paper-2"
+                className="rounded-full px-3 py-2 text-[1.05rem] font-semibold hover:bg-paper-2"
                 aria-expanded={planOpen}
                 onClick={() => setPlanOpen((v) => !v)}
               >
                 {t("plan")}
               </button>
               {planOpen ? (
-                <div className="absolute left-0 top-full min-w-56 rounded border border-line bg-cream p-2 shadow-lg">
+                <div className="absolute left-0 top-full min-w-56 rounded-2xl border border-line bg-cream p-2 shadow-xl">
                   {[...navPlan, ...navCompany].map((item) => (
                     <Link
                       key={item.href}

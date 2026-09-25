@@ -14,9 +14,9 @@ export default async function CarsPage({ params }: { params: Promise<{ locale: s
   return (
     <>
       <PageHero title={copy("title")} intro={copy("intro")} image="/images/car-landcruiser.jpg" />
-      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-12 md:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl gap-6 px-5 py-20 sm:px-8 md:grid-cols-2">
         {vehicles.map((car) => (
-          <article key={car.slug} className="overflow-hidden rounded border border-line bg-cream">
+          <article key={car.slug} className="overflow-hidden feature-card">
             <img src={car.images[0]} alt={`${car.make} ${car.model}`} className="h-56 w-full object-cover" />
             <div className="p-6">
               <StatusBadge status={car.publicStatus} />

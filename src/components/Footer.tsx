@@ -10,7 +10,7 @@ export async function Footer() {
 
   return (
     <footer className="mt-auto bg-navy-deep text-cream">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 md:grid-cols-4">
         <div className="md:col-span-2">
           <BrandMark light />
           <p className="mt-4 max-w-md text-cream/85">{f("blurb")}</p>
@@ -51,8 +51,8 @@ export async function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/15 px-4 py-5 text-sm text-cream/75">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 md:flex-row md:justify-between">
+      <div className="border-t border-white/15 px-5 py-6 sm:px-8 text-sm text-cream/75">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 md:flex-row md:justify-between">
           <p>{f("legal")}</p>
           <p>{f("rights", { year })}</p>
         </div>

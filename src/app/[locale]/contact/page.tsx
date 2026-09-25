@@ -11,7 +11,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   return (
     <>
       <PageHero title={copy("title")} intro={copy("intro")} image="/images/murghab.jpg" />
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-2">
         <div>
           <h2 className="font-serif text-3xl">{copy("hours")}</h2>
           <p className="mt-2">{locale === "ru" ? site.hours.ru : site.hours.en}</p>
@@ -33,11 +33,11 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           <iframe
             title={copy("map")}
             src={site.mapEmbed}
-            className="mt-8 h-72 w-full rounded border-0"
+            className="mt-8 h-72 w-full rounded-2xl border-0"
             loading="lazy"
           />
         </div>
-        <div>
+        <div className="feature-card self-start p-6 sm:p-8">
           <h2 className="font-serif text-3xl">{copy("formTitle")}</h2>
           <div className="mt-4">
             <RequestForm locale={locale} defaultType="CONTACT" />

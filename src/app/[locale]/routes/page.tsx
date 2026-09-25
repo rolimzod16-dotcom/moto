@@ -12,16 +12,16 @@ export default async function RoutesPage({ params }: { params: Promise<{ locale:
   return (
     <>
       <PageHero title={copy("title")} intro={copy("intro")} image="/images/wakhan.jpg" />
-      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-12 md:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl gap-7 px-5 py-20 sm:px-8 md:grid-cols-2">
         {routes.map((route) => (
           <Link
             key={route.slug}
             href={`/routes/${route.slug}`}
-            className="overflow-hidden rounded border border-line bg-cream no-underline hover:border-navy"
+            className="feature-card group overflow-hidden no-underline"
           >
-            <img src={route.images[0]} alt="" className="h-52 w-full object-cover" />
-            <div className="p-5">
-              <h2 className="font-serif text-2xl">{t(route.title, locale)}</h2>
+            <img src={route.images[0]} alt="" className="h-72 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div className="p-7 sm:p-8">
+              <h2 className="font-serif text-3xl">{t(route.title, locale)}</h2>
               <p className="mt-2 text-ink-soft">{t(route.summary, locale)}</p>
             </div>
           </Link>

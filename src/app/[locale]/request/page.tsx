@@ -21,7 +21,7 @@ export default async function RequestPage({
   return (
     <>
       <PageHero title={copy("title")} intro={copy("intro")} image="/images/hero.jpg" />
-      <div className="mx-auto max-w-3xl px-4 py-12">
+      <div className="mx-auto max-w-4xl px-5 py-20 sm:px-8"><div className="feature-card p-6 sm:p-10">
         <RequestForm
           locale={locale}
           defaultType={type}
@@ -29,6 +29,7 @@ export default async function RequestPage({
           defaultTour={tour}
           defaultRoute={route}
         />
+        </div>
       </div>
     </>
   );

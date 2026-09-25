@@ -12,20 +12,20 @@ export default async function ToursPage({ params }: { params: Promise<{ locale: 
   return (
     <>
       <PageHero title={copy("title")} intro={copy("intro")} image="/images/group-ride.jpg" />
-      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-12">
+      <div className="mx-auto grid max-w-7xl gap-7 px-5 py-20 sm:px-8">
         {tours.map((tour) => (
-          <article key={tour.slug} className="grid overflow-hidden rounded border border-line bg-cream md:grid-cols-[280px_1fr]">
-            <img src={tour.images[0]} alt="" className="h-48 w-full object-cover md:h-full" />
-            <div className="p-6">
-              <p className="text-sm font-bold uppercase tracking-wide text-navy">
+          <article key={tour.slug} className="feature-card group grid overflow-hidden lg:grid-cols-[44%_1fr]">
+            <img src={tour.images[0]} alt="" className="h-72 w-full object-cover transition-transform duration-500 group-hover:scale-105 lg:h-full" />
+            <div className="flex flex-col justify-center p-7 sm:p-10">
+              <p className="eyebrow text-rust">
                 {tour.type === "private" ? copy("private") : copy("scheduled")}
               </p>
-              <h2 className="mt-1 font-serif text-3xl">{t(tour.title, locale)}</h2>
-              <p className="mt-2 text-ink-soft">{t(tour.summary, locale)}</p>
+              <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl">{t(tour.title, locale)}</h2>
+              <p className="mt-4 max-w-xl text-ink-soft">{t(tour.summary, locale)}</p>
               <p className="mt-3">
                 {copy("duration", { days: tour.durationDays })} · {tour.difficulty}
               </p>
-              <Link href={`/tours/${tour.slug}`} className="btn btn-navy mt-5">
+              <Link href={`/tours/${tour.slug}`} className="btn btn-navy mt-7 self-start">
                 {copy("itinerary")}
               </Link>
             </div>
