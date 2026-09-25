@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pamir Motoride
 
-## Getting Started
+Motorcycle and 4x4 rental website for Tajikistan. English and Russian. Request-based booking: a form creates a reference number; staff confirm after checking fleet, documents and the route.
 
-First, run the development server:
+## Stack
+
+Next.js 16, next-intl, Prisma, Neon Postgres, Vercel Blob, Auth.js (admin).
+
+## Local
 
 ```bash
+cd pamir-motoride
+npm install
+npx vercel env pull .env.local --yes
+npx prisma db push
+npx tsx prisma/seed.ts
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 (redirects to `/en`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Admin
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- URL: `/admin`
+- Email: `admin@pamirmotoride.com`
+- Password: set `ADMIN_PASSWORD` before seed, default `MotorideAdmin2026!`
 
-## Learn More
+Roles: Administrator, Sales, Operations, Content Editor (seed includes Admin and Sales).
 
-To learn more about Next.js, take a look at the following resources:
+## Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Prices on the public site are **Price on request** until the client approves numbers.
+- Reviews stay empty until the client supplies approved guest quotes.
+- Contact phone and WhatsApp are placeholders until the client confirms live numbers.
+- Email sending uses Resend when `RESEND_API_KEY` is present.

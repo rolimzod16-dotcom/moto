@@ -1,26 +1,160 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f3eee4;
+  --paper-2: #e7dccb;
+  --ink: #1c1612;
+  --ink-soft: #4a4038;
+  --rust: #9a3412;
+  --rust-hover: #7c2d12;
+  --navy: #1e3a5f;
+  --navy-deep: #13263f;
+  --gold: #c4a35a;
+  --sage: #3f5d4a;
+  --line: #d6cbb8;
+  --white: #fffcf7;
+  --focus: #1e3a5f;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-rust: var(--rust);
+  --color-rust-hover: var(--rust-hover);
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-gold: var(--gold);
+  --color-sage: var(--sage);
+  --color-line: var(--line);
+  --color-cream: var(--white);
+  --font-sans: "Source Sans 3", "Source Sans 3 Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4", "Source Serif 4 Fallback", ui-serif, Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 80;
+  background: var(--navy);
+  color: white;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  padding: 0.75rem 1.35rem;
+  border-radius: 0.25rem;
+  font-weight: 650;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--rust);
+  color: #fffaf4;
+  border-color: var(--rust);
+}
+
+.btn-primary:hover {
+  background: var(--rust-hover);
+  border-color: var(--rust-hover);
+}
+
+.btn-navy {
+  background: var(--navy);
+  color: #fffaf4;
+  border-color: var(--navy);
+}
+
+.btn-navy:hover {
+  background: var(--navy-deep);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn-light {
+  background: var(--white);
+  color: var(--navy);
+  border-color: var(--white);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-weight: 650;
+  font-size: 1.05rem;
+}
+
+.field input,
+.field select,
+.field textarea {
+  min-height: 3.25rem;
+  border: 1.5px solid #b7aa96;
+  background: var(--white);
+  color: var(--ink);
+  padding: 0.7rem 0.9rem;
+  font-size: 1.05rem;
+  border-radius: 0.25rem;
+}
+
+.field textarea {
+  min-height: 8rem;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--navy);
+}
+
+.prose-pm {
+  max-width: 42rem;
+}
+
+.prose-pm p + p {
+  margin-top: 1rem;
 }
