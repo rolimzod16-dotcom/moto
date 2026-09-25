@@ -25,9 +25,9 @@ export default async function RouteDetailPage({
   ];
 
   return (
-    <article>
-      <img src={route.images[0]} alt="" className="h-[42vh] min-h-72 w-full object-cover" />
-      <div className="mx-auto max-w-3xl px-4 py-12">
+    <article className="detail-page">
+      <div className="relative h-[58vh] min-h-[440px]"><img src={route.images[0]} alt="" className="h-full w-full object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent" /></div>
+      <div className="mx-auto max-w-4xl px-5 py-20 sm:px-8">
         <h1 className="font-serif text-4xl md:text-5xl">{t(route.title, locale)}</h1>
         <p className="mt-4 text-lg">{t(route.summary, locale)}</p>
         <div className="mt-8 space-y-6">

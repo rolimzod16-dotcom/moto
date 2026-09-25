@@ -12,6 +12,7 @@ type Props = {
   defaultVehicle?: string;
   defaultTour?: string;
   defaultRoute?: string;
+  defaultStartDate?: string;
 };
 
 export function RequestForm({
@@ -20,6 +21,7 @@ export function RequestForm({
   defaultVehicle = "",
   defaultTour = "",
   defaultRoute = "",
+  defaultStartDate = "",
 }: Props) {
   const t = useTranslations("request");
   const router = useRouter();
@@ -31,7 +33,7 @@ export function RequestForm({
   const [error, setError] = useState("");
   const [form, setForm] = useState({
     type: startType,
-    startDate: "",
+    startDate: defaultStartDate,
     endDate: "",
     flex: "exact",
     pickup: "Dushanbe",
@@ -124,7 +126,7 @@ export function RequestForm({
 
   return (
     <form
-      className="space-y-6"
+      className="request-form space-y-6"
       onSubmit={(e) => {
         e.preventDefault();
         if (step < total) setStep(step + 1);
@@ -143,7 +145,7 @@ export function RequestForm({
             {TYPES.map((item) => (
               <label
                 key={item}
-                className={`flex min-h-16 cursor-pointer items-center gap-3 rounded border px-4 py-3 ${
+                className={`flex min-h-20 cursor-pointer items-center gap-3 rounded-2xl border px-4 py-3 ${
                   form.type === item ? "border-navy bg-paper-2" : "border-line bg-cream"
                 }`}
               >
@@ -281,7 +283,7 @@ export function RequestForm({
             <div className="grid gap-3 sm:grid-cols-2">
               {(["helmet", "bags", "tools", "guide", "mechanic", "support", "hotels", "meals", "permits", "transfers"] as const).map(
                 (key) => (
-                  <label key={key} className="flex min-h-12 items-center gap-3 rounded border border-line bg-cream px-3">
+                  <label key={key} className="flex min-h-14 items-center gap-3 rounded-xl border border-line bg-cream px-3">
                     <input
                       type="checkbox"
                       className="h-5 w-5"
@@ -298,7 +300,7 @@ export function RequestForm({
             <label htmlFor="comments">{t("comments")}</label>
             <textarea id="comments" value={form.comments} onChange={(e) => set("comments", e.target.value)} />
           </div>
-          <label className="flex items-start gap-3 rounded border border-line bg-paper-2 p-4">
+          <label className="flex items-start gap-3 rounded-xl border border-line bg-paper-2 p-4">
             <input
               type="checkbox"
               className="mt-1 h-5 w-5"

@@ -17,18 +17,21 @@ export default async function RequestPage({
   const vehicle = typeof query.vehicle === "string" ? query.vehicle : "";
   const tour = typeof query.tour === "string" ? query.tour : "";
   const route = typeof query.route === "string" ? query.route : "";
+  const start = typeof query.start === "string" && /^\d{4}-\d{2}-\d{2}$/.test(query.start) ? query.start : "";
 
   return (
     <>
       <PageHero title={copy("title")} intro={copy("intro")} image="/images/hero.jpg" />
-      <div className="mx-auto max-w-3xl px-4 py-12">
+      <div className="mx-auto max-w-4xl px-5 py-20 sm:px-8"><div className="feature-card p-6 sm:p-10">
         <RequestForm
           locale={locale}
           defaultType={type}
           defaultVehicle={vehicle}
           defaultTour={tour}
           defaultRoute={route}
+          defaultStartDate={start}
         />
+        </div>
       </div>
     </>
   );

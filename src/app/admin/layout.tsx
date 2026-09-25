@@ -10,11 +10,11 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   }
 
   return (
-    <div className="flex min-h-screen">
-      <aside className="w-64 shrink-0 bg-navy-deep p-5 text-cream">
+    <div className="admin-shell min-h-screen lg:flex">
+      <aside className="bg-navy-deep p-6 text-cream lg:min-h-screen lg:w-72 lg:shrink-0 lg:p-8">
         <p className="font-serif text-2xl">Motoride admin</p>
         <p className="mt-1 text-sm text-gold">{session.user.email}</p>
-        <nav className="mt-8 flex flex-col gap-3 text-lg">
+        <nav className="mt-8 flex flex-wrap gap-2 text-base lg:flex-col">
           <Link href="/admin">Dashboard</Link>
           <Link href="/admin/requests">Requests</Link>
           <Link href="/admin/availability">Availability</Link>
@@ -35,7 +35,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           </button>
         </form>
       </aside>
-      <div className="min-w-0 flex-1 p-8">{children}</div>
+      <div className="min-w-0 flex-1 px-5 py-10 sm:px-8 lg:p-12">{children}</div>
     </div>
   );
 }

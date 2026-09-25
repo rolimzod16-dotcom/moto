@@ -33,9 +33,9 @@ export default async function MotorcycleDetailPage({
   ] as const;
 
   return (
-    <article>
+    <article className="detail-page">
       <div className="border-b border-line bg-navy text-cream">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 sm:px-8 lg:grid-cols-2">
           <BikeViewerLazy
             label={copy("viewerLabel")}
             hint={copy("viewerHint")}
@@ -83,7 +83,7 @@ export default async function MotorcycleDetailPage({
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-2">
         <section>
           <h2 className="font-serif text-3xl">{copy("specs")}</h2>
           <dl className="mt-4 divide-y divide-line border border-line bg-cream">
@@ -122,16 +122,16 @@ export default async function MotorcycleDetailPage({
         </section>
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 pb-8">
+      <div className="mx-auto max-w-7xl px-5 pb-12 sm:px-8">
         <h2 className="font-serif text-3xl">{copy("photos")}</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-3">
           {bike.images.map((src) => (
-            <img key={src} src={src} alt="" className="h-52 w-full rounded object-cover" />
+            <img key={src} src={src} alt="" className="h-52 w-full rounded-2xl object-cover" />
           ))}
         </div>
       </div>
 
-      <nav className="mx-auto flex max-w-6xl flex-wrap gap-3 px-4 pb-16" aria-label={copy("otherUnits")}>
+      <nav className="mx-auto flex max-w-7xl flex-wrap gap-3 px-5 pb-20 sm:px-8" aria-label={copy("otherUnits")}>
         {motorcycleUnits.map((item) => (
           <Link
             key={item.slug}
