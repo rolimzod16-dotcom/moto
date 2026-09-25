@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f9f7f2;
-  --paper-2: #ebe8e0;
-  --ink: #202832;
-  --ink-soft: #5d6872;
-  --rust: #a9471f;
-  --rust-hover: #8d3515;
-  --signal: #ff7437;
-  --navy: #1c2b36;
-  --navy-deep: #111e28;
-  --gold: #e5bb7c;
-  --sage: #354756;
-  --line: rgba(28, 43, 54, 0.14);
+  --paper: #fbfcfb;
+  --paper-2: #edf3f4;
+  --ink: #172f3d;
+  --ink-soft: #526873;
+  --rust: #b5401e;
+  --rust-hover: #913016;
+  --signal: #f45525;
+  --navy: #153b52;
+  --navy-deep: #103449;
+  --gold: #efc88d;
+  --sage: #52768a;
+  --line: rgba(23, 47, 61, 0.14);
   --white: #ffffff;
-  --focus: #a9471f;
-  --sky: #354756;
+  --focus: #b5401e;
+  --sky: #52768a;
   --fixed: #c0c7ce;
 }
 
@@ -349,18 +349,18 @@ body {
 
 /* Editorial travel direction: quiet surfaces, spacious photographs, clear actions. */
 :root {
-  --paper: #f9f7f2;
-  --paper-2: #ebe8e0;
-  --ink: #202832;
-  --ink-soft: #5d6872;
-  --rust: #a9471f;
-  --rust-hover: #8d3515;
-  --signal: #ff7437;
-  --navy: #1c2b36;
-  --navy-deep: #111e28;
-  --gold: #e5bb7c;
-  --line: rgba(28,43,54,.14);
-  --focus: #a9471f;
+  --paper: #fbfcfb;
+  --paper-2: #edf3f4;
+  --ink: #172f3d;
+  --ink-soft: #526873;
+  --rust: #b5401e;
+  --rust-hover: #913016;
+  --signal: #f45525;
+  --navy: #153b52;
+  --navy-deep: #103449;
+  --gold: #efc88d;
+  --line: rgba(23,47,61,.14);
+  --focus: #b5401e;
 }
 body { font-size: 1rem; line-height: 1.65; }
 .shell { width: min(100% - 3rem, 1240px); }
@@ -559,4 +559,119 @@ body { font-size: 1rem; line-height: 1.65; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ride-signal-marquee > div { animation: none; }
+}
+
+/* Expedition film, daylight palette and interactive motorcycle. */
+.nav-wrap { background: rgba(255,255,255,.98); }
+.nav-wrap .nav-inner { min-height: 5.2rem; }
+.cinematic-hero { min-height: clamp(660px, 88svh, 940px); padding: 0 0 1.1rem; background: #7f979d; }
+.cinematic-hero .home-hero-image { overflow: hidden; }
+.cinematic-hero .home-hero-image > img, .cinematic-hero .home-hero-image > video { object-fit: cover; object-position: center 48%; }
+.cinematic-hero .home-hero-overlay { background: linear-gradient(180deg, rgba(5,26,35,.1) 0%, rgba(5,26,35,.04) 28%, rgba(5,26,35,.38) 57%, rgba(5,26,35,.81) 100%); }
+.cinematic-hero .hero-main { position: relative; display: flex; align-items: end; min-height: 0; flex: 1; width: min(100% - 5rem,1240px); padding: 6rem 0 2rem; }
+.cinematic-hero .hero-copy { max-width: 730px; }
+.cinematic-hero .hero-kicker { margin-bottom: 1.2rem; color: #fff; font-size: .7rem; letter-spacing: .22em; }
+.cinematic-hero .hero-kicker span { color: #f4a67c; margin-inline: .35rem; }
+.cinematic-hero .hero-kicker::before { background: var(--signal); }
+#content .cinematic-hero h1 { font-size: clamp(3.5rem,6.5vw,6.8rem); font-weight: 760; line-height: .99; letter-spacing: -.07em; }
+.cinematic-hero .hero-copy h1 span { color: #fff; }
+.cinematic-hero .hero-copy h1 span::after { display: none; }
+.cinematic-hero .hero-lede { max-width: 32rem; margin-top: 1.25rem; color: rgba(255,255,255,.94); font-size: clamp(.98rem,1.3vw,1.13rem); line-height: 1.5; }
+.cinematic-hero .hero-actions { margin-top: 1.6rem; }
+.cinematic-hero .hero-actions .btn { min-height: 3.45rem; padding-inline: 1.35rem; }
+.cinematic-hero .hero-actions .hero-primary { background: var(--signal); border-color: var(--signal); color: #fff; box-shadow: 0 12px 32px rgba(6,27,37,.17); }
+.cinematic-hero .hero-actions .hero-primary:hover { background: #fff; border-color: #fff; color: var(--ink); }
+.cinematic-hero .btn-hero-outline { border-color: rgba(255,255,255,.82); background: rgba(13,43,58,.12); backdrop-filter: blur(5px); }
+.cinematic-hero-side { position: absolute; right: 0; bottom: 3.3rem; writing-mode: vertical-rl; font-size: .63rem; font-weight: 800; letter-spacing: .18em; color: rgba(255,255,255,.83); }
+.cinematic-hero-side span { color: var(--signal); margin-block: .6rem; }
+.cinematic-hero .hero-bottom { width: min(100% - 5rem,1240px); align-items: center; padding-bottom: 1rem; }
+.cinematic-hero .clip-bar { max-width: 540px; }
+.cinematic-hero .clip-btn { font-size: .64rem; font-weight: 800; letter-spacing: .13em; }
+.cinematic-hero .clip-number { color: #ffb084; }
+.cinematic-hero .clip-track-progress { background: var(--signal); }
+.cinematic-hero .hero-scroll { padding-bottom: 0; }
+.bike-spotlight { padding-block: clamp(4.5rem,8vw,8rem); background: #fff; color: var(--ink); scroll-margin-top: 5.5rem; }
+.bike-spotlight-intro { display: grid; grid-template-columns: .55fr 1.45fr; gap: 3rem; align-items: start; margin-bottom: 2.5rem; }
+.bike-spotlight-intro .eyebrow { padding-top: .8rem; }
+.bike-spotlight-intro h2 { max-width: 17ch; font-family: var(--font-display); font-size: clamp(2.6rem,5.25vw,5.5rem); font-weight: 720; line-height: 1.02; letter-spacing: -.065em; }
+.bike-spotlight-intro p:not(.eyebrow) { max-width: 37rem; margin-top: 1.2rem; color: var(--ink-soft); }
+.bike-spotlight-layout { display: grid; grid-template-columns: minmax(0,1.22fr) minmax(330px,.78fr); background: #f0f2f1; }
+.bike-stage { position: relative; aspect-ratio: 1; background: #e6e8e7; overflow: hidden; }
+.bike-stage > img { transition: transform 1s cubic-bezier(.2,.7,.2,1); }
+.bike-stage:hover > img { transform: scale(1.025); }
+.bike-stage-stamp { position: absolute; left: 1.3rem; bottom: 1.15rem; color: rgba(20,40,50,.7); font-size: .63rem; font-weight: 800; letter-spacing: .18em; }
+.bike-hotspot { position: absolute; z-index: 2; display: grid; place-items: center; width: clamp(2rem,3.8vw,3rem); height: clamp(2rem,3.8vw,3rem); transform: translate(-50%,-50%); border: 2px solid #fff; border-radius: 50%; background: var(--signal); color: #fff; font-size: .76rem; font-weight: 800; box-shadow: 0 3px 18px rgba(0,0,0,.23); cursor: pointer; transition: background .2s,box-shadow .2s,scale .2s; }
+.bike-hotspot:hover, .bike-hotspot.active { background: var(--navy); box-shadow: 0 0 0 5px rgba(244,85,37,.46), 0 5px 22px rgba(0,0,0,.22); scale: 1.12; }
+.bike-hotspot:focus-visible { outline: 3px solid var(--navy); outline-offset: 6px; }
+.bike-detail { display: flex; flex-direction: column; justify-content: space-between; min-width: 0; padding: clamp(2rem,4vw,4rem); background: #eef4f5; }
+.bike-detail-top, .bike-detail-bottom { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.bike-detail-top { color: var(--rust); font-size: .7rem; font-weight: 800; letter-spacing: .16em; }
+.bike-detail-label { font-size: .78rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--rust); }
+.bike-detail-value { margin-block: .4rem 1.2rem; font-family: var(--font-display); font-size: clamp(3.5rem,6.1vw,6.9rem); font-weight: 750; line-height: 1; letter-spacing: -.065em; overflow-wrap: anywhere; }
+.bike-detail-description { max-width: 26rem; font-size: clamp(.95rem,1.3vw,1.13rem); line-height: 1.6; color: var(--ink-soft); }
+.bike-detail-bottom { align-items: end; flex-wrap: wrap; padding-top: 2rem; border-top: 1px solid var(--line); font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; }
+.bike-detail-bottom i { color: var(--signal); font-style: normal; }
+.bike-detail-bottom .editorial-link { font-size: .68rem; }
+.bike-feature-list { display: grid; grid-template-columns: repeat(4,1fr); border-bottom: 1px solid var(--line); }
+.bike-feature-list button { position: relative; display: flex; align-items: center; gap: .6rem; min-height: 5rem; border: 0; border-right: 1px solid var(--line); padding: .9rem 1rem; background: transparent; color: var(--ink); text-align: left; font-size: .78rem; font-weight: 800; cursor: pointer; }
+.bike-feature-list button:last-child { border-right: 0; }
+.bike-feature-list button span { color: var(--rust); }
+.bike-feature-list button.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: var(--signal); }
+.ride-signal { background: #f4f8f7; color: var(--ink); }
+.ride-signal-marquee { border-color: var(--line); color: var(--rust); }
+.ride-signal-line em { color: var(--rust); }
+.ride-signal-facts, .ride-signal-facts p { border-color: var(--line); }
+.ride-signal-facts p span { color: var(--rust); }
+.route-experience { background: #edf4f4; color: var(--ink); }
+.route-experience-heading > p { color: var(--ink-soft); }
+.route-stop { border-color: var(--line); color: #66808c; }
+.route-stop:hover, .route-stop.active { color: var(--ink); }
+.route-stop.active::before, .route-stop::before { background: var(--signal); }
+.route-stop-index { color: var(--rust); }
+.route-experience-link.editorial-link.light { color: var(--rust); border-color: var(--rust); }
+.story-section { background: #fff; color: var(--ink); }
+.story-copy > p:not(.eyebrow) { color: var(--ink-soft); }
+.story-copy .eyebrow, .story-points svg { color: var(--rust); }
+.story-points { border-color: var(--line); }
+.story-copy .editorial-link.light { color: var(--rust); border-color: var(--rust); }
+@media (max-width: 1023px) {
+  .cinematic-hero .hero-main, .cinematic-hero .hero-bottom { width: min(100% - 3rem,1240px); }
+  .bike-spotlight-layout { grid-template-columns: minmax(0,1fr) minmax(285px,.7fr); }
+  .bike-detail { padding: 2rem; }
+  .bike-detail-value { font-size: clamp(3.4rem,6vw,5rem); }
+}
+@media (max-width: 780px) {
+  .cinematic-hero { min-height: min(800px,92svh); }
+  .cinematic-hero-side { display: none; }
+  .bike-spotlight-intro { display: block; }
+  .bike-spotlight-intro > div { margin-top: 1rem; }
+  .bike-spotlight-layout { grid-template-columns: 1fr; }
+  .bike-stage { max-height: 620px; }
+  .bike-detail { min-height: 330px; gap: 3rem; }
+}
+@media (max-width: 640px) {
+  .cinematic-hero { min-height: max(680px,88svh); padding-bottom: .6rem; }
+  .cinematic-hero .hero-main, .cinematic-hero .hero-bottom { width: min(100% - 2rem,1240px); }
+  .cinematic-hero .hero-main { padding: 4rem 0 1.2rem; }
+  #content .cinematic-hero h1 { font-size: clamp(3rem,12.5vw,4.4rem); line-height: .98; overflow-wrap: normal; }
+  .cinematic-hero .hero-lede { margin-top: .9rem; font-size: .91rem; }
+  .cinematic-hero .hero-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .cinematic-hero .hero-actions .btn { min-height: 3rem; width: 100%; padding: .5rem .65rem; font-size: .67rem; line-height: 1.2; }
+  .cinematic-hero .hero-bottom { padding-bottom: .2rem; }
+  .cinematic-hero .clip-bar { display: grid; grid-template-columns: repeat(3,1fr) 2rem; gap: .15rem; }
+  .cinematic-hero .clip-btn { min-width: 0; font-size: .51rem; line-height: 1.15; letter-spacing: 0; }
+  .bike-spotlight { padding-block: 4rem; }
+  .bike-spotlight-intro { margin-bottom: 1.75rem; }
+  #content .bike-spotlight-intro h2 { font-size: clamp(2rem,8.5vw,3rem); line-height: 1.05; }
+  .bike-spotlight-intro p:not(.eyebrow) { font-size: .88rem; }
+  .bike-stage-stamp { font-size: .55rem; }
+  .bike-hotspot { width: 2.1rem; height: 2.1rem; font-size: .65rem; }
+  .bike-detail { min-height: 320px; padding: 1.5rem; }
+  .bike-detail-value { font-size: clamp(3rem,13vw,4.5rem); }
+  .bike-detail-description { font-size: .91rem; }
+  .bike-feature-list { grid-template-columns: repeat(2,1fr); }
+  .bike-feature-list button { min-height: 3.8rem; padding: .6rem; font-size: .72rem; border-bottom: 1px solid var(--line); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bike-stage > img, .bike-hotspot { transition: none; }
 }
