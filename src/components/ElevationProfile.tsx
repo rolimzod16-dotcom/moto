@@ -11,8 +11,8 @@ export function ElevationProfile({ locale }: { locale: string }) {
           <svg viewBox="0 0 380 140" className="h-40 w-full" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <linearGradient id="pamirElev" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="#ff8843" stopOpacity="0.55" />
-                <stop offset="100%" stopColor="#ff8843" stopOpacity="0.02" />
+                <stop offset="0%" stopColor="#e5bb7c" stopOpacity="0.55" />
+                <stop offset="100%" stopColor="#e5bb7c" stopOpacity="0.02" />
               </linearGradient>
             </defs>
             <line x1="0" x2="380" y1="20" y2="20" stroke="#334155" strokeDasharray="3 3" />
@@ -25,10 +25,10 @@ export function ElevationProfile({ locale }: { locale: string }) {
             <path
               d="M0 115 C40 108,70 95,100 82 C140 70,180 50,220 38 C240 30,260 16,275 16 C290 16,310 32,330 45 C350 75,365 105,380 110"
               fill="none"
-              stroke="#ff8843"
+              stroke="#e5bb7c"
               strokeWidth="3"
             />
-            <circle cx="275" cy="16" r="4.5" fill="#fff" stroke="#ff8843" strokeWidth="2.5" />
+            <circle cx="275" cy="16" r="4.5" fill="#fff" stroke="#e5bb7c" strokeWidth="2.5" />
           </svg>
           <div className="mt-3 grid grid-cols-4 gap-1 text-center font-mono text-[11px] text-slate-300">
             <div>

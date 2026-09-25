@@ -6,7 +6,7 @@ export function InquiryBand({ locale }: { locale: string }) {
   return (
     <section className="inquiry-band relative isolate overflow-hidden bg-navy-deep text-white">
       <img src="/images/wakhan.jpg" alt="" className="absolute inset-0 -z-20 h-full w-full object-cover" />
-      <div className="absolute inset-0 -z-10 bg-[#14231f]/85" />
+      <div className="absolute inset-0 -z-10 bg-[#111e28]/85" />
       <div className="shell flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
         <div>
           <p className="eyebrow text-gold">{ru ? "Следующий шаг" : "Next step"}</p>
