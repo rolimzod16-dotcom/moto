@@ -4,6 +4,7 @@ import { Link } from "@/i18n/routing";
 import { tours } from "@/lib/content";
 import { t } from "@/lib/utils";
 import { StitchHero } from "@/components/StitchHero";
+import { BikeSpotlight } from "@/components/BikeSpotlight";
 import { FleetTabs } from "@/components/FleetTabs";
 import { HomeInquiry } from "@/components/HomeInquiry";
 import { RouteJourney } from "@/components/RouteJourney";
@@ -15,6 +16,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const copy = (en: string, ruText: string) => ru ? ruText : en;
   return <>
     <StitchHero locale={locale} />
+    <BikeSpotlight locale={locale} />
     <section className="ride-signal" aria-label={copy("The ride", "Поездка")}>
       <div className="ride-signal-marquee" aria-hidden="true"><div>{Array.from({ length: 4 }, (_, i) => <span key={i}>{copy("THE ROAD IS THE REWARD", "ДОРОГА — ЧАСТЬ ПРИКЛЮЧЕНИЯ")} <i>✦</i> </span>)}</div></div>
       <div className="shell ride-signal-inner">
