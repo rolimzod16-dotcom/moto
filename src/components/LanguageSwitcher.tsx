@@ -12,28 +12,31 @@ export function LanguageSwitcher({ onLight = false }: { onLight?: boolean }) {
     router.replace(pathname, { locale: next });
   }
 
-  const base = onLight ? "text-cream" : "text-ink";
-  const active = onLight ? "bg-cream text-navy" : "bg-navy text-cream";
-  const idle = onLight ? "hover:bg-white/15" : "hover:bg-paper-2";
-
   return (
     <div
-      className={`inline-flex overflow-hidden rounded border ${onLight ? "border-white/40" : "border-line"}`}
+      className={`inline-flex rounded-md p-0.5 ${onLight ? "border border-white/15 bg-white/5" : "border border-line bg-paper-2"}`}
       role="group"
       aria-label="Language"
     >
-      {(["en", "ru"] as const).map((code) => (
-        <button
-          key={code}
-          type="button"
-          onClick={() => setLocale(code)}
-          className={`min-h-11 min-w-12 px-3 text-sm font-bold uppercase ${
-            locale === code ? active : `${base} ${idle}`
-          }`}
-        >
-          {code}
-        </button>
-      ))}
+      {(["en", "ru"] as const).map((code) => {
+        const active = locale === code;
+        return (
+          <button
+            key={code}
+            type="button"
+            onClick={() => setLocale(code)}
+            className={`min-h-9 min-w-10 rounded px-2 text-[11px] font-extrabold uppercase ${
+              active
+                ? "bg-gold text-[#4e1e00]"
+                : onLight
+                  ? "text-white/70 hover:text-white"
+                  : "text-ink-soft"
+            }`}
+          >
+            {code}
+          </button>
+        );
+      })}
     </div>
   );
 }

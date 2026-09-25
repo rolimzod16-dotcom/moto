@@ -1,7 +1,11 @@
-import { getTranslations } from "next-intl/server";
+const labels: Record<string, { en: string; ru: string }> = {
+  AVAILABLE: { en: "Available", ru: "Доступно" },
+  LIMITED: { en: "Limited", ru: "Ограничено" },
+  ON_REQUEST: { en: "On request", ru: "По запросу" },
+  UNAVAILABLE: { en: "Unavailable", ru: "Недоступно" },
+};
 
-export async function StatusBadge({ status }: { status: string }) {
-  const t = await getTranslations("status");
+export function StatusBadge({ status, locale = "en" }: { status: string; locale?: string }) {
   const tone =
     status === "AVAILABLE"
       ? "bg-sage text-white"
@@ -10,9 +14,6 @@ export async function StatusBadge({ status }: { status: string }) {
         : status === "UNAVAILABLE"
           ? "bg-ink text-cream"
           : "bg-navy text-cream";
-  return (
-    <span className={`inline-block rounded px-3 py-1 text-sm font-bold ${tone}`}>
-      {t(status as "AVAILABLE")}
-    </span>
-  );
+  const label = labels[status]?.[locale === "ru" ? "ru" : "en"] ?? status;
+  return <span className={`inline-block rounded-full px-3 py-1 text-xs font-extrabold uppercase tracking-wide ${tone}`}>{label}</span>;
 }

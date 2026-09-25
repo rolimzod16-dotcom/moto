@@ -1,39 +1,38 @@
 export const site = {
   name: "Pamir Motoride",
   tagline: {
-    en: "Motorcycle and 4x4 rentals in Tajikistan",
-    ru: "Прокат мотоциклов и 4x4 в Таджикистане",
+    en: "Motorcycle expeditions and 4x4 rentals in Tajikistan",
+    ru: "Мотоэкспедиции и прокат 4x4 в Таджикистане",
   },
-  email: "bookings@pamirmotoride.com",
-  phone: "+992 93 500 11 22",
-  phoneHref: "tel:+992935001122",
-  whatsapp: "+992935001122",
-  whatsappHref: "https://wa.me/992935001122",
+  email: "expeditions@pamirmotoride.com",
+  phone: "+992 90 777 5544",
+  phoneHref: "tel:+992907775544",
+  whatsapp: "+992907775544",
+  whatsappHref: "https://wa.me/992907775544",
   hours: {
-    en: "Monday–Saturday, 09:00–18:00 Dushanbe time",
-    ru: "Понедельник–суббота, 09:00–18:00 по Душанбе",
+    en: "Monday–Saturday, 09:00–18:00 Dushanbe time · 24/7 field dispatch",
+    ru: "Понедельник–суббота, 09:00–18:00 по Душанбе · полевая связь 24/7",
   },
   address: {
     en: "Dushanbe, Tajikistan",
     ru: "Душанбе, Таджикистан",
   },
-  mapEmbed:
-    "https://www.google.com/maps?q=Dushanbe%20Tajikistan&output=embed",
+  mapEmbed: "https://www.google.com/maps?q=Dushanbe%20Tajikistan&output=embed",
 };
 
 export const navMain = [
   { href: "/tours", key: "tours" },
-  { href: "/routes", key: "routes" },
   { href: "/motorcycles", key: "motorcycles" },
   { href: "/cars", key: "cars" },
-  { href: "/rental-conditions", key: "conditions" },
+  { href: "/services", key: "services" },
   { href: "/about", key: "about" },
-  { href: "/contact", key: "contact" },
 ] as const;
 
 export const navMore = [
-  { href: "/services", key: "services" },
+  { href: "/routes", key: "routes" },
+  { href: "/rental-conditions", key: "conditions" },
   { href: "/faq", key: "faq" },
+  { href: "/contact", key: "contact" },
 ] as const;
 
 export const navPrimary = navMain;
