@@ -175,7 +175,7 @@ body {
   .section-block { padding-block: 3.5rem; }
   .shell { width: min(100% - 2.5rem, 1360px); }
   .home-hero { min-height: 0; padding-block: 1.8rem 1.2rem; }
-  .home-hero > .shell:first-of-type { padding-top: 2rem; }
+  .home-hero .hero-main { padding-top: 2rem; }
   .mission-card { padding: 1.1rem; }
   .trust-grid { gap: .65rem; }
   .route-tile { min-height: 370px; }
@@ -194,7 +194,7 @@ body {
   #content h2:not(.section-title) { font-size: clamp(1.4rem, 6vw, 1.7rem); line-height: 1.2; overflow-wrap: anywhere; }
   #content h3 { font-size: clamp(1.15rem, 5vw, 1.4rem); line-height: 1.25; overflow-wrap: anywhere; }
   .home-hero { padding-block: 1.1rem; }
-  .home-hero > .shell:first-of-type { padding-top: 1.25rem; gap: 1rem; }
+  .home-hero .hero-main { padding-top: 1.25rem; gap: 1rem; }
   .home-hero h1 { font-size: clamp(1.85rem, 8vw, 2.25rem); line-height: 1.08; }
   .hero-lede { margin-top: .7rem; font-size: .94rem; line-height: 1.5; }
   .hero-actions { margin-top: 1rem; gap: .55rem; }
