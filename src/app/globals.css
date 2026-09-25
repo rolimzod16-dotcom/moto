@@ -282,6 +282,16 @@ body {
   html { scroll-behavior: auto; }
   .clip-track-progress, .mobile-menu, .mobile-links a, .route-experience-visual, .route-experience-visual img, .home-hero-image img { animation: none !important; }
 }
+.cookie-banner { position: fixed; bottom: 1.25rem; right: 1.25rem; z-index: 55; width: min(450px,calc(100vw - 2.5rem)); padding: 1.35rem; border: 1px solid rgba(255,255,255,.13); border-radius: 10px; background: #14231f; box-shadow: 0 20px 60px rgba(0,0,0,.3); color: #fff; animation: menuEnter .4s ease both; }
+.cookie-banner p { font-size: .82rem; line-height: 1.5; color: rgba(255,255,255,.8); }
+.cookie-actions { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1rem; }
+.cookie-actions .btn { min-height: 2.5rem; font-size: .66rem; padding: .55rem .75rem; }
+.cookie-actions .btn-ghost { color: #fff; border-color: rgba(255,255,255,.45); }
+.cookie-actions .btn-ghost:hover { background: #fff; color: var(--navy-deep); }
+@media (max-width: 640px) {
+  .cookie-banner { right: .75rem; bottom: .75rem; width: calc(100vw - 1.5rem); padding: 1rem; }
+  .cookie-actions .btn { flex: 1; }
+}
 @media (max-width: 640px) {
   body { font-size: 1rem; line-height: 1.55; }
   .shell { width: min(100% - 2rem, 1360px); }
