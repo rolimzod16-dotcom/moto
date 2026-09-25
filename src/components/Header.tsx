@@ -1,148 +1,64 @@
 "use client";
 
 import { useState } from "react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/routing";
 import { BrandMark } from "./BrandMark";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { navCompany, navPlan, navPrimary, site } from "@/lib/site";
+import { site } from "@/lib/site";
+
+const navItems = [
+  { href: "/tours", key: "tours" },
+  { href: "/routes", key: "routes" },
+  { href: "/motorcycles", key: "motorcycles" },
+  { href: "/cars", key: "cars" },
+  { href: "/rental-conditions", key: "conditions" },
+  { href: "/about", key: "about" },
+  { href: "/contact", key: "contact" },
+] as const;
 
 export function Header() {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [planOpen, setPlanOpen] = useState(false);
-
-  function isActive(href: string) {
-    return pathname === href || pathname.startsWith(`${href}/`);
-  }
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-40">
-      <div className="bg-navy-deep text-cream">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-4 py-2 text-[0.95rem]">
-          <p className="font-medium">
-            <a href={site.phoneHref} className="font-semibold text-cream underline-offset-2 hover:underline">
-              {t("call")} {site.phone}
-            </a>
-            <span className="mx-2 text-gold">·</span>
-            <a
-              href={site.whatsappHref}
-              className="font-semibold text-gold underline-offset-2 hover:underline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {t("whatsapp")}
-            </a>
-          </p>
-          <p className="text-cream/90">Mon–Sat 09:00–18:00 · Dushanbe</p>
+    <header className="site-header">
+      <div className="topline">
+        <div className="shell topline-inner">
+          <span>{t("call")} <a href={site.phoneHref}>{site.phone}</a></span>
+          <span className="topline-separator">·</span>
+          <a className="topline-accent" href={site.whatsappHref} target="_blank" rel="noreferrer">{t("whatsapp")}</a>
+          <span className="topline-spacer" />
+          <span className="topline-hours">Mon–Sat · 09:00–18:00 · Dushanbe</span>
         </div>
       </div>
-
-      <div className="border-b border-line bg-cream/95 shadow-sm backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
-          <BrandMark />
-          <nav className="ml-auto hidden items-center gap-1 lg:flex" aria-label="Main">
-            {navPrimary.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`rounded-full px-3 py-2 text-[1.05rem] font-semibold no-underline ${
-                  isActive(item.href) ? "bg-paper-2 text-navy" : "text-ink hover:bg-paper-2"
-                }`}
-              >
-                {t(item.key)}
-              </Link>
-            ))}
-            <div
-              className="relative"
-              onMouseEnter={() => setPlanOpen(true)}
-              onMouseLeave={() => setPlanOpen(false)}
-            >
-              <button
-                type="button"
-                className="rounded-full px-3 py-2 text-[1.05rem] font-semibold hover:bg-paper-2"
-                aria-expanded={planOpen}
-                onClick={() => setPlanOpen((v) => !v)}
-              >
-                {t("plan")}
-              </button>
-              {planOpen ? (
-                <div className="absolute left-0 top-full min-w-56 rounded-2xl border border-line bg-cream p-2 shadow-xl">
-                  {[...navPlan, ...navCompany].map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="block rounded px-3 py-3 text-[1.05rem] font-medium text-ink no-underline hover:bg-paper-2"
-                    >
-                      {t(item.key)}
-                    </Link>
-                  ))}
-                </div>
-              ) : null}
-            </div>
+      <div className="nav-wrap">
+        <div className="shell nav-inner">
+          <Link href="/" className="brand-link" onClick={() => setOpen(false)}><BrandMark /></Link>
+          <nav className="desktop-nav" aria-label="Main navigation">
+            {navItems.map((item) => <Link key={item.href} href={item.href} className={isActive(item.href) ? "nav-link active" : "nav-link"}>{t(item.key)}</Link>)}
             <LanguageSwitcher />
-            <Link href="/request" className="btn btn-primary ml-2">
-              {t("request")}
-            </Link>
+            <Link href="/request" className="btn btn-primary nav-cta">{t("request")} <ArrowUpRight size={16} /></Link>
           </nav>
-          <div className="ml-auto flex items-center gap-2 lg:hidden">
-            <a href={site.whatsappHref} className="btn btn-navy min-h-11 px-3 text-sm" target="_blank" rel="noreferrer">
-              {t("whatsapp")}
-            </a>
-            <button
-              type="button"
-              className="btn btn-ghost min-h-11 min-w-11 px-3"
-              aria-expanded={open}
-              aria-controls="mobile-menu"
-              onClick={() => setOpen(true)}
-            >
-              {t("menu")}
-            </button>
+          <div className="mobile-nav-actions">
+            <Link href="/request" className="btn btn-primary mobile-request" onClick={() => setOpen(false)}>{t("request")}</Link>
+            <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? t("close") : t("menu")} onClick={() => setOpen((value) => !value)}>{open ? <X size={23} /> : <Menu size={23} />}</button>
           </div>
         </div>
       </div>
-
-      {open ? (
-        <div
-          id="mobile-menu"
-          className="fixed inset-0 z-50 overflow-y-auto bg-paper px-5 py-6 lg:hidden"
-          role="dialog"
-          aria-modal="true"
-          aria-label={t("menu")}
-        >
-          <div className="mb-6 flex items-center justify-between">
-            <BrandMark />
-            <button type="button" className="btn btn-ghost" onClick={() => setOpen(false)}>
-              {t("close")}
-            </button>
-          </div>
-          <nav className="flex flex-col gap-1 text-xl font-semibold">
-            <Link href="/" className="rounded px-3 py-4 hover:bg-paper-2" onClick={() => setOpen(false)}>
-              {t("home")}
-            </Link>
-            {[...navPrimary, ...navPlan, ...navCompany].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="rounded px-3 py-4 hover:bg-paper-2"
-                onClick={() => setOpen(false)}
-              >
-                {t(item.key)}
-              </Link>
-            ))}
+      {open ? <div className="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true">
+        <div className="shell mobile-menu-inner">
+          <div className="mobile-menu-head"><BrandMark /><button className="menu-toggle" type="button" onClick={() => setOpen(false)} aria-label={t("close")}><X size={23} /></button></div>
+          <nav className="mobile-links" aria-label="Mobile navigation">
+            <Link href="/" onClick={() => setOpen(false)}>{t("home")} <ArrowUpRight size={18} /></Link>
+            {navItems.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className={isActive(item.href) ? "active" : ""}>{t(item.key)} <ArrowUpRight size={18} /></Link>)}
           </nav>
-          <div className="mt-8 flex flex-col gap-3">
-            <LanguageSwitcher />
-            <Link href="/request" className="btn btn-primary w-full" onClick={() => setOpen(false)}>
-              {t("request")}
-            </Link>
-            <a href={site.whatsappHref} className="btn btn-navy w-full" target="_blank" rel="noreferrer">
-              {t("whatsapp")}
-            </a>
-          </div>
+          <div className="mobile-menu-foot"><LanguageSwitcher /><a href={site.whatsappHref} target="_blank" rel="noreferrer" className="btn btn-navy">{t("whatsapp")}</a></div>
         </div>
-      ) : null}
+      </div> : null}
     </header>
   );
 }

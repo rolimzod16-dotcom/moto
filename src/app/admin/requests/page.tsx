@@ -20,9 +20,9 @@ export default async function RequestsPage({
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="font-serif text-4xl">Requests</h1>
-        <a href="/api/admin/export" className="btn btn-ghost">
+        <Link href="/api/admin/export" className="btn btn-ghost">
           Export CSV
-        </a>
+        </Link>
       </div>
       <table className="mt-6 w-full border-collapse bg-cream text-left">
         <thead>

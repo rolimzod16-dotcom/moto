@@ -8,7 +8,8 @@ export function CookieBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setVisible(!localStorage.getItem("pm-consent"));
+    const timer = window.setTimeout(() => setVisible(!localStorage.getItem("pm-consent")), 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   if (!visible) return null;
