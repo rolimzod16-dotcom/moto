@@ -5,15 +5,16 @@
   --paper-2: #ebe8e0;
   --ink: #202832;
   --ink-soft: #5d6872;
-  --rust: #895520;
-  --rust-hover: #6e4119;
+  --rust: #a9471f;
+  --rust-hover: #8d3515;
+  --signal: #ff7437;
   --navy: #1c2b36;
   --navy-deep: #111e28;
   --gold: #e5bb7c;
   --sage: #354756;
   --line: rgba(28, 43, 54, 0.14);
   --white: #ffffff;
-  --focus: #895520;
+  --focus: #a9471f;
   --sky: #354756;
   --fixed: #c0c7ce;
 }
@@ -352,13 +353,14 @@ body {
   --paper-2: #ebe8e0;
   --ink: #202832;
   --ink-soft: #5d6872;
-  --rust: #895520;
-  --rust-hover: #6e4119;
+  --rust: #a9471f;
+  --rust-hover: #8d3515;
+  --signal: #ff7437;
   --navy: #1c2b36;
   --navy-deep: #111e28;
   --gold: #e5bb7c;
   --line: rgba(28,43,54,.14);
-  --focus: #895520;
+  --focus: #a9471f;
 }
 body { font-size: 1rem; line-height: 1.65; }
 .shell { width: min(100% - 3rem, 1240px); }
@@ -510,4 +512,51 @@ body { font-size: 1rem; line-height: 1.65; }
   .inquiry-band h2 { font-size: clamp(2rem,9vw,3rem); }
   .tour-card > div:first-child { min-height: 290px; }
   .route-tile { min-height: 370px; }
+}
+
+/* The ride: decisive typography and energetic accents, restrained materials. */
+.hero-copy { max-width: 920px; }
+.hero-copy h1 { font-size: clamp(3.5rem,7.5vw,7.5rem); font-weight: 800; letter-spacing: -.075em; line-height: .97; }
+.hero-copy h1 span { position: relative; display: inline-block; }
+.hero-copy h1 span::after { content: ""; position: absolute; left: .03em; bottom: -.11em; width: 33%; height: .045em; min-height: 4px; background: var(--signal); transform: skewX(-22deg); }
+.hero-kicker { display: inline-flex; align-items: center; gap: .8rem; }
+.hero-kicker::before { content: ""; display: block; flex: none; width: 2.2rem; height: 2px; background: var(--signal); transform: skewX(-24deg); }
+.hero-lede { max-width: 32rem; font-size: clamp(1rem,1.55vw,1.25rem); }
+.home-hero-overlay { background: linear-gradient(90deg,rgba(5,12,19,.88) 0%,rgba(5,12,19,.68) 46%,rgba(5,12,19,.08) 100%),linear-gradient(0deg,rgba(5,12,19,.68),transparent 35%); }
+.home-hero-image > img { object-position: center 55%; }
+.hero-actions .hero-primary { background: var(--signal); border-color: var(--signal); color: var(--navy-deep); box-shadow: 0 12px 30px rgba(0,0,0,.22); }
+.hero-actions .hero-primary:hover { background: #fff; border-color: #fff; color: var(--navy-deep); transform: translateY(-3px); }
+.clip-track-progress { background: var(--signal); }
+.ride-signal { overflow: hidden; background: var(--navy-deep); color: #fff; }
+.ride-signal-marquee { overflow: hidden; padding-block: .75rem; border-bottom: 1px solid rgba(255,255,255,.14); color: var(--signal); font-size: .65rem; font-weight: 800; letter-spacing: .27em; white-space: nowrap; }
+.ride-signal-marquee > div { display: flex; width: max-content; animation: rideMarquee 36s linear infinite; }
+.ride-signal-marquee span { flex: none; padding-right: 2rem; }
+.ride-signal-marquee i { margin-left: 2rem; font-style: normal; }
+.ride-signal-inner { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 4rem; padding-block: clamp(2.5rem,5vw,4.5rem); }
+.ride-signal-line { font-family: var(--font-display); font-size: clamp(2.3rem,5.3vw,5.2rem); font-weight: 750; letter-spacing: -.06em; line-height: 1.04; }
+.ride-signal-line em { color: #e7c298; font-style: normal; }
+.ride-signal-facts { border-top: 1px solid rgba(255,255,255,.2); }
+.ride-signal-facts p { display: flex; gap: 1rem; align-items: baseline; padding-block: .8rem; border-bottom: 1px solid rgba(255,255,255,.2); font-size: .83rem; font-weight: 600; }
+.ride-signal-facts p span { color: var(--signal); font-size: .75rem; font-weight: 800; white-space: nowrap; }
+.journey-card::after { content: ""; position: absolute; inset: auto auto 0 0; height: 4px; width: 0; background: var(--signal); transition: width .4s ease; }
+.journey-card:hover::after, .journey-card:focus-visible::after { width: 100%; }
+.journey-info { transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+.journey-card:hover .journey-info, .journey-card:focus-visible .journey-info { transform: translateY(-.5rem); }
+.route-stop.active::before { background: var(--signal); }
+.route-stop-index { color: var(--signal); }
+@keyframes rideMarquee { to { transform: translateX(-50%); } }
+@media (max-width: 900px) {
+  .ride-signal-inner { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 640px) {
+  #content .home-hero h1 { font-size: clamp(2.5rem,10vw,3.6rem); line-height: 1.02; }
+  .hero-copy h1 span::after { height: 3px; min-height: 3px; }
+  .hero-kicker { font-size: .56rem; line-height: 1.4; }
+  .hero-kicker::before { width: 1.2rem; }
+  .ride-signal-inner { padding-block: 2.5rem; gap: 2rem; }
+  .ride-signal-line { font-size: clamp(2.2rem,10vw,3.2rem); }
+  .ride-signal-facts p { font-size: .77rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ride-signal-marquee > div { animation: none; }
 }

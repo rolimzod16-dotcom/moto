@@ -6,8 +6,8 @@ import { Link } from "@/i18n/routing";
 
 // Video sources come from the Stitch design supplied by the project owner.
 const clips = [
-  { src: "https://assets.mixkit.co/videos/preview/mixkit-motorcyclist-riding-down-a-scenic-winding-road-41846-large.mp4", poster: "/images/hero.jpg", label: { en: "M41 Highway", ru: "Тракт M41" } },
-  { src: "https://assets.mixkit.co/videos/preview/mixkit-driving-on-a-road-in-the-mountains-43666-large.mp4", poster: "/images/group-ride.jpg", label: { en: "High Passes", ru: "Перевалы" } },
+  { src: "https://assets.mixkit.co/videos/preview/mixkit-motorcyclist-riding-down-a-scenic-winding-road-41846-large.mp4", poster: "/images/group-ride.jpg", label: { en: "M41 Highway", ru: "Тракт M41" } },
+  { src: "https://assets.mixkit.co/videos/preview/mixkit-driving-on-a-road-in-the-mountains-43666-large.mp4", poster: "/images/hero.jpg", label: { en: "High Passes", ru: "Перевалы" } },
   { src: "https://assets.mixkit.co/videos/preview/mixkit-off-road-vehicle-driving-across-a-river-42777-large.mp4", poster: "/images/support-vehicles.jpg", label: { en: "Convoy", ru: "Колонна" } },
   { src: "https://assets.mixkit.co/videos/preview/mixkit-mountain-landscape-during-sunset-41484-large.mp4", poster: "/images/wakhan.jpg", label: { en: "Wakhan", ru: "Вахан" } },
 ];
@@ -69,10 +69,10 @@ export function StitchHero({ locale }: { locale: string }) {
       <div className="home-hero-overlay" />
       <div className="shell hero-main relative z-10 pb-4">
         <div className="hero-copy">
-          <p className="hero-kicker">{copy("Tajikistan / Pamir Highway / Wakhan", "Таджикистан / Памирский тракт / Вахан")}</p>
-          <h1 className="mt-4">{copy("The road beyond", "Дорога за пределами")}<br /><span>{copy("the ordinary.", "обычного.")}</span></h1>
-          <p className="hero-lede">{copy("Guided motorcycle expeditions and 4×4 rentals across the Pamir Highway and the Wakhan Corridor — with a local team, mechanic and support vehicle.", "Мотоэкспедиции и прокат 4×4 по Памирскому тракту и Вахану — с местной командой, механиком и машиной сопровождения.")}</p>
-          <div className="hero-actions"><Link href="/tours" className="btn btn-primary">{copy("Explore expeditions", "Смотреть экспедиции")} <ArrowRight size={18} /></Link><Link href="/motorcycles" className="btn btn-hero-outline"><KeyRound size={18} /> {copy("Rent bikes & 4×4", "Аренда мото и 4×4")}</Link></div>
+          <p className="hero-kicker">{copy("Motorcycle expeditions / Pamir Highway / Tajikistan", "Мотоэкспедиции / Памирский тракт / Таджикистан")}</p>
+          <h1 className="mt-4">{copy("Ride the edge.", "Памир. Чувствуй")}<br /><span>{copy("Feel the Pamirs.", "каждый поворот.")}</span></h1>
+          <p className="hero-lede">{copy("High passes. Open horizons. Ride the Pamir Highway with a local guide and 4×4 support on guided expeditions.", "Перевалы, пыль и простор Памира. Мотоэкспедиции с местной командой и машиной сопровождения.")}</p>
+          <div className="hero-actions"><Link href="/tours" className="btn btn-primary hero-primary">{copy("Find your expedition", "Выбрать экспедицию")} <ArrowRight size={18} /></Link><Link href="/motorcycles" className="btn btn-hero-outline"><KeyRound size={18} /> {copy("Explore the fleet", "Посмотреть технику")}</Link></div>
         </div>
       </div>
       <div className="shell relative z-10 hero-bottom">
