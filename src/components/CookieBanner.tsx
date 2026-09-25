@@ -20,10 +20,10 @@ export function CookieBanner() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-line bg-cream p-4 shadow-[0_-8px_24px_rgba(0,0,0,0.12)]">
-      <div className="mx-auto flex max-w-6xl flex-col gap-3 md:flex-row md:items-center">
-        <p className="flex-1 text-[1.05rem]">{t("text")}</p>
-        <div className="flex flex-col gap-2 sm:flex-row">
+    <div className="cookie-banner" role="region" aria-label="Cookies">
+      <div className="cookie-banner-inner">
+        <p>{t("text")}</p>
+        <div className="cookie-actions">
           <button type="button" className="btn btn-ghost" onClick={() => choose("essential")}>
             {t("essential")}
           </button>
