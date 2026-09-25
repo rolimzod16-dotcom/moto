@@ -15,16 +15,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const copy = (en: string, ruText: string) => ru ? ruText : en;
   return <>
     <StitchHero locale={locale} />
-    <section className="intro-strip" aria-label={copy("Why travel with us", "Почему с нами")}>
-      <div className="shell intro-strip-inner">
-        <p><span>01</span>{copy("Local team in Dushanbe", "Местная команда в Душанбе")}</p>
-        <p><span>02</span>{copy("Small groups, real support", "Небольшие группы и сопровождение")}</p>
-        <p><span>03</span>{copy("Every detail confirmed before departure", "Все детали до выезда")}</p>
+    <section className="ride-signal" aria-label={copy("The ride", "Поездка")}>
+      <div className="ride-signal-marquee" aria-hidden="true"><div>{Array.from({ length: 4 }, (_, i) => <span key={i}>{copy("THE ROAD IS THE REWARD", "ДОРОГА — ЧАСТЬ ПРИКЛЮЧЕНИЯ")} <i>✦</i> </span>)}</div></div>
+      <div className="shell ride-signal-inner">
+        <p className="ride-signal-line">{copy("Wild roads.", "Дикие дороги.")}<br/><em>{copy("Steady hands.", "Надёжная команда.")}</em></p>
+        <div className="ride-signal-facts">
+          <p><span>01 /</span>{copy("Local riders who know these roads", "Местные райдеры, знающие каждый маршрут")}</p>
+          <p><span>02 /</span>{copy("Small groups, 4×4 support on guided trips", "Небольшие группы и 4×4 в турах")}</p>
+          <p><span>03 /</span>{copy("The details sorted before you ride", "Подготовка до начала поездки")}</p>
+        </div>
       </div>
     </section>
     <section className="section-block" id="signature-tours"><div className="shell">
       <div className="editorial-heading">
-        <div><p className="eyebrow text-rust">{copy("The journeys", "Путешествия")}</p><h2 className="section-title mt-4">{copy("Beyond the last paved road.", "Туда, где заканчивается асфальт.")}</h2></div>
+        <div><p className="eyebrow text-rust">{copy("The journeys", "Путешествия")}</p><h2 className="section-title mt-4">{copy("Find your next rush.", "Выбери свою дорогу.")}</h2></div>
         <div><p className="max-w-md text-ink-soft">{copy("Follow the Pamir Highway, turn into the Wakhan and see Tajikistan at your own pace. Our local team handles the road ahead.", "Проедьте по Памирскому тракту, сверните в Вахан и откройте Таджикистан в своём ритме. Дорогу подготовит местная команда.")}</p><Link href="/tours" className="editorial-link mt-6">{copy("Explore all expeditions", "Все экспедиции")} <ArrowRight size={18}/></Link></div>
       </div>
       <div className="journey-grid">{tours.map((tour, index) => <Link href={`/tours/${tour.slug}`} key={tour.slug} className={`journey-card journey-card-${index + 1}`}>
