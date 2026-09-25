@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, X, Satellite, Shield } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { Menu, X, MoveUpRight } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/routing";
 import { BrandMark } from "./BrandMark";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -10,6 +10,7 @@ import { navMain, navMore, site } from "@/lib/site";
 
 export function Header() {
   const t = useTranslations("nav");
+  const locale = useLocale();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
@@ -20,7 +21,6 @@ export function Header() {
       document.body.style.overflow = "";
     };
   }, [open]);
-  useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
       if (event.key === "Escape") setOpen(false);
@@ -33,14 +33,7 @@ export function Header() {
     <header className="site-header">
       <div className="topline">
         <div className="shell topline-inner">
-          <span className="hidden items-center gap-1.5 sm:flex">
-            <Satellite size={14} className="text-gold" />
-            GBAO & Wakhan
-          </span>
-          <span className="hidden items-center gap-1.5 md:flex">
-            <Shield size={14} className="text-gold" />
-            4×4 sweep & mechanic
-          </span>
+          <span className="topline-destination">{locale === "ru" ? "Мотоэкспедиции по Памиру / Таджикистан" : "Motorcycle journeys / Tajikistan"}</span>
           <span className="topline-spacer" />
           <a className="topline-accent" href={site.whatsappHref} target="_blank" rel="noreferrer">
             {site.phone}
@@ -58,7 +51,7 @@ export function Header() {
               </Link>
             ))}
             <Link href="/request" className="btn btn-primary nav-cta">
-              {t("request")}
+              {t("request")} <MoveUpRight size={16} aria-hidden="true"/>
             </Link>
           </nav>
           <div className="mobile-nav-actions">

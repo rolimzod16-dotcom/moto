@@ -49,7 +49,7 @@ export function StitchHero({ locale }: { locale: string }) {
   return (
     <section className="home-hero">
       {clips.map((clip, i) => (
-        <div key={clip.src} className="home-hero-image" aria-hidden="true" style={{ opacity: i === index ? 1 : 0, transition: reduceMotion ? "none" : "opacity .8s ease" }}>
+        <div key={clip.src} className={i === index ? "home-hero-image scene-active" : "home-hero-image"} aria-hidden="true" style={{ opacity: i === index ? 1 : 0, transition: reduceMotion ? "none" : "opacity .8s ease" }}>
           <img src={clip.poster} alt="" className="h-full w-full object-cover" />
           {!reduceMotion && !failed.includes(i) && (
             <video
@@ -69,13 +69,22 @@ export function StitchHero({ locale }: { locale: string }) {
       <div className="home-hero-overlay" />
       <div className="shell hero-main relative z-10 pb-4">
         <div className="hero-copy">
-          <p className="hero-kicker">Tajikistan / Pamir Highway / Wakhan</p>
+          <p className="hero-kicker">{copy("Tajikistan / Pamir Highway / Wakhan", "Таджикистан / Памирский тракт / Вахан")}</p>
           <h1 className="mt-4">{copy("The road beyond", "Дорога за пределами")}<br /><span>{copy("the ordinary.", "обычного.")}</span></h1>
           <p className="hero-lede">{copy("Guided motorcycle expeditions and 4×4 rentals across the Pamir Highway and the Wakhan Corridor — with a local team, mechanic and support vehicle.", "Мотоэкспедиции и прокат 4×4 по Памирскому тракту и Вахану — с местной командой, механиком и машиной сопровождения.")}</p>
           <div className="hero-actions"><Link href="/tours" className="btn btn-primary">{copy("Explore expeditions", "Смотреть экспедиции")} <ArrowRight size={18} /></Link><Link href="/motorcycles" className="btn btn-hero-outline"><KeyRound size={18} /> {copy("Rent bikes & 4×4", "Аренда мото и 4×4")}</Link></div>
         </div>
       </div>
-      <div className="shell relative z-10"><div className="clip-bar">{clips.map((clip, i) => <button key={clip.src} type="button" className={i === index ? "clip-btn active" : "clip-btn"} aria-pressed={i === index} onClick={() => setIndex(i)}>0{i + 1} {ru ? clip.label.ru : clip.label.en}</button>)}<button type="button" className="clip-btn clip-pause" onClick={() => setPlaying((value) => !value)} aria-label={playing ? copy("Pause background", "Остановить фон") : copy("Play background", "Включить фон")}>{playing ? <Pause size={15} /> : <Play size={15} />}</button></div></div>
+      <div className="shell relative z-10 hero-bottom">
+        <div className="clip-bar" aria-label={copy("Choose video scene", "Выберите видео")}>
+          {clips.map((clip, i) => <button key={clip.src} type="button" className={i === index ? "clip-btn active" : "clip-btn"} aria-pressed={i === index} onClick={() => setIndex(i)}>
+            <span className="clip-track" aria-hidden="true">{i === index && playing && !reduceMotion ? <span key={`${index}-${playing}`} className="clip-track-progress" /> : null}</span>
+            <span className="clip-number">0{i + 1}</span> {ru ? clip.label.ru : clip.label.en}
+          </button>)}
+          <button type="button" className="clip-btn clip-pause" onClick={() => setPlaying((value) => !value)} aria-label={playing ? copy("Pause background", "Остановить фон") : copy("Play background", "Включить фон")}>{playing ? <Pause size={17} /> : <Play size={17} />}</button>
+        </div>
+        <a className="hero-scroll" href="#signature-tours">{copy("Scroll to explore", "Листайте ниже")} <ArrowRight size={17} aria-hidden="true"/></a>
+      </div>
     </section>
   );
 }
