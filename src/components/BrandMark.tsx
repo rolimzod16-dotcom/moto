@@ -9,7 +9,7 @@ export function BrandMark({ light = false }: { light?: boolean }) {
           Pamir Motoride
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold" />
         </span>
-        <span className={`block text-[10px] font-bold uppercase tracking-[0.18em] ${light ? "text-white/55" : "text-ink-soft"}`}>
+        <span className={`brand-subtitle block text-[10px] font-bold uppercase tracking-[0.18em] ${light ? "text-white/55" : "text-ink-soft"}`}>
           Tajikistan & Pamir Highway
         </span>
       </span>
