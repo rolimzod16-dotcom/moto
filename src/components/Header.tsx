@@ -50,7 +50,7 @@ export function Header() {
       </div>
       <div className="nav-wrap">
         <div className="shell nav-inner">
-          <BrandMark light />
+          <BrandMark />
           <nav className="desktop-nav" aria-label="Main">
             {navMain.map((item) => (
               <Link key={item.href} href={item.href} className={isActive(item.href) ? "nav-link active" : "nav-link"}>
