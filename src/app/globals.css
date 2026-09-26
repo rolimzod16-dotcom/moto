@@ -624,8 +624,7 @@ body { font-size: 1rem; line-height: 1.65; }
 .bike-reveal-heading { position: relative; z-index: 1; padding-top: clamp(2.7rem,4vw,4rem); color: #fff; text-align: center; }
 .bike-reveal-heading .eyebrow { font-size: .69rem; font-weight: 800; letter-spacing: .23em; text-shadow: 0 1px 9px rgba(0,0,0,.35); }
 .bike-reveal-heading .eyebrow span { color: #ff9a72; padding-inline: .5em; }
-#content .bike-reveal-heading h2 { margin-top: .65rem; font-family: var(--font-display); font-size: clamp(3rem,5.8vw,6.4rem); font-weight: 800; line-height: 1; letter-spacing: -.055em; text-shadow: 0 5px 24px rgba(0,0,0,.25); }
-.bike-reveal-heading h2 strong { font-weight: inherit; }
+#content .bike-reveal-heading h2 { margin-top: .65rem; font-family: var(--font-display); font-size: clamp(3.2rem,5vw,5rem); font-weight: 800; line-height: 1; letter-spacing: -.055em; text-shadow: 0 5px 24px rgba(0,0,0,.25); }
 .bike-reveal-platform { position: relative; height: 160px; overflow: hidden; background: #fff; }
 .bike-reveal-platform span { position: absolute; top: 38px; left: 7%; width: 65%; height: 185px; border: 1px solid #cad3d7; border-radius: 50%; }
 .bike-reveal-machine { position: absolute; z-index: 3; left: 4%; bottom: 5.5rem; width: min(64vw,900px); aspect-ratio: 1.5; pointer-events: none; filter: drop-shadow(0 23px 16px rgba(6,27,35,.2)); }
