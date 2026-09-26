@@ -624,7 +624,7 @@ body { font-size: 1rem; line-height: 1.65; }
 .bike-reveal-inner { position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: inherit; padding-block: clamp(2.5rem,6vw,5.5rem) clamp(3rem,7vw,6rem); color: #fff; }
 .bike-reveal-heading .eyebrow { font-size: .72rem; font-weight: 800; letter-spacing: .22em; text-shadow: 0 1px 9px rgba(0,0,0,.45); }
 .bike-reveal-heading .eyebrow span { color: #ff9a72; padding-inline: .5em; }
-#content .bike-reveal-heading h2 { margin-top: .45rem; font-family: var(--font-display); font-size: clamp(5rem,14vw,13rem); font-weight: 800; line-height: .85; letter-spacing: -.085em; text-shadow: 0 6px 30px rgba(0,0,0,.2); }
+#content .bike-reveal-heading h2 { max-width: 100%; margin-top: .45rem; font-family: var(--font-display); font-size: clamp(4rem,9vw,9rem); font-weight: 800; line-height: .9; letter-spacing: -.085em; text-shadow: 0 6px 30px rgba(0,0,0,.2); }
 .bike-reveal-heading h2 span { color: #fff; }
 .bike-reveal-copy { align-self: flex-end; width: min(100%,350px); padding: 1.8rem 1.9rem; border: 1px solid rgba(255,255,255,.48); background: rgba(11,36,47,.58); backdrop-filter: blur(13px); }
 .bike-reveal-index { font-size: .72rem; font-weight: 800; letter-spacing: .18em; }
@@ -674,7 +674,7 @@ body { font-size: 1rem; line-height: 1.65; }
 @media (max-width: 640px) {
   .bike-reveal-scene { min-height: 680px; }
   .bike-reveal-inner { padding-block: 2.7rem 1.5rem; }
-  #content .bike-reveal-heading h2 { font-size: clamp(4.3rem,18vw,7.5rem); }
+  #content .bike-reveal-heading h2 { font-size: clamp(3rem,13vw,5rem); }
   .bike-reveal-copy { width: min(100%,360px); padding: 1.2rem 1.3rem; }
   .bike-reveal-copy h3 { margin-top: .8rem; }
   .bike-reveal-footer { min-height: 4.8rem; font-size: .57rem; letter-spacing: .08em; }
