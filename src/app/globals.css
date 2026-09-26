@@ -718,13 +718,20 @@ body { font-size: 1rem; line-height: 1.65; }
 
 /* Pamir Moto Adventure emblem palette */
 .nav-wrap { background: rgba(250,251,247,.97); }
-.topline, .intro-strip, .story-section, .route-experience, .ride-signal, .elev, .cookie-banner { background: var(--navy-deep); }
+.topline, .intro-strip, .elev, .cookie-banner { background: var(--navy-deep); }
+.story-section { background: #fff; color: var(--ink); }
+.route-experience { background: var(--paper-2); color: var(--ink); }
+.ride-signal { background: #f4f8f1; color: var(--ink); }
 .nav-wrap .menu-toggle { background: var(--navy-deep); }
 .btn-primary, .hero-actions .hero-primary { background: var(--rust); border-color: var(--rust); color: #fff; }
 .btn-primary:hover { background: var(--rust-hover); border-color: var(--rust-hover); }
 .hero-actions .hero-primary:hover { background: #d9eec9; border-color: #d9eec9; color: var(--navy-deep); }
 .hero-kicker::before, .hero-copy h1 span::after, .journey-card::after, .clip-track-progress, .route-stop.active::before { background: var(--signal); }
-.ride-signal-marquee, .ride-signal-facts p span, .route-stop-index { color: #a9e7b5; }
+.ride-signal-marquee, .ride-signal-facts p span, .route-stop-index { color: var(--rust); }
+.route-stop { color: #506759; }
+.route-experience-caption { color: #fff; }
+.route-experience-caption h3 { color: #fff; }
+.route-experience-caption p { color: rgba(255,255,255,.9); }
 .home-hero-overlay { background: linear-gradient(90deg,rgba(7,28,17,.86) 0%,rgba(7,28,17,.62) 46%,rgba(7,28,17,.08) 100%),linear-gradient(0deg,rgba(7,28,17,.65),transparent 35%); }
 .page-hero-shade { background: linear-gradient(90deg,rgba(7,28,17,.82),rgba(7,28,17,.16)),linear-gradient(0deg,rgba(7,28,17,.6),transparent 55%); }
 .brand-mark img { object-fit: contain; border-radius: 50%; }
