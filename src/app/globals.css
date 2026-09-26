@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #fbfcfb;
-  --paper-2: #edf3f4;
-  --ink: #172f3d;
-  --ink-soft: #526873;
-  --rust: #b5401e;
-  --rust-hover: #913016;
-  --signal: #f45525;
-  --navy: #153b52;
-  --navy-deep: #103449;
-  --gold: #efc88d;
-  --sage: #52768a;
+  --paper: #fafbf7;
+  --paper-2: #eef3e9;
+  --ink: #172b22;
+  --ink-soft: #556a5b;
+  --rust: #24794b;
+  --rust-hover: #195d38;
+  --signal: #63bf7b;
+  --navy: #23523a;
+  --navy-deep: #163927;
+  --gold: #cce9ad;
+  --sage: #6c9476;
   --line: rgba(23, 47, 61, 0.14);
   --white: #ffffff;
-  --focus: #b5401e;
-  --sky: #52768a;
+  --focus: #24794b;
+  --sky: #6c9476;
   --fixed: #c0c7ce;
 }
 
@@ -98,7 +98,7 @@ body {
 }
 
 .site-header { position: sticky; top: 0; z-index: 50; }
-.topline { background: #0b1218; color: rgba(255,255,255,0.78); font-size: 0.7rem; letter-spacing: 0.08em; }
+.topline { background: #112b1c; color: rgba(255,255,255,0.78); font-size: 0.7rem; letter-spacing: 0.08em; }
 .topline-inner { display: flex; align-items: center; min-height: 2.15rem; gap: 0.65rem; }
 .topline a { color: #fff; text-decoration: none; }
 .topline-accent { color: var(--gold) !important; font-weight: 800; }
@@ -111,7 +111,7 @@ body {
 .nav-cta { margin-left: 0.5rem; min-height: 2.7rem; }
 .mobile-nav-actions { display: none; margin-left: auto; align-items: center; gap: 0.45rem; }
 .menu-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 2.75rem; min-height: 2.75rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: #fff; }
-.mobile-menu { position: fixed; inset: 0; z-index: 60; overflow: auto; background: #0a1014; color: #fff; }
+.mobile-menu { position: fixed; inset: 0; z-index: 60; overflow: auto; background: #112b1c; color: #fff; }
 .mobile-menu-inner { min-height: 100%; padding-block: 1.25rem 2rem; }
 .mobile-menu-head { display: flex; justify-content: space-between; align-items: center; }
 .mobile-links { display: flex; flex-direction: column; margin-top: 2.5rem; }
@@ -148,7 +148,7 @@ body {
 .terrain { height: 0.45rem; display: flex; overflow: hidden; border-radius: 999px; background: #dee9f6; }
 .terrain > i:first-child { background: var(--navy); }
 .terrain > i:last-child { background: var(--gold); }
-.elev { background: #0d161d; color: #fff; padding: 2.5rem 0; }
+.elev { background: #112b1c; color: #fff; padding: 2.5rem 0; }
 .elev svg { width: 100%; height: 10rem; }
 
 .admin-shell { background: #f4f5f1; }
@@ -349,18 +349,18 @@ body {
 
 /* Editorial travel direction: quiet surfaces, spacious photographs, clear actions. */
 :root {
-  --paper: #fbfcfb;
-  --paper-2: #edf3f4;
-  --ink: #172f3d;
-  --ink-soft: #526873;
-  --rust: #b5401e;
-  --rust-hover: #913016;
-  --signal: #f45525;
-  --navy: #153b52;
-  --navy-deep: #103449;
-  --gold: #efc88d;
-  --line: rgba(23,47,61,.14);
-  --focus: #b5401e;
+  --paper: #fafbf7;
+  --paper-2: #eef3e9;
+  --ink: #172b22;
+  --ink-soft: #556a5b;
+  --rust: #24794b;
+  --rust-hover: #195d38;
+  --signal: #63bf7b;
+  --navy: #23523a;
+  --navy-deep: #163927;
+  --gold: #cce9ad;
+  --line: rgba(23,43,34,.14);
+  --focus: #24794b;
 }
 body { font-size: 1rem; line-height: 1.65; }
 .shell { width: min(100% - 3rem, 1240px); }
@@ -387,7 +387,7 @@ body { font-size: 1rem; line-height: 1.65; }
 .hero-copy { max-width: 770px; }
 .hero-kicker { color: var(--gold); font-size: .72rem; font-weight: 750; letter-spacing: .2em; text-transform: uppercase; }
 .hero-copy h1 { font-weight: 650; font-size: clamp(3.2rem, 6.5vw, 6.5rem); letter-spacing: -.055em; line-height: 1.02; text-transform: none; }
-.hero-copy h1 span { color: #f3dfbf; }
+.hero-copy h1 span { color: #d9eec9; }
 .hero-lede { max-width: 36rem; margin-top: 1.5rem; color: #f4f1eb; font-size: clamp(1rem, 1.45vw, 1.18rem); line-height: 1.6; }
 .hero-actions { margin-top: 2rem; }
 .clip-bar { max-width: 580px; margin-top: 0; background: transparent; padding: 0; border: 0; gap: .2rem; }
@@ -534,7 +534,7 @@ body { font-size: 1rem; line-height: 1.65; }
 .ride-signal-marquee i { margin-left: 2rem; font-style: normal; }
 .ride-signal-inner { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 4rem; padding-block: clamp(2.5rem,5vw,4.5rem); }
 .ride-signal-line { font-family: var(--font-display); font-size: clamp(2.3rem,5.3vw,5.2rem); font-weight: 750; letter-spacing: -.06em; line-height: 1.04; }
-.ride-signal-line em { color: #e7c298; font-style: normal; }
+.ride-signal-line em { color: #cce9ad; font-style: normal; }
 .ride-signal-facts { border-top: 1px solid rgba(255,255,255,.2); }
 .ride-signal-facts p { display: flex; gap: 1rem; align-items: baseline; padding-block: .8rem; border-bottom: 1px solid rgba(255,255,255,.2); font-size: .83rem; font-weight: 600; }
 .ride-signal-facts p span { color: var(--signal); font-size: .75rem; font-weight: 800; white-space: nowrap; }
@@ -715,3 +715,16 @@ body { font-size: 1rem; line-height: 1.65; }
 @media (prefers-reduced-motion: reduce) {
   .bike-stage > img, .bike-hotspot { transition: none; }
 }
+
+/* Pamir Moto Adventure emblem palette */
+.nav-wrap { background: rgba(250,251,247,.97); }
+.topline, .intro-strip, .story-section, .route-experience, .ride-signal, .elev, .cookie-banner { background: var(--navy-deep); }
+.nav-wrap .menu-toggle { background: var(--navy-deep); }
+.btn-primary, .hero-actions .hero-primary { background: var(--rust); border-color: var(--rust); color: #fff; }
+.btn-primary:hover { background: var(--rust-hover); border-color: var(--rust-hover); }
+.hero-actions .hero-primary:hover { background: #d9eec9; border-color: #d9eec9; color: var(--navy-deep); }
+.hero-kicker::before, .hero-copy h1 span::after, .journey-card::after, .clip-track-progress, .route-stop.active::before { background: var(--signal); }
+.ride-signal-marquee, .ride-signal-facts p span, .route-stop-index { color: #a9e7b5; }
+.home-hero-overlay { background: linear-gradient(90deg,rgba(7,28,17,.86) 0%,rgba(7,28,17,.62) 46%,rgba(7,28,17,.08) 100%),linear-gradient(0deg,rgba(7,28,17,.65),transparent 35%); }
+.page-hero-shade { background: linear-gradient(90deg,rgba(7,28,17,.82),rgba(7,28,17,.16)),linear-gradient(0deg,rgba(7,28,17,.6),transparent 55%); }
+.brand-mark img { object-fit: contain; border-radius: 50%; }
