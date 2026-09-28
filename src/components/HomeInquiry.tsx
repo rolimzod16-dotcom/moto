@@ -13,7 +13,7 @@ export function HomeInquiry({ locale }: { locale: string }) {
             <img src="/images/karakul.jpg" alt="" className="absolute inset-0 -z-20 h-full w-full object-cover" />
             <div className="absolute inset-0 -z-10 bg-gradient-to-t from-navy-deep via-navy-deep/80 to-navy-deep/20"/>
             <p className="eyebrow text-gold">{ru ? "Следующий шаг" : "Your next chapter"}</p>
-            <h2 className="mt-3 font-serif text-3xl font-semibold">{ru ? "Спланируйте экспедицию" : "Plan your Pamir expedition"}</h2>
+            <h2 className="mt-3 font-serif text-3xl font-semibold">{ru ? "Узнайте условия аренды" : "Ask about motorcycle rental"}</h2>
             <p className="mt-4 text-sm text-white/70">
               {ru
                 ? "Заявка не бронь. Мы ответим письменно после проверки дат, документов и дороги."
@@ -24,7 +24,7 @@ export function HomeInquiry({ locale }: { locale: string }) {
             </a>
           </div>
           <div className="p-6 lg:col-span-8 lg:p-10">
-            <RequestForm locale={locale} defaultType="TOUR" />
+            <RequestForm locale={locale} defaultType="MOTORCYCLE" />
           </div>
         </div>
       </div>

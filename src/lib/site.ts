@@ -1,8 +1,8 @@
 export const site = {
   name: "Pamir Motoride",
   tagline: {
-    en: "Motorcycle expeditions and 4x4 rentals in Tajikistan",
-    ru: "Мотоэкспедиции и прокат 4x4 в Таджикистане",
+    en: "Motorcycle rental and guided journeys across the CIS. Born in the Pamirs.",
+    ru: "Аренда мотоциклов и мотопутешествия по СНГ. Родом из Памира.",
   },
   email: "expeditions@pamirmotoride.com",
   phone: "+992 90 777 5544",
