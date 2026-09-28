@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { ArrowRight, Compass, MapPinned, ShieldCheck } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { tours } from "@/lib/content";
+import { staticMetadata } from "@/lib/seo";
 import { t } from "@/lib/utils";
 import { StitchHero } from "@/components/StitchHero";
 import { BikeSpotlight } from "@/components/BikeSpotlight";
@@ -9,6 +10,13 @@ import { BikeReveal } from "@/components/BikeReveal";
 import { FleetTabs } from "@/components/FleetTabs";
 import { HomeInquiry } from "@/components/HomeInquiry";
 import { RouteJourney } from "@/components/RouteJourney";
+
+export const generateMetadata = staticMetadata({
+  path: "/",
+  titleKey: "homeTitle",
+  descriptionKey: "homeDescription",
+  image: "/images/hero.jpg",
+});
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

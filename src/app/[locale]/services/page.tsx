@@ -4,7 +4,15 @@ import { Link } from "@/i18n/routing";
 import { services } from "@/lib/content";
 import { PageHero } from "@/components/PageHero";
 import { InquiryBand } from "@/components/InquiryBand";
+import { staticMetadata } from "@/lib/seo";
 import { t } from "@/lib/utils";
+
+export const generateMetadata = staticMetadata({
+  path: "/services",
+  titleKey: "servicesTitle",
+  descriptionKey: "servicesDescription",
+  image: "/images/support-vehicles.jpg",
+});
 
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
@@ -6,7 +7,32 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { InquiryBand } from "@/components/InquiryBand";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbLd, pageMetadata, rentalServiceLd } from "@/lib/seo";
 import { t } from "@/lib/utils";
+
+export function generateStaticParams() {
+  return vehicles.map((item) => ({ slug: item.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const car = vehicles.find((item) => item.slug === slug);
+  if (!car) return {};
+  const name = `${car.make} ${car.model}`;
+  const ru = locale === "ru";
+  return pageMetadata({
+    locale,
+    path: `/cars/${slug}`,
+    title: ru ? `Аренда ${name}` : `${name} 4x4 rental`,
+    description: t(car.routeSuitability, locale),
+    image: car.images[0],
+  });
+}
 
 export default async function CarDetailPage({
   params,
@@ -21,8 +47,27 @@ export default async function CarDetailPage({
   const home = await getTranslations("home");
   const nav = await getTranslations("nav");
 
+  const name = `${car.make} ${car.model}`;
   return (
     <article className="detail-page">
+      <JsonLd
+        data={rentalServiceLd({
+          locale,
+          path: `/cars/${slug}`,
+          name,
+          description: t(car.routeSuitability, locale),
+          image: car.images[0],
+          serviceType: "4x4 rental",
+          status: car.publicStatus,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbLd(locale, [
+          { name: nav("home"), path: "/" },
+          { name: nav("cars"), path: "/cars" },
+          { name },
+        ])}
+      />
       <div className="bg-navy-deep text-cream">
         <div className="shell py-10">
           <Breadcrumbs

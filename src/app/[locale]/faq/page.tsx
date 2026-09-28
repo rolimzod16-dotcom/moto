@@ -2,7 +2,16 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { faqs } from "@/lib/content";
 import { PageHero } from "@/components/PageHero";
 import { InquiryBand } from "@/components/InquiryBand";
+import { JsonLd } from "@/components/JsonLd";
+import { faqLd, staticMetadata } from "@/lib/seo";
 import { t } from "@/lib/utils";
+
+export const generateMetadata = staticMetadata({
+  path: "/faq",
+  titleKey: "faqTitle",
+  descriptionKey: "faqDescription",
+  image: "/images/karakul.jpg",
+});
 
 export default async function FaqPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -11,6 +20,7 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
 
   return (
     <>
+      <JsonLd data={faqLd(faqs.map((item) => ({ question: t(item.question, locale), answer: t(item.answer, locale) })))} />
       <PageHero title={copy("title")} intro={copy("intro")} image="/images/karakul.jpg" />
       <div className="shell max-w-4xl space-y-4 py-16 lg:py-24">
         {faqs.map((item) => (

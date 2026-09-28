@@ -1,6 +1,14 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/PageHero";
 import { RequestForm } from "@/components/RequestForm";
+import { staticMetadata } from "@/lib/seo";
+
+export const generateMetadata = staticMetadata({
+  path: "/request",
+  titleKey: "requestTitle",
+  descriptionKey: "requestDescription",
+  image: "/images/hero.jpg",
+});
 
 export default async function RequestPage({
   params,

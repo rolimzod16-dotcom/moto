@@ -1,6 +1,14 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/PageHero";
 import { InquiryBand } from "@/components/InquiryBand";
+import { staticMetadata } from "@/lib/seo";
+
+export const generateMetadata = staticMetadata({
+  path: "/rental-conditions",
+  titleKey: "conditionsTitle",
+  descriptionKey: "conditionsDescription",
+  image: "/images/motorcycle-detail.jpg",
+});
 
 export default async function ConditionsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
@@ -6,6 +7,29 @@ import { mapEmbed, t, upcomingDates } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { InquiryBand } from "@/components/InquiryBand";
+import { JsonLd } from "@/components/JsonLd";
+import { absoluteUrl, breadcrumbLd, pageMetadata, SITE_URL } from "@/lib/seo";
+
+export function generateStaticParams() {
+  return tours.map((item) => ({ slug: item.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const tour = tours.find((item) => item.slug === slug);
+  if (!tour) return {};
+  return pageMetadata({
+    locale,
+    path: `/tours/${slug}`,
+    title: t(tour.title, locale),
+    description: t(tour.summary, locale),
+    image: tour.images[0],
+  });
+}
 
 export default async function TourDetailPage({
   params,
@@ -22,8 +46,36 @@ export default async function TourDetailPage({
   const dates = upcomingDates(tour.dates);
   const ru = locale === "ru";
 
+  const title = t(tour.title, locale);
   return (
     <article className="detail-page">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "TouristTrip",
+          name: title,
+          description: t(tour.summary, locale),
+          url: absoluteUrl(locale, `/tours/${slug}`),
+          image: `${SITE_URL}${tour.images[0]}`,
+          touristType: "Motorcycle riders",
+          provider: { "@id": `${SITE_URL}/#business` },
+          itinerary: {
+            "@type": "ItemList",
+            itemListElement: tour.itinerary.map((day) => ({
+              "@type": "ListItem",
+              position: day.day,
+              name: t(day, locale),
+            })),
+          },
+        }}
+      />
+      <JsonLd
+        data={breadcrumbLd(locale, [
+          { name: nav("home"), path: "/" },
+          { name: nav("tours"), path: "/tours" },
+          { name: title },
+        ])}
+      />
       <div className="relative min-h-[52vh] overflow-hidden bg-navy-deep text-cream">
         <img src={tour.images[0]} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/20" />

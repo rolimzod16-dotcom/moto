@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
@@ -8,10 +9,32 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { InquiryBand } from "@/components/InquiryBand";
 import { RentalRates } from "@/components/RentalRates";
 import { TourRecommendations } from "@/components/TourRecommendations";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbLd, pageMetadata, rentalServiceLd } from "@/lib/seo";
 import { t } from "@/lib/utils";
 
 export function generateStaticParams() {
   return motorcycleUnits.map((item) => ({ slug: item.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const bike = getMotorcycleUnit(slug);
+  if (!bike) return {};
+  const ru = locale === "ru";
+  return pageMetadata({
+    locale,
+    path: `/motorcycles/${slug}`,
+    title: ru ? `Аренда ${bike.model} ${bike.unitNumber}` : `${bike.model} ${bike.unitNumber} rental`,
+    description: ru
+      ? `${t(bike.note, locale)} Honda CRF300L для Памирского тракта, Душанбе. Цена по запросу.`
+      : `${t(bike.note, locale)} Honda CRF300L for the Pamir Highway, based in Dushanbe. Price on request.`,
+    image: bike.images[0],
+  });
 }
 
 export default async function MotorcycleDetailPage({
@@ -37,8 +60,27 @@ export default async function MotorcycleDetailPage({
     ["wheels", bike.specs.wheels],
   ] as const;
 
+  const title = `${bike.model} ${bike.unitNumber}`;
   return (
     <article className="detail-page">
+      <JsonLd
+        data={rentalServiceLd({
+          locale,
+          path: `/motorcycles/${slug}`,
+          name: title,
+          description: t(bike.note, locale),
+          image: bike.images[0],
+          serviceType: "Motorcycle rental",
+          status: bike.publicStatus,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbLd(locale, [
+          { name: nav("home"), path: "/" },
+          { name: nav("motorcycles"), path: "/motorcycles" },
+          { name: title },
+        ])}
+      />
       <div className="bg-navy-deep text-cream">
         <div className="shell py-10">
           <Breadcrumbs

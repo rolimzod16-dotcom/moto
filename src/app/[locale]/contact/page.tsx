@@ -2,6 +2,14 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/PageHero";
 import { site } from "@/lib/site";
 import { RequestForm } from "@/components/RequestForm";
+import { staticMetadata } from "@/lib/seo";
+
+export const generateMetadata = staticMetadata({
+  path: "/contact",
+  titleKey: "contactTitle",
+  descriptionKey: "contactDescription",
+  image: "/images/murghab.jpg",
+});
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

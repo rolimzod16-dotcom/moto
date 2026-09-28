@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Plus_Jakarta_Sans, Syne, Source_Sans_3 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -23,14 +24,26 @@ const source = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://pamir-motoride.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Pamir Motoride — Ride the Pamirs",
-    template: "%s | Pamir Motoride",
+    default: "Motorcycle rental in Tajikistan | Pamir Moto Adventure",
+    template: "%s | Pamir Moto Adventure",
   },
   description:
-    "Guided motorcycle expeditions and 4x4 rentals on the Pamir Highway and Wakhan Corridor. Local team in Dushanbe.",
-  openGraph: { images: ["/images/hero.jpg"] },
+    "Rent a Honda CRF300L in Dushanbe for the Pamir Highway, the Wakhan and journeys across the CIS.",
+  applicationName: "Pamir Moto Adventure",
+  category: "travel",
+  openGraph: {
+    type: "website",
+    siteName: "Pamir Moto Adventure",
+    images: [{ url: "/images/hero.jpg", alt: "Riders on the Pamir Highway" }],
+  },
+  twitter: { card: "summary_large_image" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
   icons: { icon: "/logo.svg" },
 };
 

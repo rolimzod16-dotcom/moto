@@ -1,6 +1,14 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { site } from "@/lib/site";
+import { staticMetadata } from "@/lib/seo";
+
+export const generateMetadata = staticMetadata({
+  path: "/request/success",
+  titleKey: "requestTitle",
+  descriptionKey: "requestDescription",
+  index: false,
+});
 
 export default async function SuccessPage({
   params,

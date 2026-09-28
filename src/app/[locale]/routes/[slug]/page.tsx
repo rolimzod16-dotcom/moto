@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
@@ -5,6 +6,31 @@ import { routes } from "@/lib/content";
 import { mapEmbed, t } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { InquiryBand } from "@/components/InquiryBand";
+import { JsonLd } from "@/components/JsonLd";
+import { absoluteUrl, breadcrumbLd, pageMetadata, SITE_URL } from "@/lib/seo";
+
+export function generateStaticParams() {
+  return routes.map((item) => ({ slug: item.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const route = routes.find((item) => item.slug === slug);
+  if (!route) return {};
+  const title = t(route.title, locale);
+  const ru = locale === "ru";
+  return pageMetadata({
+    locale,
+    path: `/routes/${slug}`,
+    title: ru ? `${title}: маршрут` : `${title} motorcycle route`,
+    description: t(route.summary, locale),
+    image: route.images[0],
+  });
+}
 
 export default async function RouteDetailPage({
   params,
@@ -27,10 +53,30 @@ export default async function RouteDetailPage({
     [copy("support"), t(route.supportOptions, locale)],
   ];
 
+  const title = t(route.title, locale);
   return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "TouristDestination",
+          name: title,
+          description: t(route.summary, locale),
+          url: absoluteUrl(locale, `/routes/${slug}`),
+          image: `${SITE_URL}${route.images[0]}`,
+          touristType: "Motorcycle riders and 4x4 travellers",
+        }}
+      />
+      <JsonLd
+        data={breadcrumbLd(locale, [
+          { name: nav("home"), path: "/" },
+          { name: nav("routes"), path: "/routes" },
+          { name: title },
+        ])}
+      />
     <article className="detail-page">
       <div className="relative min-h-[48vh] overflow-hidden bg-navy-deep text-cream">
-        <img src={route.images[0]} alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <img src={route.images[0]} alt={title} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
         <div className="shell relative flex min-h-[48vh] flex-col justify-end pb-12 pt-28">
           <Breadcrumbs
@@ -60,5 +106,6 @@ export default async function RouteDetailPage({
       </div>
       <InquiryBand locale={locale} />
     </article>
+    </>
   );
 }
