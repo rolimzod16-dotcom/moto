@@ -6,6 +6,8 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { BikeViewerLazy } from "@/components/BikeViewerLazy";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { InquiryBand } from "@/components/InquiryBand";
+import { RentalRates } from "@/components/RentalRates";
+import { TourRecommendations } from "@/components/TourRecommendations";
 import { t } from "@/lib/utils";
 
 export function generateStaticParams() {
@@ -54,7 +56,7 @@ export default async function MotorcycleDetailPage({
             <p className="mt-4 eyebrow text-gold">{bike.unitNumber}</p>
             <h1 className="mt-2 font-serif text-4xl md:text-5xl">{bike.model}</h1>
             <p className="mt-4 text-lg text-cream/90">{t(bike.note, locale)}</p>
-            <p className="mt-6 text-2xl font-semibold text-gold">{home("priceOnRequest")}</p>
+            <p className="mt-6 text-2xl font-semibold text-gold">{locale === "ru" ? "Аренда по дням" : "Daily motorcycle rental"}</p>
             <p className="mt-2 text-sm text-cream/70">
               {locale === "ru" ? "Доступность подтверждает команда." : "Availability is confirmed by the team."}
             </p>
@@ -88,6 +90,8 @@ export default async function MotorcycleDetailPage({
           </div>
         </div>
       </div>
+
+      <div className="shell rental-detail-pricing"><RentalRates locale={locale} rates={bike.rentalRates} bikeSlug={bike.publicStatus === "UNAVAILABLE" ? undefined : bike.slug} /></div>
 
       <div className="shell grid gap-12 py-16 lg:grid-cols-2">
         <section>
@@ -140,6 +144,7 @@ export default async function MotorcycleDetailPage({
           </Link>
         ))}
       </nav>
+      <TourRecommendations locale={locale} bikeSlug={bike.slug} />
       <InquiryBand locale={locale} />
     </article>
   );

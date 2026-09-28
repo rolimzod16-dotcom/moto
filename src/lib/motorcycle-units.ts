@@ -1,4 +1,5 @@
 import type { Localized } from "./utils";
+import { crf300lRentalRates } from "./rental-pricing";
 
 export type PublicStatus = "AVAILABLE" | "LIMITED" | "ON_REQUEST" | "UNAVAILABLE";
 
@@ -197,6 +198,7 @@ export const motorcycleUnits = [
   equipment: kits[unit.kit],
   optionalServices,
   priceNote: "Price on request",
+  rentalRates: crf300lRentalRates,
   depositNote: {
     en: "Refundable deposit confirmed in writing before the rental starts.",
     ru: "Возвратный депозит фиксируется письменно до начала аренды.",
