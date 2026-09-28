@@ -199,7 +199,7 @@ export function RequestForm({
             </div>
             <div className="field">
               <label htmlFor="end">{t("end")}</label>
-              <input id="end" type="date" required value={form.endDate} onChange={(e) => set("endDate", e.target.value)} />
+              <input id="end" type="date" required min={form.startDate || undefined} value={form.endDate} onChange={(e) => set("endDate", e.target.value)} />
             </div>
           </div>
           {form.type === "MOTORCYCLE" && rentalTier && <div className="request-rate-summary" role="status">
