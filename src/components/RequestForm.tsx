@@ -4,7 +4,8 @@ import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 import { tours, vehicles } from "@/lib/content";
-import { motorcycleUnits } from "@/lib/motorcycle-units";
+import { getMotorcycleUnit, motorcycleUnits } from "@/lib/motorcycle-units";
+import { getRentalRateTier } from "@/lib/rental-pricing";
 import { t as tr } from "@/lib/utils";
 
 const TYPES = ["MOTORCYCLE", "CAR", "TOUR", "GROUP", "CONTACT"] as const;
@@ -90,6 +91,14 @@ export function RequestForm({
     GROUP: t("group"),
     CONTACT: t("contact"),
   };
+  const rentalDays = useMemo(() => {
+    if (!form.startDate || !form.endDate) return 0;
+    const start = Date.parse(`${form.startDate}T00:00:00Z`);
+    const end = Date.parse(`${form.endDate}T00:00:00Z`);
+    return Number.isFinite(start) && Number.isFinite(end) ? Math.round((end - start) / 86400000) : 0;
+  }, [form.startDate, form.endDate]);
+  const rentalTier = getRentalRateTier(rentalDays);
+  const selectedRentalBike = getMotorcycleUnit(form.vehicle);
 
   function set<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -98,14 +107,14 @@ export function RequestForm({
   const canContinue = useMemo(() => {
     if (step === 1) return Boolean(form.type);
     if (step === 2 && form.type !== "CONTACT") {
-      return Boolean(form.startDate && form.endDate);
+      return rentalDays > 0;
     }
     if ((step === 2 && form.type === "CONTACT") || step === 3) {
       return Boolean(form.name && form.email && form.whatsapp);
     }
     if (step === total) return form.ack;
     return true;
-  }, [step, form, total]);
+  }, [step, form, total, rentalDays]);
 
   async function submit() {
     if (!form.ack) return;
@@ -193,6 +202,11 @@ export function RequestForm({
               <input id="end" type="date" required value={form.endDate} onChange={(e) => set("endDate", e.target.value)} />
             </div>
           </div>
+          {form.type === "MOTORCYCLE" && rentalTier && <div className="request-rate-summary" role="status">
+            <strong>{locale === "ru" ? `${rentalDays} дн. аренды · ${rentalTier === "upTo10" ? "1–10 дней" : rentalTier === "days11To30" ? "11–30 дней" : "от 31 дня"}` : `${rentalDays} rental days · ${rentalTier === "upTo10" ? "1–10 days" : rentalTier === "days11To30" ? "11–30 days" : "31+ days"}`}</strong>
+            <span>{selectedRentalBike?.rentalRates[rentalTier] == null ? (locale === "ru" ? "Ставка за день — по запросу" : "Daily rate — on request") : `$${selectedRentalBike.rentalRates[rentalTier]} / ${locale === "ru" ? "день" : "day"} · $${selectedRentalBike.rentalRates[rentalTier]! * rentalDays} ${locale === "ru" ? "за срок без доп. услуг" : "for the rental, before extras"}`}</span>
+            <small>{locale === "ru" ? "Длительность считается от даты получения до даты возврата. Окончательную стоимость подтвердит команда." : "Duration runs from pickup to return. The team confirms the final price."}</small>
+          </div>}
           <div className="field">
             <label htmlFor="flex">{t("flex")}</label>
             <select id="flex" value={form.flex} onChange={(e) => set("flex", e.target.value)}>
