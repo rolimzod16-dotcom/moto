@@ -55,7 +55,7 @@ export function StitchHero({ locale }: { locale: string }) {
   };
 
   return (
-    <section className="home-hero cinematic-hero" aria-label={copy("Motorcycle rental and journeys across the CIS", "Аренда мотоциклов и путешествия по СНГ")}>
+    <section className="home-hero cinematic-hero" aria-label={copy("Motorcycle and 4×4 rental, guided journeys", "Аренда мотоциклов и 4×4, готовые туры")}>
       {clips.map((clip, i) => (
         <div key={clip.src} className={i === index ? "home-hero-image scene-active" : "home-hero-image"} aria-hidden="true" style={{ opacity: i === index ? 1 : 0, transition: reduceMotion ? "none" : "opacity .7s ease" }}>
           <Image src={clip.poster} alt="" fill priority={i === 0} sizes="100vw" className="object-cover" />
@@ -79,7 +79,12 @@ export function StitchHero({ locale }: { locale: string }) {
         <div className="hero-copy">
           <p className="hero-kicker">PAMIR MOTO ADVENTURE <span aria-hidden="true">/</span> {copy("BORN IN THE PAMIRS", "РОДОМ ИЗ ПАМИРА")}</p>
           <h1>{copy("Rent a motorcycle.", "Арендуйте мотоцикл.")}<br /><span>{copy("Choose your road.", "Выбирайте дорогу.")}</span></h1>
-          <p className="hero-lede">{copy("Motorcycle rentals and guided rides across the CIS. Tell us your country and dates; we’ll confirm the bike, route and rental terms before you set off.", "Аренда мотоциклов и мотопутешествия по странам СНГ. Назовите страну и даты — мы уточним мотоцикл, маршрут и условия до поездки.")}</p>
+          <p className="hero-lede">{copy("Motorcycle rental comes first. Need a 4×4 or a ready-made tour? We arrange those too. Based in Tajikistan, planning journeys across the CIS on request.", "Главное — аренда мотоциклов. Нужен автомобиль 4×4 или готовый тур? Организуем и это. База в Таджикистане, поездки по СНГ — по запросу.")}</p>
+          <nav className="hero-services" aria-label={copy("Choose what you need", "Выберите формат поездки")}>
+            <Link href="/motorcycles"><span>01</span>{copy("Motorcycles", "Мотоциклы")}</Link>
+            <Link href="/cars"><span>02</span>{copy("4×4 rental", "Аренда 4×4")}</Link>
+            <Link href="/tours"><span>03</span>{copy("Ready-made tours", "Готовые туры")}</Link>
+          </nav>
           <div className="hero-actions">
             <Link href="/motorcycles" className="btn btn-primary hero-primary">{copy("Choose a motorcycle", "Выбрать мотоцикл")} <ArrowRight size={18} /></Link>
             <Link href="/request?type=MOTORCYCLE" className="btn btn-hero-outline">{copy("Check dates & terms", "Узнать условия и даты")} <ArrowRight size={18} /></Link>

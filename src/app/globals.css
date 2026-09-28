@@ -820,3 +820,34 @@ body { font-size: 1rem; line-height: 1.65; }
 .home-hero-overlay { background: linear-gradient(90deg,rgba(7,28,17,.86) 0%,rgba(7,28,17,.62) 46%,rgba(7,28,17,.08) 100%),linear-gradient(0deg,rgba(7,28,17,.65),transparent 35%); }
 .page-hero-shade { background: linear-gradient(90deg,rgba(7,28,17,.82),rgba(7,28,17,.16)),linear-gradient(0deg,rgba(7,28,17,.6),transparent 55%); }
 .brand-mark img { object-fit: contain; border-radius: 50%; }
+
+/* Make the three services legible at the first glance while keeping rental primary. */
+.hero-services { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.35rem; }
+.hero-services a { display: inline-flex; align-items: center; gap: .6rem; min-height: 2.65rem; padding: .48rem .85rem; border: 1px solid rgba(255,255,255,.55); border-radius: 2px; background: rgba(12,35,26,.68); color: #fff; font-size: .78rem; font-weight: 750; text-decoration: none; backdrop-filter: blur(8px); transition: background .2s, transform .2s; }
+.hero-services a:first-child { border-color: #cce9ad; background: rgba(30,103,61,.87); }
+.hero-services a:hover, .hero-services a:focus-visible { background: #fff; color: var(--ink); transform: translateY(-2px); }
+.hero-services a span { color: #d6edba; font-size: .65rem; letter-spacing: .06em; }
+.hero-services a:hover span, .hero-services a:focus-visible span { color: var(--rust); }
+.rental-options-grid { grid-template-columns: 1.2fr 1fr 1fr; gap: .85rem; }
+.rental-option { min-height: 385px; }
+.rental-option-car::before { background-image: url('/images/car-prado.jpg'); background-position: center; }
+.rental-option-car::after { background: linear-gradient(0deg,rgba(9,32,23,.89),rgba(9,32,23,.18) 85%); }
+.rental-option strong { font-size: clamp(1.7rem,2.6vw,2.8rem); }
+.rental-option-bike { box-shadow: inset 0 0 0 2px rgba(204,233,173,.65); }
+/* Sections use light surfaces; keep text readable even when earlier dark-section rules apply. */
+.story-copy h2, .route-experience-heading h2, .ride-signal-line, .ride-signal-facts p { color: var(--ink); }
+.story-copy > p:not(.eyebrow), .route-experience-heading > p, .story-points span { color: var(--ink-soft); }
+@media (max-width: 900px) {
+  .rental-options-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .rental-option-bike { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .cinematic-hero { min-height: max(760px,100svh); }
+  .cinematic-hero .hero-main { padding-top: 2.5rem; }
+  .hero-services { gap: .4rem; margin-top: 1rem; }
+  .hero-services a { min-height: 2.5rem; padding: .4rem .55rem; font-size: .7rem; }
+  .cinematic-hero .hero-actions { margin-top: 1rem; }
+  .rental-options-grid { grid-template-columns: 1fr; }
+  .rental-option-bike { grid-column: auto; }
+  .rental-option { min-height: 280px; }
+}
