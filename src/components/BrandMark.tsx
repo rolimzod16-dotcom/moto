@@ -7,7 +7,7 @@ export function BrandMark({ light = false }: { light?: boolean }) {
       <span className="leading-tight">
         <span className="brand-title block font-serif font-bold tracking-tight">Pamir <span>Moto Adventure</span></span>
         <span className={`brand-subtitle block text-[9px] font-semibold uppercase tracking-[0.13em] ${light ? "text-white/55" : "text-ink-soft"}`}>
-          Pamir Highway · Tajikistan
+          Motorcycle rental · CIS journeys
         </span>
       </span>
     </Link>

@@ -55,7 +55,7 @@ export function StitchHero({ locale }: { locale: string }) {
   };
 
   return (
-    <section className="home-hero cinematic-hero" aria-label={copy("Pamir motorcycle adventure", "Мотоэкспедиция по Памиру")}>
+    <section className="home-hero cinematic-hero" aria-label={copy("Motorcycle rental and journeys across the CIS", "Аренда мотоциклов и путешествия по СНГ")}>
       {clips.map((clip, i) => (
         <div key={clip.src} className={i === index ? "home-hero-image scene-active" : "home-hero-image"} aria-hidden="true" style={{ opacity: i === index ? 1 : 0, transition: reduceMotion ? "none" : "opacity .7s ease" }}>
           <Image src={clip.poster} alt="" fill priority={i === 0} sizes="100vw" className="object-cover" />
@@ -77,15 +77,16 @@ export function StitchHero({ locale }: { locale: string }) {
       <div className="home-hero-overlay" />
       <div className="shell hero-main relative z-10">
         <div className="hero-copy">
-          <p className="hero-kicker">PAMIR MOTORIDE <span aria-hidden="true">/</span> TAJIKISTAN</p>
-          <h1>{copy("Dust. Altitude.", "Пыль. Высота.")}<br /><span>{copy("Freedom.", "Свобода.")}</span></h1>
-          <p className="hero-lede">{copy("The Pamir Highway from the saddle. Real mountain roads, a local crew and every turn yours to remember.", "Памирский тракт с седла мотоцикла. Горные дороги, местная команда и повороты, которые останутся с вами.")}</p>
+          <p className="hero-kicker">PAMIR MOTO ADVENTURE <span aria-hidden="true">/</span> {copy("BORN IN THE PAMIRS", "РОДОМ ИЗ ПАМИРА")}</p>
+          <h1>{copy("Rent a motorcycle.", "Арендуйте мотоцикл.")}<br /><span>{copy("Choose your road.", "Выбирайте дорогу.")}</span></h1>
+          <p className="hero-lede">{copy("Motorcycle rentals and guided rides across the CIS. Tell us your country and dates; we’ll confirm the bike, route and rental terms before you set off.", "Аренда мотоциклов и мотопутешествия по странам СНГ. Назовите страну и даты — мы уточним мотоцикл, маршрут и условия до поездки.")}</p>
           <div className="hero-actions">
-            <Link href="/tours" className="btn btn-primary hero-primary">{copy("Explore expeditions", "Открыть экспедиции")} <ArrowRight size={18} /></Link>
-            <a href="#bike-spotlight" className="btn btn-hero-outline">{copy("Meet the bike", "Узнать про байк")} <ArrowDown size={18} /></a>
+            <Link href="/motorcycles" className="btn btn-primary hero-primary">{copy("Choose a motorcycle", "Выбрать мотоцикл")} <ArrowRight size={18} /></Link>
+            <Link href="/request?type=MOTORCYCLE" className="btn btn-hero-outline">{copy("Check dates & terms", "Узнать условия и даты")} <ArrowRight size={18} /></Link>
           </div>
+          <p className="hero-availability">{copy("Based in Tajikistan · CIS travel by arrangement", "База в Таджикистане · поездки по СНГ по согласованию")}</p>
         </div>
-        <p className="cinematic-hero-side" aria-hidden="true">38°34′ N &nbsp; 71°54′ E <span>/</span> THE PAMIRS</p>
+        <p className="cinematic-hero-side" aria-hidden="true">MOTORCYCLE RENTAL <span>/</span> CIS JOURNEYS</p>
       </div>
       <div className="shell relative z-10 hero-bottom">
         <div className="clip-bar" aria-label={copy("Choose a video scene", "Выберите видео")}>
@@ -95,7 +96,7 @@ export function StitchHero({ locale }: { locale: string }) {
           </button>)}
           <button type="button" className="clip-btn clip-pause" onClick={() => setPlaying((value) => !value)} aria-label={playing ? copy("Pause video", "Остановить видео") : copy("Play video", "Включить видео")}>{playing ? <Pause size={17} /> : <Play size={17} />}</button>
         </div>
-        <a className="hero-scroll" href="#bike-spotlight">{copy("Discover the machine", "Знакомьтесь с байком")} <ArrowRight size={17} aria-hidden="true"/></a>
+        <a className="hero-scroll" href="#rental-options">{copy("How to ride with us", "Варианты поездки")} <ArrowDown size={17} aria-hidden="true"/></a>
       </div>
     </section>
   );

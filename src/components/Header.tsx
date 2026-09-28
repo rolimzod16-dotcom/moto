@@ -33,7 +33,7 @@ export function Header() {
     <header className="site-header">
       <div className="topline">
         <div className="shell topline-inner">
-          <span className="topline-destination">{locale === "ru" ? "Мотоэкспедиции по Памиру / Таджикистан" : "Motorcycle journeys / Tajikistan"}</span>
+          <span className="topline-destination">{locale === "ru" ? "Аренда мотоциклов и мотопутешествия по СНГ" : "Motorcycle rental and journeys across the CIS"}</span>
           <span className="topline-spacer" />
           <a className="topline-accent" href={site.whatsappHref} target="_blank" rel="noreferrer">
             {site.phone}
