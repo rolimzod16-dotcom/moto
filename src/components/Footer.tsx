@@ -9,7 +9,7 @@ export async function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto bg-[#0a1117] text-slate-300">
+    <footer className="mt-auto bg-navy-deep text-slate-300">
       <div className="shell grid gap-10 py-16 md:grid-cols-4">
         <div className="md:col-span-2">
           <BrandMark light />

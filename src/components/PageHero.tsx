@@ -4,7 +4,7 @@ export function PageHero({ title, intro, image }: { title: string; intro: string
       {image ? <img src={image} alt="" className="absolute inset-0 -z-20 h-full w-full object-cover" /> : null}
       <div className="page-hero-shade absolute inset-0 -z-10" />
       <div className="shell relative pb-14 pt-28 md:pb-20">
-        <p className="eyebrow text-gold">Pamir Motoride / Tajikistan</p>
+        <p className="eyebrow text-gold">Pamir Moto Adventure / Motorcycle rental</p>
         <h1 className="mt-5 max-w-4xl font-serif">
           {title}
         </h1>
