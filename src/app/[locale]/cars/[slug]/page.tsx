@@ -81,7 +81,7 @@ export default async function CarDetailPage({
         <div className="shell grid gap-10 pb-16 lg:grid-cols-2">
           <PhotoGallery images={car.images} alt={`${car.make} ${car.model}`} />
           <div>
-            <StatusBadge status={car.publicStatus} />
+            <StatusBadge status={car.publicStatus} locale={locale} />
             <h1 className="mt-4 font-serif text-4xl md:text-5xl">
               {car.make} {car.model}
             </h1>

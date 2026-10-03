@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Plus_Jakarta_Sans, Syne, Source_Sans_3 } from "next/font/google";
+import { getLocale } from "next-intl/server";
 import { Analytics } from "@vercel/analytics/react";
 import { SITE_URL } from "@/lib/seo";
 import "./globals.css";
@@ -47,9 +48,10 @@ export const metadata: Metadata = {
   icons: { icon: "/logo.svg" },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const locale = await getLocale();
   return (
-    <html lang="en" className={`${jakarta.variable} ${syne.variable} ${source.variable} h-full antialiased`}>
+    <html lang={locale} className={`${jakarta.variable} ${syne.variable} ${source.variable} h-full antialiased`}>
       <body className="min-h-full bg-paper font-sans text-ink">
         {children}
         <Analytics />

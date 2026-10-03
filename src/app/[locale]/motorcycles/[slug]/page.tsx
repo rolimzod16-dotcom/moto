@@ -94,7 +94,7 @@ export default async function MotorcycleDetailPage({
         <div className="shell grid gap-10 pb-16 lg:grid-cols-2">
           <BikeViewerLazy label={copy("viewerLabel")} hint={copy("viewerHint")} resetLabel={copy("resetView")} />
           <div className="flex flex-col justify-center">
-            <StatusBadge status={bike.publicStatus} />
+            <StatusBadge status={bike.publicStatus} locale={locale} />
             <p className="mt-4 eyebrow text-gold">{bike.unitNumber}</p>
             <h1 className="mt-2 font-serif text-4xl md:text-5xl">{bike.model}</h1>
             <p className="mt-4 text-lg text-cream/90">{t(bike.note, locale)}</p>
