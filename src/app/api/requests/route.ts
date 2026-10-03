@@ -3,6 +3,7 @@ import { z } from "zod";
 import { RequestType } from "@prisma/client";
 import { getDb } from "@/lib/db";
 import { site } from "@/lib/site";
+import { notifyNewEnquiry } from "@/lib/telegram";
 
 const schema = z.object({
   type: z.enum(["MOTORCYCLE", "CAR", "TOUR", "GROUP", "CONTACT"]),
@@ -84,6 +85,12 @@ export async function POST(request: Request) {
         text: JSON.stringify(parsed, null, 2),
       });
     }
+
+    await notifyNewEnquiry({
+      reference: enquiry.reference,
+      warning,
+      payload: { ...payload, availabilityWarning: warning },
+    });
 
     return NextResponse.json({ reference: enquiry.reference, warning });
   } catch (error) {

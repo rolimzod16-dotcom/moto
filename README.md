@@ -33,3 +33,4 @@ Roles: Administrator, Sales, Operations, Content Editor (seed includes Admin and
 - Reviews stay empty until the client supplies approved guest quotes.
 - Contact phone and WhatsApp are placeholders until the client confirms live numbers.
 - Email sending uses Resend when `RESEND_API_KEY` is present.
+- Every enquiry (motorcycle, car, tour, group, contact) is also sent to Telegram when `TELEGRAM_BOT_TOKEN` is set. Staff open the bot with the start link that includes `TELEGRAM_JOIN_CODE`. Chat ids are stored in the `Setting` row `telegram`.
