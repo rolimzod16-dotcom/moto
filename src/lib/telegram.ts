@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "crypto";
 import { getDb } from "@/lib/db";
 
 const TYPE_LABELS: Record<string, string> = {
@@ -158,7 +159,10 @@ const BY_TYPE: Record<string, string[]> = {
 
 const SKIP = new Set(["ack", "type", "locale", ...Object.keys(EXTRA_LABELS)]);
 
-type TelegramSetting = { chatIds?: string[] };
+type TelegramSetting = { auth?: string; chatIds?: string[] };
+
+const PASSWORD_PROMPT = "Доступ закрыт. Отправьте пароль одним сообщением, без лишнего текста.";
+const PASSWORD_OK = "Пароль принят. Сюда будут приходить все заявки с pamirmoto.com: мотоциклы, авто, туры, группы и вопросы.";
 
 function escapeHtml(value: string) {
   return value
@@ -232,57 +236,62 @@ export function formatEnquiryMessage(reference: string, payload: Record<string, 
   return message.length > 4000 ? `${message.slice(0, 3990)}…` : message;
 }
 
-function joinCodeFrom(text: string) {
-  const match = text.trim().match(/^\/start(?:@\w+)?(?:\s+(\S+))?/i);
-  if (!match) return null;
-  return match[1] || "";
-}
-
 export function chatIdFromUpdate(update: Record<string, unknown>) {
-  const message = (update.message || update.edited_message || update.channel_post) as
-    | { chat?: { id?: number | string }; text?: string }
+  const message = (update.message || update.edited_message) as
+    | { chat?: { id?: number | string; type?: string }; text?: string }
     | undefined;
-  const member = update.my_chat_member as { chat?: { id?: number | string } } | undefined;
-  const chat = message?.chat || member?.chat;
+  const chat = message?.chat;
   if (!chat?.id) return null;
-  return { chatId: String(chat.id), text: message?.text || "" };
+  return { chatId: String(chat.id), text: message?.text || "", chatType: chat.type || "" };
 }
 
-export function joinCodeMatches(text: string) {
-  const expected = process.env.TELEGRAM_JOIN_CODE || "";
-  if (!expected) return false;
-  return joinCodeFrom(text) === expected;
+export function passwordMatches(text: string) {
+  const expected = process.env.TELEGRAM_BOT_PASSWORD || "";
+  const given = text.trim();
+  if (!expected || !given) return false;
+  const left = Buffer.from(given);
+  const right = Buffer.from(expected);
+  if (left.length !== right.length) return false;
+  return timingSafeEqual(left, right);
+}
+
+async function readTelegramSetting() {
+  const row = await getDb().setting.findUnique({ where: { id: "telegram" } });
+  return (row?.data as TelegramSetting | null) || {};
 }
 
 async function readStoredChatIds() {
-  const row = await getDb().setting.findUnique({ where: { id: "telegram" } });
-  const data = row?.data as TelegramSetting | null;
-  return Array.isArray(data?.chatIds) ? data.chatIds.map(String) : [];
+  const data = await readTelegramSetting();
+  if (data.auth !== "password" || !Array.isArray(data.chatIds)) return [];
+  return data.chatIds.map(String);
+}
+
+async function writeChatIds(chatIds: string[]) {
+  await getDb().setting.upsert({
+    where: { id: "telegram" },
+    create: { id: "telegram", data: { auth: "password", chatIds } },
+    update: { data: { auth: "password", chatIds } },
+  });
 }
 
 export async function rememberChat(chatId: string) {
-  const db = getDb();
-  const existing = await readStoredChatIds();
-  const chatIds = [...new Set([...existing, chatId])];
-  await db.setting.upsert({
-    where: { id: "telegram" },
-    create: { id: "telegram", data: { chatIds } },
-    update: { data: { chatIds } },
-  });
+  const chatIds = [...new Set([...(await readStoredChatIds()), chatId])];
+  await writeChatIds(chatIds);
+  return chatIds;
+}
+
+export async function forgetChat(chatId: string) {
+  const chatIds = (await readStoredChatIds()).filter((id) => id !== chatId);
+  await writeChatIds(chatIds);
   return chatIds;
 }
 
 async function destinationChatIds() {
-  const envIds = (process.env.TELEGRAM_CHAT_ID || "")
-    .split(/[,\s]+/)
-    .map((item) => item.trim())
-    .filter(Boolean);
   try {
-    const stored = await readStoredChatIds();
-    return [...new Set([...envIds, ...stored])];
+    return await readStoredChatIds();
   } catch (error) {
     console.error("Telegram chat lookup failed", error);
-    return envIds;
+    return [];
   }
 }
 
@@ -312,8 +321,41 @@ async function discoverChats(token: string) {
   if (!response.ok || data.ok === false || !Array.isArray(data.result)) return;
   for (const update of data.result) {
     const parsed = chatIdFromUpdate(update);
-    if (parsed && joinCodeMatches(parsed.text)) await rememberChat(parsed.chatId);
+    if (parsed?.chatType === "private" && passwordMatches(parsed.text)) await rememberChat(parsed.chatId);
   }
+}
+
+export async function handleTelegramMessage(input: { chatId: string; text: string; chatType: string }) {
+  if (input.chatType !== "private") {
+    await sendTelegramMessage(input.chatId, "Заявки приходят только в личный чат. Откройте бота и отправьте пароль там.");
+    return;
+  }
+
+  const text = input.text.trim();
+  if (/^\/stop(?:@\w+)?$/i.test(text)) {
+    await forgetChat(input.chatId);
+    await sendTelegramMessage(input.chatId, "Уведомления выключены. Чтобы снова получать заявки, отправьте пароль.");
+    return;
+  }
+
+  const already = (await readStoredChatIds()).includes(input.chatId);
+  if (passwordMatches(text)) {
+    await rememberChat(input.chatId);
+    await sendTelegramMessage(
+      input.chatId,
+      already ? "Пароль принят. Заявки уже приходят в этот чат." : PASSWORD_OK,
+    );
+    return;
+  }
+
+  if (already) {
+    if (/^\/start(?:@\w+)?(?:\s|$)/i.test(text)) {
+      await sendTelegramMessage(input.chatId, "Вы уже подключены. Новые заявки приходят в этот чат.");
+    }
+    return;
+  }
+
+  await sendTelegramMessage(input.chatId, PASSWORD_PROMPT);
 }
 
 export async function sendTelegramMessage(chatId: string, text: string) {
@@ -341,7 +383,7 @@ export async function notifyNewEnquiry(input: {
       chatIds = await destinationChatIds();
     }
     if (!chatIds.length) {
-      console.error("Telegram: no staff chat yet. Open the bot with the team start link.");
+      console.error("Telegram: no password-authorized chat yet.");
       return;
     }
     const text = formatEnquiryMessage(input.reference, input.payload, input.warning);
