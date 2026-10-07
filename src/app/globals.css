@@ -856,7 +856,7 @@ body { font-size: 1rem; line-height: 1.65; }
 .editor-section summary { cursor: pointer; font-size: 1.15rem; font-weight: 750; }
 .editor-block { display: grid; gap: .55rem; }
 .editor-grid { display: grid; gap: 1rem; }
-.editor-grid.two { grid-template-columns: 1fr; }
+.editor-grid.two, .editor-grid.three { grid-template-columns: 1fr; }
 .publish-toggle { display: flex; align-items: center; gap: .75rem; font-size: 1.15rem; font-weight: 750; }
 .publish-toggle input { width: 1.25rem; height: 1.25rem; }
 .editor-note, .editor-error { border-radius: 14px; padding: .85rem 1rem; }
@@ -874,6 +874,7 @@ body { font-size: 1rem; line-height: 1.65; }
 @media (min-width: 800px) {
   .catalog-grid { grid-template-columns: 1fr 1fr; }
   .editor-grid.two { grid-template-columns: 1fr 1fr; }
+  .editor-grid.three { grid-template-columns: 1fr 1fr 1fr; }
 }
 @media (max-width: 640px) {
   .catalog-card, .image-picker { grid-template-columns: 1fr; }

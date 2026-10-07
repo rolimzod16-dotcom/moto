@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { saveCatalogAction } from "@/app/admin/catalog/actions";
 import type { CatalogKind, CatalogRecord, FaqCard, MotorcycleCard, RouteCard, TourCard, VehicleCard } from "@/lib/catalog";
+import type { RentalRates } from "@/lib/rental-pricing";
 import type { Localized } from "@/lib/utils";
 import { ImagePicker } from "./ImagePicker";
 
@@ -268,6 +269,41 @@ function MotorcycleForm({ initial, onSubmit, ...frame }: FrameProps & { initial:
           Последнее ТО
           <input value={bike.lastService} onChange={(event) => set({ lastService: event.target.value })} placeholder="2026-09-01" />
         </label>
+      </section>
+      <section className="editor-section">
+        <div>
+          <h2 className="font-serif text-2xl">Ставка за день, USD</h2>
+          <p className="mt-2 text-ink-soft">
+            Те же три срока, что на сайте: 1–10 дней, 11–30 дней и от 31 дня. Впишите сумму за один день. Пустое поле остаётся «по запросу».
+            Если заполнить здесь, эта цена появится и у остальных мотоциклов, пока у них поля пустые.
+          </p>
+        </div>
+        <div className="editor-grid three">
+          {(
+            [
+              ["upTo10", "1–10 дней"],
+              ["days11To30", "11–30 дней"],
+              ["day31Plus", "от 31 дня"],
+            ] as const
+          ).map(([key, label]) => (
+            <label key={key} className="field">
+              {label}
+              <input
+                type="number"
+                min={1}
+                max={100000}
+                inputMode="numeric"
+                placeholder="по запросу"
+                value={bike.rentalRates[key] ?? ""}
+                onChange={(event) => {
+                  const raw = event.target.value.trim();
+                  const next: RentalRates = { ...bike.rentalRates, [key]: raw === "" ? null : Number(raw) };
+                  set({ rentalRates: next });
+                }}
+              />
+            </label>
+          ))}
+        </div>
       </section>
       <section className="editor-section">
         <ImagePicker label="Фото" value={bike.images[0] || ""} onChange={(image) => set({ images: [image, ...bike.images.slice(1)].filter(Boolean) })} />

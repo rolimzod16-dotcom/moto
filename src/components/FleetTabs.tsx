@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Link } from "@/i18n/routing";
 import type { MotorcycleCard, VehicleCard } from "@/lib/catalog";
+import { dailyFromLabel } from "@/lib/rental-pricing";
 import { StatusBadge } from "./StatusBadge";
 
 export function FleetTabs({ locale, bikes, cars }: { locale: string; bikes: MotorcycleCard[]; cars: VehicleCard[] }) {
@@ -40,7 +41,7 @@ export function FleetTabs({ locale, bikes, cars }: { locale: string; bikes: Moto
                 </div>
                 <h3 className="mt-2 font-serif text-xl font-bold">{bike.model}</h3>
                 <p className="mt-2 text-sm text-ink-soft">{bike.specs.engine}</p>
-                <p className="mt-4 font-extrabold text-rust">{ru ? "Цена по запросу" : "Price on request"}</p>
+                <p className="mt-4 font-extrabold text-rust">{dailyFromLabel(bike.rentalRates, ru)}</p>
                 <Link href={`/motorcycles/${bike.slug}`} className="btn btn-ghost mt-4 w-full">
                   {ru ? "Смотреть" : "View bike"}
                 </Link>

@@ -2,6 +2,7 @@ import type { Prisma } from "@prisma/client";
 import { getDb } from "@/lib/db";
 import { faqs, routes, tours, vehicles } from "@/lib/content";
 import { motorcycleUnits } from "@/lib/motorcycle-units";
+import { hasRentalRate, sharedRentalRates, type RentalRates } from "@/lib/rental-pricing";
 import type { Localized } from "@/lib/utils";
 
 export const CATALOG_KINDS = ["motorcycle", "tour", "vehicle", "route", "faq"] as const;
@@ -151,6 +152,23 @@ function whole(value: unknown, fallback: number, min: number, max: number) {
   return Math.min(max, Math.max(min, Math.round(number)));
 }
 
+function money(value: unknown) {
+  if (value === null || value === undefined || value === "") return null;
+  const raw = typeof value === "number" ? String(value) : String(value).trim().replace(",", ".");
+  const number = Number(raw.replace(/[^0-9.]/g, ""));
+  if (!Number.isFinite(number) || number < 1 || number > 100000) return null;
+  return Math.round(number);
+}
+
+function ratesOf(value: unknown): RentalRates {
+  const row = value && typeof value === "object" ? (value as Record<string, unknown>) : {};
+  return {
+    upTo10: money(row.upTo10),
+    days11To30: money(row.days11To30),
+    day31Plus: money(row.day31Plus),
+  };
+}
+
 function normalizeMotorcycle(data: unknown, fallback: MotorcycleCard): MotorcycleCard | null {
   if (!data || typeof data !== "object") return null;
   const row = data as Record<string, unknown>;
@@ -181,7 +199,7 @@ function normalizeMotorcycle(data: unknown, fallback: MotorcycleCard): Motorcycl
     equipment: localizedList(row.equipment, fallback.equipment),
     optionalServices: localizedList(row.optionalServices, fallback.optionalServices),
     priceNote: "Price on request",
-    rentalRates: fallback.rentalRates,
+    rentalRates: ratesOf(row.rentalRates),
     depositNote: localized(row.depositNote, fallback.depositNote),
     images: imageList(row.images, fallback.images),
   };
@@ -382,8 +400,11 @@ async function readKind<T extends CatalogRecord>(kind: CatalogKind, base: T[]): 
   }
 }
 
-export function getPublicMotorcycles(): Promise<MotorcycleCard[]> {
-  return readKind("motorcycle", motorcycleUnits);
+export async function getPublicMotorcycles(): Promise<MotorcycleCard[]> {
+  const items = await readKind("motorcycle", motorcycleUnits);
+  const shared = sharedRentalRates(items.map((item) => item.rentalRates));
+  if (!hasRentalRate(shared)) return items;
+  return items.map((item) => (hasRentalRate(item.rentalRates) ? item : { ...item, rentalRates: shared }));
 }
 
 export async function getPublicMotorcycle(slug: string) {
