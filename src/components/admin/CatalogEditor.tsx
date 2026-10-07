@@ -143,8 +143,9 @@ function Frame({
           <h1 className="mt-2 font-serif text-4xl">{title}</h1>
           <p className="mt-2 max-w-2xl text-ink-soft">
             {mode === "create"
-              ? "Карточка уже заполнена по образцу. Поменяйте название, фото и текст, затем сохраните."
-              : "Пустое русское поле на сайте заменяется английским, и наоборот."}
+              ? "Карточка уже заполнена по образцу. Поменяйте название, фото и текст, затем сохраните. Ссылку писать не нужно: адрес страницы и кнопка заявки соберутся сами."
+              : "Пустое русское поле на сайте заменяется английским, и наоборот. Ссылка страницы остаётся прежней."}
+            {kind === "tour" || kind === "route" ? " Карта тоже строится по названию." : ""}
           </p>
         </div>
       </div>
@@ -421,10 +422,6 @@ function TourForm({ initial, onSubmit, ...frame }: FrameProps & { initial: TourC
         <Pair label="Сопровождение" value={tour.support} onChange={(support) => set({ support })} />
         <LinePair label="Входит в тур" hint="Каждая строка — отдельный пункт." items={tour.inclusions} onChange={(inclusions) => set({ inclusions })} />
         <LinePair label="Не входит" hint="Каждая строка — отдельный пункт." items={tour.exclusions} onChange={(exclusions) => set({ exclusions })} />
-        <label className="field">
-          Запрос для карты
-          <input value={tour.mapQuery} onChange={(event) => set({ mapQuery: event.target.value })} />
-        </label>
       </details>
     </Frame>
   );
@@ -515,10 +512,6 @@ function RouteForm({ initial, onSubmit, ...frame }: FrameProps & { initial: Rout
         <Pair label="Какой опыт нужен" value={route.experience} onChange={(experience) => set({ experience })} />
         <Pair label="Разрешения" value={route.permits} onChange={(permits) => set({ permits })} />
         <Pair label="Сопровождение" value={route.supportOptions} onChange={(supportOptions) => set({ supportOptions })} />
-        <label className="field">
-          Запрос для карты
-          <input value={route.mapQuery} onChange={(event) => set({ mapQuery: event.target.value })} />
-        </label>
       </section>
     </Frame>
   );

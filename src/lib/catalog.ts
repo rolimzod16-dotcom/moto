@@ -98,6 +98,13 @@ function written(value: unknown, fallback: string, max = 80) {
   return value.replace(/\u0000/g, "").trim().slice(0, max);
 }
 
+function placeQuery(title: Localized, fallback: string) {
+  const name = (title.ru || title.en).replace(/\s+/g, " ").trim();
+  if (!name) return fallback;
+  const query = /таджик|tajik/i.test(name) ? name : `${name}, Tajikistan`;
+  return query.slice(0, 160);
+}
+
 function localized(value: unknown, fallback: Localized): Localized {
   if (!value || typeof value !== "object") return fallback;
   const row = value as { en?: unknown; ru?: unknown };
@@ -231,11 +238,12 @@ function normalizeTour(data: unknown, fallback: TourCard): TourCard | null {
   if (!data || typeof data !== "object") return null;
   const row = data as Record<string, unknown>;
   const type = row.type === "private" || row.type === "scheduled" ? row.type : fallback.type;
+  const title = localized(row.title, fallback.title);
   return {
     ...fallback,
     slug: text(row.slug, fallback.slug, 80),
     type,
-    title: localized(row.title, fallback.title),
+    title,
     summary: localized(row.summary, fallback.summary),
     durationDays: whole(row.durationDays, fallback.durationDays, 1, 60),
     dates: dateList(row.dates, fallback.dates),
@@ -254,7 +262,7 @@ function normalizeTour(data: unknown, fallback: TourCard): TourCard | null {
     experience: localized(row.experience, fallback.experience),
     support: localized(row.support, fallback.support),
     roadLabel: localized(row.roadLabel, fallback.roadLabel),
-    mapQuery: text(row.mapQuery, fallback.mapQuery, 160),
+    mapQuery: placeQuery(title, fallback.mapQuery),
     images: imageList(row.images, fallback.images),
   };
 }
@@ -287,10 +295,11 @@ function normalizeVehicle(data: unknown, fallback: VehicleCard): VehicleCard | n
 function normalizeRoute(data: unknown, fallback: RouteCard): RouteCard | null {
   if (!data || typeof data !== "object") return null;
   const row = data as Record<string, unknown>;
+  const title = localized(row.title, fallback.title);
   return {
     ...fallback,
     slug: text(row.slug, fallback.slug, 80),
-    title: localized(row.title, fallback.title),
+    title,
     summary: localized(row.summary, fallback.summary),
     startFinish: localized(row.startFinish, fallback.startFinish),
     season: localized(row.season, fallback.season),
@@ -299,7 +308,7 @@ function normalizeRoute(data: unknown, fallback: RouteCard): RouteCard | null {
     permits: localized(row.permits, fallback.permits),
     supportOptions: localized(row.supportOptions, fallback.supportOptions),
     images: imageList(row.images, fallback.images),
-    mapQuery: text(row.mapQuery, fallback.mapQuery, 160),
+    mapQuery: placeQuery(title, fallback.mapQuery),
   };
 }
 
@@ -607,13 +616,12 @@ export async function getEditorState(kind: CatalogKind, slug: string | null, fro
   };
 }
 
-function desiredSlug(kind: CatalogKind, data: CatalogRecord, requested: string) {
-  if (requested.trim()) return slugify(requested);
+function desiredSlug(kind: CatalogKind, data: CatalogRecord) {
   if (kind === "motorcycle") return slugify((data as MotorcycleCard).unitNumber);
-  if (kind === "tour") return slugify((data as TourCard).title.en || (data as TourCard).title.ru);
+  if (kind === "tour") return slugify((data as TourCard).title.ru || (data as TourCard).title.en);
   if (kind === "vehicle") return slugify(`${(data as VehicleCard).make} ${(data as VehicleCard).model}`);
-  if (kind === "route") return slugify((data as RouteCard).title.en || (data as RouteCard).title.ru);
-  return slugify((data as FaqCard).question.en || (data as FaqCard).question.ru);
+  if (kind === "route") return slugify((data as RouteCard).title.ru || (data as RouteCard).title.en);
+  return slugify((data as FaqCard).question.ru || (data as FaqCard).question.en);
 }
 
 export async function writeCatalog(input: {
@@ -636,10 +644,8 @@ export async function writeCatalog(input: {
   if (problem) return { ok: false as const, error: problem };
 
   const motorcycleSlug = input.kind === "motorcycle" ? slugify((normalized as MotorcycleCard).unitNumber) : "";
-  let slug = editing || motorcycleSlug || desiredSlug(input.kind, normalized, input.slug);
-  if (!slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
-    return { ok: false as const, error: "Не получилось сделать адрес страницы. Напишите название латиницей или по-русски." };
-  }
+  let slug = editing || motorcycleSlug || desiredSlug(input.kind, normalized) || input.kind;
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) slug = input.kind;
 
   if (editing) {
     const known = base.some((item) => item.slug === editing) || rows.some((row) => row.slug === editing);
