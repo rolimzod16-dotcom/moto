@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/PageHero";
 import { RequestForm } from "@/components/RequestForm";
+import { getPublicMotorcycles, getPublicTours, getPublicVehicles } from "@/lib/catalog";
 import { staticMetadata } from "@/lib/seo";
 
 export const generateMetadata = staticMetadata({
@@ -9,6 +10,8 @@ export const generateMetadata = staticMetadata({
   descriptionKey: "requestDescription",
   image: "/images/hero.jpg",
 });
+
+export const dynamic = "force-dynamic";
 
 export default async function RequestPage({
   params,
@@ -26,6 +29,7 @@ export default async function RequestPage({
   const tour = typeof query.tour === "string" ? query.tour : "";
   const route = typeof query.route === "string" ? query.route : "";
   const start = typeof query.start === "string" && /^\d{4}-\d{2}-\d{2}$/.test(query.start) ? query.start : "";
+  const [bikes, tours, cars] = await Promise.all([getPublicMotorcycles(), getPublicTours(), getPublicVehicles()]);
 
   return (
     <>
@@ -44,6 +48,9 @@ export default async function RequestPage({
           defaultTour={tour}
           defaultRoute={route}
           defaultStartDate={start}
+          bikes={bikes}
+          tours={tours}
+          cars={cars}
         />
         </div>
       </div>

@@ -17,7 +17,7 @@ export default async function AdminHome() {
 
   return (
     <div>
-      <h1 className="font-serif text-4xl">Dashboard</h1>
+      <h1 className="font-serif text-4xl">Обзор</h1>
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
         <div className="rounded border border-line bg-cream p-5">
           <p className="text-sm font-bold uppercase text-ink-soft">New requests</p>
@@ -31,6 +31,20 @@ export default async function AdminHome() {
           <p className="text-sm font-bold uppercase text-ink-soft">Holds / confirmed</p>
           <p className="font-serif text-4xl">{holds}</p>
         </div>
+      </div>
+      <h2 className="mt-10 font-serif text-2xl">Каталог на сайте</h2>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {[
+          ["/admin/catalog/motorcycle", "Мотоциклы"],
+          ["/admin/catalog/tour", "Туры"],
+          ["/admin/catalog/vehicle", "Машины"],
+          ["/admin/catalog/route", "Маршруты"],
+          ["/admin/catalog/faq", "Вопросы"],
+        ].map(([href, label]) => (
+          <Link key={href} href={href} className="rounded border border-line bg-cream p-5 font-semibold text-navy no-underline">
+            {label}
+          </Link>
+        ))}
       </div>
       <h2 className="mt-10 font-serif text-2xl">Latest requests</h2>
       <ul className="mt-4 divide-y divide-line rounded border border-line bg-cream">

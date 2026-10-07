@@ -837,6 +837,48 @@ body { font-size: 1rem; line-height: 1.65; }
 /* Sections use light surfaces; keep text readable even when earlier dark-section rules apply. */
 .story-copy h2, .route-experience-heading h2, .ride-signal-line, .ride-signal-facts p { color: var(--ink); }
 .story-copy > p:not(.eyebrow), .route-experience-heading > p, .story-points span { color: var(--ink-soft); }
+
+.admin-shell aside nav a[aria-current="page"] { background: rgba(255,255,255,.16); }
+.catalog-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+.catalog-grid { display: grid; gap: 1rem; margin-top: 1.5rem; }
+.catalog-card { display: grid; grid-template-columns: 128px 1fr; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+.catalog-card img { width: 128px; height: 100%; min-height: 148px; object-fit: cover; }
+.catalog-card > div { padding: 1rem 1.1rem 1.15rem; }
+.catalog-card h2 { margin-top: .35rem; font-family: var(--font-serif, Georgia), serif; font-size: 1.45rem; line-height: 1.2; }
+.catalog-card p { color: var(--ink-soft); }
+.catalog-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .9rem; }
+.catalog-actions .btn { min-height: 2.6rem; padding: .4rem .8rem; }
+.status-live, .status-hidden { display: inline-flex; border-radius: 999px; padding: .2rem .65rem; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.status-live { background: #e7f5df; color: #1d5a32; }
+.status-hidden { background: #f3e6d8; color: #8a4b12; }
+.editor-form { display: grid; gap: 1rem; max-width: 980px; }
+.editor-section { display: grid; gap: 1rem; border: 1px solid var(--line); border-radius: 18px; background: #fff; padding: 1.15rem; }
+.editor-section summary { cursor: pointer; font-size: 1.15rem; font-weight: 750; }
+.editor-block { display: grid; gap: .55rem; }
+.editor-grid { display: grid; gap: 1rem; }
+.editor-grid.two { grid-template-columns: 1fr; }
+.publish-toggle { display: flex; align-items: center; gap: .75rem; font-size: 1.15rem; font-weight: 750; }
+.publish-toggle input { width: 1.25rem; height: 1.25rem; }
+.editor-note, .editor-error { border-radius: 14px; padding: .85rem 1rem; }
+.editor-note { background: #e7f5df; color: #1d5a32; }
+.editor-error { background: #fde8e2; color: #9a3412; }
+.image-picker { display: grid; grid-template-columns: 148px 1fr; gap: 1rem; align-items: center; }
+.image-picker img { width: 148px; height: 110px; object-fit: cover; border-radius: 12px; }
+.image-picker .btn { position: relative; overflow: hidden; width: fit-content; }
+.image-picker input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.image-library { display: flex; gap: .45rem; overflow-x: auto; padding-bottom: .2rem; }
+.image-library button { width: 74px; height: 56px; flex: none; overflow: hidden; border-radius: 8px; border: 2px solid transparent; padding: 0; }
+.image-library button.is-selected { border-color: var(--rust); }
+.image-library img { width: 100%; height: 100%; object-fit: cover; }
+.save-bar { position: sticky; bottom: .8rem; display: flex; justify-content: flex-end; gap: .7rem; border-radius: 16px; background: var(--navy-deep); padding: .7rem; }
+@media (min-width: 800px) {
+  .catalog-grid { grid-template-columns: 1fr 1fr; }
+  .editor-grid.two { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .catalog-card, .image-picker { grid-template-columns: 1fr; }
+  .catalog-card img, .image-picker img { width: 100%; height: 180px; }
+}
 @media (max-width: 900px) {
   .rental-options-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .rental-option-bike { grid-column: 1 / -1; }

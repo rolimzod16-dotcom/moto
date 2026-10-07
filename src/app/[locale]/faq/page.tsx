@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { faqs } from "@/lib/content";
+import { getPublicFaqs } from "@/lib/catalog";
 import { PageHero } from "@/components/PageHero";
 import { InquiryBand } from "@/components/InquiryBand";
 import { JsonLd } from "@/components/JsonLd";
@@ -13,10 +13,13 @@ export const generateMetadata = staticMetadata({
   image: "/images/karakul.jpg",
 });
 
+export const dynamic = "force-dynamic";
+
 export default async function FaqPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const copy = await getTranslations("faq");
+  const faqs = await getPublicFaqs();
 
   return (
     <>

@@ -2,16 +2,19 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
-import { tours } from "@/lib/content";
+import { getPublicTour, getPublicTours } from "@/lib/catalog";
 import { mapEmbed, t, upcomingDates } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { InquiryBand } from "@/components/InquiryBand";
 import { JsonLd } from "@/components/JsonLd";
-import { absoluteUrl, breadcrumbLd, pageMetadata, SITE_URL } from "@/lib/seo";
+import { absoluteImage, absoluteUrl, breadcrumbLd, pageMetadata, SITE_URL } from "@/lib/seo";
 
-export function generateStaticParams() {
-  return tours.map((item) => ({ slug: item.slug }));
+export const dynamic = "force-dynamic";
+
+export async function generateStaticParams() {
+  const items = await getPublicTours();
+  return items.map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({
@@ -20,7 +23,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const tour = tours.find((item) => item.slug === slug);
+  const tour = await getPublicTour(slug);
   if (!tour) return {};
   return pageMetadata({
     locale,
@@ -38,7 +41,7 @@ export default async function TourDetailPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const tour = tours.find((item) => item.slug === slug);
+  const tour = await getPublicTour(slug);
   if (!tour) notFound();
   const copy = await getTranslations("tours");
   const nav = await getTranslations("nav");
@@ -56,7 +59,7 @@ export default async function TourDetailPage({
           name: title,
           description: t(tour.summary, locale),
           url: absoluteUrl(locale, `/tours/${slug}`),
-          image: `${SITE_URL}${tour.images[0]}`,
+          image: absoluteImage(tour.images[0]),
           touristType: "Motorcycle riders",
           provider: { "@id": `${SITE_URL}/#business` },
           itinerary: {

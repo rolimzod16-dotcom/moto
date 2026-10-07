@@ -3,8 +3,7 @@
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
-import { tours, vehicles } from "@/lib/content";
-import { getMotorcycleUnit, motorcycleUnits } from "@/lib/motorcycle-units";
+import type { MotorcycleCard, TourCard, VehicleCard } from "@/lib/catalog";
 import { getRentalRateTier } from "@/lib/rental-pricing";
 import { t as tr } from "@/lib/utils";
 
@@ -17,6 +16,9 @@ type Props = {
   defaultTour?: string;
   defaultRoute?: string;
   defaultStartDate?: string;
+  bikes?: Pick<MotorcycleCard, "slug" | "model" | "unitNumber" | "rentalRates">[];
+  tours?: Pick<TourCard, "slug" | "title">[];
+  cars?: Pick<VehicleCard, "slug" | "make" | "model">[];
 };
 
 export function RequestForm({
@@ -26,6 +28,9 @@ export function RequestForm({
   defaultTour = "",
   defaultRoute = "",
   defaultStartDate = "",
+  bikes = [],
+  tours = [],
+  cars = [],
 }: Props) {
   const t = useTranslations("request");
   const router = useRouter();
@@ -98,7 +103,7 @@ export function RequestForm({
     return Number.isFinite(start) && Number.isFinite(end) ? Math.round((end - start) / 86400000) : 0;
   }, [form.startDate, form.endDate]);
   const rentalTier = getRentalRateTier(rentalDays);
-  const selectedRentalBike = getMotorcycleUnit(form.vehicle);
+  const selectedRentalBike = bikes.find((item) => item.slug === form.vehicle);
 
   function set<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -147,8 +152,8 @@ export function RequestForm({
     >
       {(() => {
         const selectedTour = tours.find((item) => item.slug === defaultTour);
-        const selectedBike = motorcycleUnits.find((item) => item.slug === defaultVehicle);
-        const selectedCar = vehicles.find((item) => item.slug === defaultVehicle);
+        const selectedBike = bikes.find((item) => item.slug === defaultVehicle);
+        const selectedCar = cars.find((item) => item.slug === defaultVehicle);
         if (!selectedTour && !selectedBike && !selectedCar && !defaultRoute) return null;
         return (
           <p className="rounded-2xl bg-paper-2 px-4 py-3 font-semibold">

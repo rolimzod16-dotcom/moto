@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
-import { routes } from "@/lib/content";
+import { getPublicRoute, getPublicRoutes } from "@/lib/catalog";
 import { mapEmbed, t } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { InquiryBand } from "@/components/InquiryBand";
 import { JsonLd } from "@/components/JsonLd";
-import { absoluteUrl, breadcrumbLd, pageMetadata, SITE_URL } from "@/lib/seo";
+import { absoluteImage, absoluteUrl, breadcrumbLd, pageMetadata } from "@/lib/seo";
 
-export function generateStaticParams() {
-  return routes.map((item) => ({ slug: item.slug }));
+export const dynamic = "force-dynamic";
+
+export async function generateStaticParams() {
+  const items = await getPublicRoutes();
+  return items.map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({
@@ -19,7 +22,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const route = routes.find((item) => item.slug === slug);
+  const route = await getPublicRoute(slug);
   if (!route) return {};
   const title = t(route.title, locale);
   const ru = locale === "ru";
@@ -39,7 +42,7 @@ export default async function RouteDetailPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const route = routes.find((item) => item.slug === slug);
+  const route = await getPublicRoute(slug);
   if (!route) notFound();
   const copy = await getTranslations("routes");
   const nav = await getTranslations("nav");
@@ -63,7 +66,7 @@ export default async function RouteDetailPage({
           name: title,
           description: t(route.summary, locale),
           url: absoluteUrl(locale, `/routes/${slug}`),
-          image: `${SITE_URL}${route.images[0]}`,
+          image: absoluteImage(route.images[0]),
           touristType: "Motorcycle riders and 4x4 travellers",
         }}
       />

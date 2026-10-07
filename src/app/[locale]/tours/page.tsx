@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { tours } from "@/lib/content";
+import { getPublicTours } from "@/lib/catalog";
 import { PageHero } from "@/components/PageHero";
 import { InquiryBand } from "@/components/InquiryBand";
 import { TourExplorer } from "@/components/TourExplorer";
@@ -14,11 +14,14 @@ export const generateMetadata = staticMetadata({
   image: "/images/group-ride.jpg",
 });
 
+export const dynamic = "force-dynamic";
+
 export default async function ToursPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const copy = await getTranslations("tours");
   const ru = locale === "ru";
+  const tours = await getPublicTours();
   return <><JsonLd data={itemListLd(locale, tours.map((tour) => ({ name: t(tour.title, locale), path: `/tours/${tour.slug}` })))} />
     <PageHero title={copy("title")} intro={copy("intro")} image="/images/group-ride.jpg" />
     <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">

@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { Link } from "@/i18n/routing";
-import { motorcycleUnits } from "@/lib/motorcycle-units";
-import { vehicles } from "@/lib/content";
+import type { MotorcycleCard, VehicleCard } from "@/lib/catalog";
 import { StatusBadge } from "./StatusBadge";
 
-export function FleetTabs({ locale }: { locale: string }) {
+export function FleetTabs({ locale, bikes, cars }: { locale: string; bikes: MotorcycleCard[]; cars: VehicleCard[] }) {
   const ru = locale === "ru";
   const [tab, setTab] = useState<"bikes" | "cars">("bikes");
-  const bikes = motorcycleUnits.slice(0, 3);
+  const preview = bikes.slice(0, 3);
 
   return (
     <div>
@@ -31,7 +30,7 @@ export function FleetTabs({ locale }: { locale: string }) {
       </div>
       {tab === "bikes" ? (
         <div className="grid gap-6 md:grid-cols-3">
-          {bikes.map((bike) => (
+          {preview.map((bike) => (
             <article key={bike.slug} className="feature-card">
               <img src={bike.images[0]} alt={`${bike.model} ${bike.unitNumber}`} className="h-64 w-full object-cover" />
               <div className="p-5">
@@ -51,7 +50,7 @@ export function FleetTabs({ locale }: { locale: string }) {
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-2">
-          {vehicles.map((car) => (
+          {cars.map((car) => (
             <article key={car.slug} className="feature-card">
               <img src={car.images[0]} alt={`${car.make} ${car.model}`} className="h-72 w-full object-cover" />
               <div className="p-5">

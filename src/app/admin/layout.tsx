@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import Link from "next/link";
+import { AdminNav } from "@/components/admin/AdminNav";
 import { auth, signOut } from "@/auth";
 
 export const metadata: Metadata = {
@@ -20,15 +20,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
       <aside className="bg-navy-deep p-6 text-cream lg:min-h-screen lg:w-72 lg:shrink-0 lg:p-8">
         <p className="font-serif text-2xl">Motoride admin</p>
         <p className="mt-1 text-sm text-gold">{session.user.email}</p>
-        <nav className="mt-8 flex flex-wrap gap-2 text-base lg:flex-col">
-          <Link href="/admin">Dashboard</Link>
-          <Link href="/admin/requests">Requests</Link>
-          <Link href="/admin/availability">Availability</Link>
-          <Link href="/admin/fleet">Fleet</Link>
-          <Link href="/en" className="text-gold">
-            View site
-          </Link>
-        </nav>
+        <AdminNav />
         <form
           className="mt-10"
           action={async () => {
@@ -37,7 +29,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           }}
         >
           <button className="btn btn-light w-full" type="submit">
-            Sign out
+            Выйти
           </button>
         </form>
       </aside>

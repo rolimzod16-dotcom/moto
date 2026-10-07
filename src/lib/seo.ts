@@ -4,6 +4,11 @@ import { site } from "@/lib/site";
 
 export const SITE_URL = "https://pamirmoto.com";
 
+export function absoluteImage(src: string) {
+  if (/^https?:\/\//i.test(src)) return src;
+  return `${SITE_URL}${src.startsWith("/") ? src : `/${src}`}`;
+}
+
 export function absoluteUrl(locale: string, path = "/") {
   const suffix = path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
   return `${SITE_URL}/${locale}${suffix}`;
@@ -194,7 +199,7 @@ export function rentalServiceLd({
     serviceType,
     description,
     url: absoluteUrl(locale, path),
-    image: image ? `${SITE_URL}${image}` : undefined,
+    image: image ? absoluteImage(image) : undefined,
     provider: { "@id": `${SITE_URL}/#business` },
     areaServed: "Tajikistan",
     ...(status ? { offers: { "@type": "Offer", availability: availability[status], url: absoluteUrl(locale, path) } } : {}),

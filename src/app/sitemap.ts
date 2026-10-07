@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
-import { vehicles, tours, routes } from "@/lib/content";
-import { motorcycleUnits } from "@/lib/motorcycle-units";
+import { getPublicMotorcycles, getPublicRoutes, getPublicTours, getPublicVehicles } from "@/lib/catalog";
 import { absoluteUrl } from "@/lib/seo";
+
+export const dynamic = "force-dynamic";
 
 const locales = ["en", "ru"] as const;
 const pages = [
@@ -27,9 +28,15 @@ function priority(path: string) {
   return 0.5;
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [motorcycles, vehicles, tours, routes] = await Promise.all([
+    getPublicMotorcycles(),
+    getPublicVehicles(),
+    getPublicTours(),
+    getPublicRoutes(),
+  ]);
   const extra = [
-    ...motorcycleUnits.map((item) => `/motorcycles/${item.slug}`),
+    ...motorcycles.map((item) => `/motorcycles/${item.slug}`),
     ...vehicles.map((item) => `/cars/${item.slug}`),
     ...tours.map((item) => `/tours/${item.slug}`),
     ...routes.map((item) => `/routes/${item.slug}`),

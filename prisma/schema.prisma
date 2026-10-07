@@ -203,3 +203,19 @@ model Setting {
   id   String @id @default("site")
   data Json
 }
+
+// Staff edits for the public catalog. Untouched pages keep the built-in copy.
+model CatalogItem {
+  id        String   @id @default(cuid())
+  kind      String
+  slug      String
+  published Boolean  @default(true)
+  removed   Boolean  @default(false)
+  sortOrder Int?
+  data      Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([kind, slug])
+  @@index([kind])
+}

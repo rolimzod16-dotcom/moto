@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
-import { vehicles } from "@/lib/content";
+import { getPublicVehicle, getPublicVehicles } from "@/lib/catalog";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PhotoGallery } from "@/components/PhotoGallery";
@@ -11,8 +11,11 @@ import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd, pageMetadata, rentalServiceLd } from "@/lib/seo";
 import { t } from "@/lib/utils";
 
-export function generateStaticParams() {
-  return vehicles.map((item) => ({ slug: item.slug }));
+export const dynamic = "force-dynamic";
+
+export async function generateStaticParams() {
+  const items = await getPublicVehicles();
+  return items.map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({
@@ -21,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const car = vehicles.find((item) => item.slug === slug);
+  const car = await getPublicVehicle(slug);
   if (!car) return {};
   const name = `${car.make} ${car.model}`;
   const ru = locale === "ru";
@@ -41,7 +44,7 @@ export default async function CarDetailPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const car = vehicles.find((item) => item.slug === slug);
+  const car = await getPublicVehicle(slug);
   if (!car) notFound();
   const copy = await getTranslations("cars");
   const home = await getTranslations("home");

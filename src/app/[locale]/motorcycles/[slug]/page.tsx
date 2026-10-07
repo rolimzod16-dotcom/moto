@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
-import { getMotorcycleUnit, motorcycleUnits } from "@/lib/motorcycle-units";
+import { getPublicMotorcycle, getPublicMotorcycles, getPublicTours } from "@/lib/catalog";
 import { StatusBadge } from "@/components/StatusBadge";
 import { BikeViewerLazy } from "@/components/BikeViewerLazy";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -13,8 +13,11 @@ import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd, pageMetadata, rentalServiceLd } from "@/lib/seo";
 import { t } from "@/lib/utils";
 
-export function generateStaticParams() {
-  return motorcycleUnits.map((item) => ({ slug: item.slug }));
+export const dynamic = "force-dynamic";
+
+export async function generateStaticParams() {
+  const items = await getPublicMotorcycles();
+  return items.map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({
@@ -23,7 +26,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const bike = getMotorcycleUnit(slug);
+  const bike = await getPublicMotorcycle(slug);
   if (!bike) return {};
   const ru = locale === "ru";
   return pageMetadata({
@@ -44,7 +47,11 @@ export default async function MotorcycleDetailPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const bike = getMotorcycleUnit(slug);
+  const [bike, motorcycleUnits, tours] = await Promise.all([
+    getPublicMotorcycle(slug),
+    getPublicMotorcycles(),
+    getPublicTours(),
+  ]);
   if (!bike) notFound();
   const copy = await getTranslations("motorcycles");
   const home = await getTranslations("home");
@@ -186,7 +193,7 @@ export default async function MotorcycleDetailPage({
           </Link>
         ))}
       </nav>
-      <TourRecommendations locale={locale} bikeSlug={bike.slug} />
+      <TourRecommendations locale={locale} bikeSlug={bike.slug} tours={tours} />
       <InquiryBand locale={locale} />
     </article>
   );

@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowRight, UsersRound } from "lucide-react";
 import { Link } from "@/i18n/routing";
-import { vehicles } from "@/lib/content";
+import { getPublicVehicles } from "@/lib/catalog";
 import { PageHero } from "@/components/PageHero";
 import { InquiryBand } from "@/components/InquiryBand";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -16,8 +16,11 @@ export const generateMetadata = staticMetadata({
   image: "/images/car-landcruiser.jpg",
 });
 
+export const dynamic = "force-dynamic";
+
 export default async function CarsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const vehicles = await getPublicVehicles();
   setRequestLocale(locale);
   const copy = await getTranslations("cars");
   const home = await getTranslations("home");
