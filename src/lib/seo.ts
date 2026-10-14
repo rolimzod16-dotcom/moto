@@ -107,7 +107,7 @@ export function businessGraph(locale: string) {
         url: SITE_URL,
         image: `${SITE_URL}/images/hero.jpg`,
         logo: `${SITE_URL}/logo.svg`,
-        telephone: "+992907775544",
+        telephone: site.whatsapp,
         email: site.email,
         address: {
           "@type": "PostalAddress",

@@ -19,6 +19,10 @@ export async function Footer() {
               {site.phone}
             </a>
             <br />
+            <a className="text-gold" href={site.whatsappHref} target="_blank" rel="noreferrer">
+              WhatsApp
+            </a>
+            <br />
             <a className="text-gold" href={`mailto:${site.email}`}>
               {site.email}
             </a>
