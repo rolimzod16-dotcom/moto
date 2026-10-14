@@ -28,7 +28,10 @@ export async function generateMetadata({
   return pageMetadata({
     locale,
     path: `/tours/${slug}`,
-    title: t(tour.title, locale),
+    title:
+      locale === "ru"
+        ? `${t(tour.title, locale)} — мототур на ${tour.itinerary.length} дн.`
+        : `${t(tour.title, locale)}: ${tour.itinerary.length}-Day Motorcycle Tour`,
     description: t(tour.summary, locale),
     image: tour.images[0],
   });

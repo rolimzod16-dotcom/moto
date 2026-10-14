@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getPublicMotorcycles, getPublicRoutes, getPublicTours, getPublicVehicles } from "@/lib/catalog";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteImage, absoluteUrl } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -35,10 +35,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getPublicTours(),
     getPublicRoutes(),
   ]);
+  const images = new Map<string, string[]>();
+  const withImages = (path: string, list: string[] | undefined) => {
+    if (list?.length) images.set(path, list.slice(0, 10).map(absoluteImage));
+    return path;
+  };
   const extra = [
-    ...motorcycles.map((item) => `/motorcycles/${item.slug}`),
-    ...vehicles.map((item) => `/cars/${item.slug}`),
-    ...tours.map((item) => `/tours/${item.slug}`),
+    ...motorcycles.map((item) => withImages(`/motorcycles/${item.slug}`, item.images)),
+    ...vehicles.map((item) => withImages(`/cars/${item.slug}`, item.images)),
+    ...tours.map((item) => withImages(`/tours/${item.slug}`, item.images)),
     ...routes.map((item) => `/routes/${item.slug}`),
   ];
   return locales.flatMap((locale) =>
@@ -48,6 +53,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: absoluteUrl(locale, pagePath),
         changeFrequency: path === "" ? "weekly" : "monthly",
         priority: priority(path),
+        ...(images.has(path) && { images: images.get(path) }),
         alternates: {
           languages: {
             en: absoluteUrl("en", pagePath),
