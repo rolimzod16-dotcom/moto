@@ -20,8 +20,8 @@ export function TourExplorer({ items, locale }: { items: Tour[]; locale: string 
         const difficulty =
           level === "all" ||
           (level === "moderate"
-            ? item.difficulty.toLowerCase().includes("moderate") || item.difficulty.toLowerCase().includes("matched")
-            : item.difficulty.toLowerCase().includes("demanding"));
+            ? /moderate|matched|intermediate|active|grade [1-3]/i.test(item.difficulty)
+            : /demanding|advanced|expert|challenging|grade [4-5]/i.test(item.difficulty));
         return duration && difficulty;
       }),
     [items, length, level],
@@ -71,7 +71,7 @@ export function TourExplorer({ items, locale }: { items: Tour[]; locale: string 
             </div>
             <div className="flex flex-col justify-between p-7 sm:p-10">
               <div>
-                <p className="eyebrow text-rust">{ru ? "Мотопутешествие" : "Motorcycle journey"}</p>
+                <p className="eyebrow text-rust">{/^private 4x4/i.test(tour.vehicleType) ? (ru ? "Путешествие на 4x4" : "4x4 journey") : ru ? "Мотопутешествие" : "Motorcycle journey"}</p>
                 <h3 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl">{t(tour.title, locale)}</h3>
                 <p className="mt-5 max-w-xl text-ink-soft">{t(tour.summary, locale)}</p>
                 <div className="mt-7 flex flex-wrap gap-3">

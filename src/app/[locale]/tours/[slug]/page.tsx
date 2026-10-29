@@ -25,13 +25,14 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const tour = await getPublicTour(slug);
   if (!tour) return {};
+  const byCar = /^private 4x4/i.test(tour.vehicleType);
   return pageMetadata({
     locale,
     path: `/tours/${slug}`,
     title:
       locale === "ru"
-        ? `${t(tour.title, locale)} — мототур на ${tour.itinerary.length} дн.`
-        : `${t(tour.title, locale)}: ${tour.itinerary.length}-Day Motorcycle Tour`,
+        ? `${t(tour.title, locale)} — ${byCar ? "тур" : "мототур"} на ${tour.itinerary.length} дн.`
+        : `${t(tour.title, locale)}: ${tour.itinerary.length}-Day ${byCar ? "4x4" : "Motorcycle"} Tour`,
     description: t(tour.summary, locale),
     image: tour.images[0],
   });
