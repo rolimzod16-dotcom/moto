@@ -73,13 +73,13 @@ export async function POST(request: Request) {
       const { Resend } = await import("resend");
       const resend = new Resend(process.env.RESEND_API_KEY);
       await resend.emails.send({
-        from: "Pamir Moto <bookings@pamirmoto.com>",
+        from: "Pamir Moto Adventure <bookings@pamirmoto.com>",
         to: parsed.email,
-        subject: `Pamir Moto request ${ref}`,
+        subject: `Pamir Moto Adventure request ${ref}`,
         text: `We received your request ${ref}. This is not a confirmed booking. Our team will write next.`,
       });
       await resend.emails.send({
-        from: "Pamir Moto <bookings@pamirmoto.com>",
+        from: "Pamir Moto Adventure <bookings@pamirmoto.com>",
         to: staff,
         subject: `New request ${ref}`,
         text: JSON.stringify(parsed, null, 2),

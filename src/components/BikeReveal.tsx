@@ -12,7 +12,7 @@ export function BikeReveal({ locale }: { locale: string }) {
         <Image src="/images/pamir-bike-backdrop.png" alt="" fill sizes="100vw" className="bike-reveal-landscape" />
         <div className="bike-reveal-shade" aria-hidden="true" />
         <div className="shell bike-reveal-heading">
-          <p className="eyebrow">PAMIR MOTO <span>/</span> {copy("THE RENTAL FLEET", "АРЕНДНЫЙ ПАРК")}</p>
+          <p className="eyebrow">PAMIR MOTO ADVENTURE <span>/</span> {copy("THE RENTAL FLEET", "АРЕНДНЫЙ ПАРК")}</p>
           <h2 id="bike-reveal-title">CRF300L</h2>
         </div>
       </div>

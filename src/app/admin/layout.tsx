@@ -4,7 +4,7 @@ import { AdminNav } from "@/components/admin/AdminNav";
 import { auth, signOut } from "@/auth";
 
 export const metadata: Metadata = {
-  title: { absolute: "Pamir Moto admin" },
+  title: { absolute: "Pamir Moto Adventure admin" },
   robots: { index: false, follow: false },
 };
 
@@ -18,7 +18,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   return (
     <div className="admin-shell min-h-screen lg:flex">
       <aside className="bg-navy-deep p-6 text-cream lg:min-h-screen lg:w-72 lg:shrink-0 lg:p-8">
-        <p className="font-serif text-2xl">Pamir Moto admin</p>
+        <p className="font-serif text-2xl">Pamir Moto Adventure admin</p>
         <p className="mt-1 text-sm text-gold">{session.user.email}</p>
         <AdminNav />
         <form

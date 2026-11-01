@@ -716,7 +716,7 @@ body { font-size: 1rem; line-height: 1.65; }
   .bike-stage > img, .bike-hotspot { transition: none; }
 }
 
-/* Pamir Moto emblem palette */
+/* Pamir Moto Adventure emblem palette */
 .nav-wrap { background: rgba(250,251,247,.97); }
 .topline, .intro-strip, .elev, .cookie-banner { background: var(--navy-deep); }
 .story-section { background: #fff; color: var(--ink); }
