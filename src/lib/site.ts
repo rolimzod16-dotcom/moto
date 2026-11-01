@@ -20,6 +20,25 @@ export const site = {
   mapEmbed: "https://www.google.com/maps?q=Dushanbe%20Tajikistan&output=embed",
 };
 
+export const partners = [
+  {
+    name: "Pamir Ecotourism",
+    href: "https://pamirecotourism.com/",
+    text: {
+      en: "Treks, 4x4 routes and homestays in the Pamirs, planned by a local team from Rushan.",
+      ru: "Треки, маршруты на 4x4 и хоумстеи на Памире от местной команды из Рушана.",
+    },
+  },
+  {
+    name: "Great Silk Trails",
+    href: "https://www.greatsilktrails.com/",
+    text: {
+      en: "Small-group and private Silk Road journeys with local guides and family hosts.",
+      ru: "Путешествия по Шёлковому пути в малых группах и индивидуально, с местными гидами.",
+    },
+  },
+];
+
 export const navMain = [
   { href: "/tours", key: "tours" },
   { href: "/motorcycles", key: "motorcycles" },

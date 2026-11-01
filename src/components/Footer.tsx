@@ -1,9 +1,11 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { BrandMark } from "./BrandMark";
-import { navMain, navMore, site } from "@/lib/site";
+import { navMain, navMore, partners, site } from "@/lib/site";
+import { t as localized } from "@/lib/utils";
 
 export async function Footer() {
+  const locale = await getLocale();
   const t = await getTranslations("nav");
   const f = await getTranslations("footer");
   const year = new Date().getFullYear();
@@ -48,6 +50,21 @@ export async function Footer() {
                 <Link href={item.href} className="hover:text-white">
                   {t(item.key)}
                 </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="border-t border-white/10">
+        <div className="shell py-8">
+          <h2 className="text-xs font-extrabold uppercase tracking-widest text-gold">{f("partners")}</h2>
+          <ul className="mt-4 grid gap-4 text-sm md:grid-cols-2">
+            {partners.map((partner) => (
+              <li key={partner.href}>
+                <a className="font-bold text-white hover:text-gold" href={partner.href} target="_blank" rel="noopener">
+                  {partner.name}
+                </a>
+                <p className="mt-1 text-slate-400">{localized(partner.text, locale)}</p>
               </li>
             ))}
           </ul>

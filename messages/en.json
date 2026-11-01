@@ -180,6 +180,8 @@
     "privacy": "We use your details only to answer the request, prepare a quotation and run the rental. Documents uploaded with a request are stored privately and are not shown on the public site. See the cookie notice in the footer banner."
   },
   "about": {
+    "partners": "Our partners",
+    "partnersText": "Planning more than a motorcycle trip? These local teams cover the rest of the journey.",
     "title": "About Pamir Motoride",
     "intro": "A Tajikistan-based rental and expedition desk for motorcycles, 4x4 vehicles and supported travel in the Pamirs.",
     "body": "We run a Honda CRF300L fleet and 4x4 vehicles for guests who want a clear briefing, honest road information and a person at the other end of WhatsApp. The first version of this website is a request-and-confirmation system: availability is indicative until the team confirms.",
@@ -275,6 +277,7 @@
     "required": "This field is required"
   },
   "footer": {
+    "partners": "Our partners",
     "blurb": "Motorcycle rental comes first. 4x4 vehicles and guided journeys complement trips across the CIS. Born in the Pamirs.",
     "explore": "Explore",
     "plan": "Plan",
