@@ -162,8 +162,8 @@
   },
   "conditions": {
     "title": "Rental conditions",
-    "intro": "Please read this page before you request a motorcycle or a car. Legal wording is published in this form until the client signs a final version.",
-    "disclaimer": "These conditions are the working text for launch. The operator can replace them with a lawyer-reviewed version at any time from the administrator panel.",
+    "intro": "Please read this page before you request a motorcycle or a car. The written quotation and rental documents confirm the final terms for your trip.",
+    "disclaimer": "These conditions explain how we usually work. If anything differs for your trip, your written quotation and rental documents take priority.",
     "licenceTitle": "Licence, age and experience",
     "licence": "Motorcycle rental requires a valid licence covering the Honda CRF300L, a minimum age of 21 and recent off-road or mixed-surface experience. Self-drive 4x4 requires a valid car licence and mountain driving experience we can review. We may decline a request if the route and the experience do not match.",
     "insuranceTitle": "Insurance",
@@ -175,20 +175,20 @@
     "prohibitedTitle": "Prohibited use",
     "prohibited": "No alcohol or drugs, racing, stunts, third-party use, unauthorised routes, GPS interference or unauthorised repairs. Cross-border travel needs written approval and the required documents.",
     "accidentTitle": "Accident and breakdown",
-    "accident": "Stop in a safe place, keep the scene if required by local law, call the emergency number on your rental sheet, then contact Pamir Motoride. Do not leave the motorcycle or vehicle unattended if it can be avoided.",
+    "accident": "Stop in a safe place, keep the scene if required by local law, call the emergency number on your rental sheet, then contact Pamir Moto Adventure. Do not leave the motorcycle or vehicle unattended if it can be avoided.",
     "privacyTitle": "Privacy, terms and cookies",
     "privacy": "We use your details only to answer the request, prepare a quotation and run the rental. Documents uploaded with a request are stored privately and are not shown on the public site. See the cookie notice in the footer banner."
   },
   "about": {
     "partners": "Our partners",
     "partnersText": "Planning more than a motorcycle trip? These local teams cover the rest of the journey.",
-    "title": "About Pamir Motoride",
+    "title": "About Pamir Moto Adventure",
     "intro": "A Tajikistan-based rental and expedition desk for motorcycles, 4x4 vehicles and supported travel in the Pamirs.",
-    "body": "We run a Honda CRF300L fleet and 4x4 vehicles for guests who want a clear briefing, honest road information and a person at the other end of WhatsApp. The first version of this website is a request-and-confirmation system: availability is indicative until the team confirms.",
+    "body": "We run a Honda CRF300L fleet and 4x4 vehicles for guests who want a clear briefing, honest road information and a person at the other end of WhatsApp. You send a request, and the team confirms the dates and bikes in writing. Availability on the site is indicative until then.",
     "capacity": "Operational capacity",
     "capacityText": "12 Honda CRF300L motorcycles, 4x4 vehicles, support vans, local guides and mechanics. Group requests for several bikes are welcome.",
     "team": "The team",
-    "teamText": "Operations in Dushanbe and on the road in Gorno-Badakhshan. Staff names and portraits will be added when the client supplies them."
+    "teamText": "Operations in Dushanbe and on the road in Gorno-Badakhshan."
   },
   "faq": {
     "title": "Questions before you request",
