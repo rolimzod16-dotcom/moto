@@ -27,16 +27,16 @@ const source = Source_Sans_3({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Motorcycle rental in Tajikistan | Pamir Moto Adventure",
-    template: "%s | Pamir Moto Adventure",
+    default: "Motorcycle rental in Tajikistan | Pamir Moto",
+    template: "%s | Pamir Moto",
   },
   description:
     "Rent a Honda CRF300L in Dushanbe for the Pamir Highway, the Wakhan and journeys across the CIS.",
-  applicationName: "Pamir Moto Adventure",
+  applicationName: "Pamir Moto",
   category: "travel",
   openGraph: {
     type: "website",
-    siteName: "Pamir Moto Adventure",
+    siteName: "Pamir Moto",
     images: [{ url: "/images/hero.jpg", alt: "Riders on the Pamir Highway" }],
   },
   twitter: { card: "summary_large_image" },

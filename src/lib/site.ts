@@ -1,5 +1,5 @@
 export const site = {
-  name: "Pamir Moto Adventure",
+  name: "Pamir Moto",
   tagline: {
     en: "Motorcycle rental and guided journeys across the CIS. Born in the Pamirs.",
     ru: "Аренда мотоциклов и мотопутешествия по СНГ. Родом из Памира.",

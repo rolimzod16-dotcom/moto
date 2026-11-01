@@ -13,18 +13,18 @@
     "servicesTitle": "Guides, mechanics and support 4x4",
     "servicesDescription": "Add a guide, mechanic, support vehicle, GBAO permits, rooms and airport transfers to a motorcycle or 4x4 rental in Tajikistan.",
     "conditionsTitle": "Motorcycle and 4x4 rental conditions",
-    "conditionsDescription": "Licence, insurance, deposit and cancellation terms for renting a motorcycle or 4x4 with Pamir Moto Adventure in Tajikistan.",
+    "conditionsDescription": "Licence, insurance, deposit and cancellation terms for renting a motorcycle or 4x4 with Pamir Moto in Tajikistan.",
     "aboutTitle": "Local motorcycle rental team in Dushanbe",
-    "aboutDescription": "Pamir Moto Adventure is a Dushanbe desk for Honda CRF300L rentals, 4x4 vehicles and supported travel on the Pamir Highway.",
+    "aboutDescription": "Pamir Moto is a Dushanbe desk for Honda CRF300L rentals, 4x4 vehicles and supported travel on the Pamir Highway.",
     "faqTitle": "Motorcycle rental FAQ for Tajikistan",
     "faqDescription": "Documents, insurance, deposit, fuel and how a request becomes a booking for motorcycle and 4x4 rental in the Pamirs.",
     "contactTitle": "Contact the Dushanbe rental desk",
-    "contactDescription": "Call, WhatsApp or email Pamir Moto Adventure in Dushanbe. We answer in English and Russian about motorcycle and 4x4 rental.",
+    "contactDescription": "Call, WhatsApp or email Pamir Moto in Dushanbe. We answer in English and Russian about motorcycle and 4x4 rental.",
     "requestTitle": "Request a motorcycle or 4x4",
     "requestDescription": "Send dates, group size and route. A request is not a confirmed booking. The team replies with a written quotation."
   },
   "brand": {
-    "name": "Pamir Moto Adventure",
+    "name": "Pamir Moto",
     "kicker": "Local team · Tajikistan"
   },
   "nav": {
@@ -175,14 +175,14 @@
     "prohibitedTitle": "Prohibited use",
     "prohibited": "No alcohol or drugs, racing, stunts, third-party use, unauthorised routes, GPS interference or unauthorised repairs. Cross-border travel needs written approval and the required documents.",
     "accidentTitle": "Accident and breakdown",
-    "accident": "Stop in a safe place, keep the scene if required by local law, call the emergency number on your rental sheet, then contact Pamir Moto Adventure. Do not leave the motorcycle or vehicle unattended if it can be avoided.",
+    "accident": "Stop in a safe place, keep the scene if required by local law, call the emergency number on your rental sheet, then contact Pamir Moto. Do not leave the motorcycle or vehicle unattended if it can be avoided.",
     "privacyTitle": "Privacy, terms and cookies",
     "privacy": "We use your details only to answer the request, prepare a quotation and run the rental. Documents uploaded with a request are stored privately and are not shown on the public site. See the cookie notice in the footer banner."
   },
   "about": {
     "partners": "Our partners",
     "partnersText": "Planning more than a motorcycle trip? These local teams cover the rest of the journey.",
-    "title": "About Pamir Moto Adventure",
+    "title": "About Pamir Moto",
     "intro": "A Tajikistan-based rental and expedition desk for motorcycles, 4x4 vehicles and supported travel in the Pamirs.",
     "body": "We run a Honda CRF300L fleet and 4x4 vehicles for guests who want a clear briefing, honest road information and a person at the other end of WhatsApp. You send a request, and the team confirms the dates and bikes in writing. Availability on the site is indicative until then.",
     "capacity": "Operational capacity",
@@ -282,7 +282,7 @@
     "explore": "Explore",
     "plan": "Plan",
     "legal": "A request is not a confirmed booking. Prices on this website are a basis for quotation unless a written rate is shown.",
-    "rights": "© {year} Pamir Moto Adventure. All rights reserved.",
+    "rights": "© {year} Pamir Moto. All rights reserved.",
     "privacy": "Privacy",
     "cookies": "Cookies",
     "terms": "Website terms"

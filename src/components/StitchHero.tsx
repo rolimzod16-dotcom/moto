@@ -77,7 +77,7 @@ export function StitchHero({ locale }: { locale: string }) {
       <div className="home-hero-overlay" />
       <div className="shell hero-main relative z-10">
         <div className="hero-copy">
-          <p className="hero-kicker">PAMIR MOTO ADVENTURE <span aria-hidden="true">/</span> {copy("BORN IN THE PAMIRS", "РОДОМ ИЗ ПАМИРА")}</p>
+          <p className="hero-kicker">PAMIR MOTO <span aria-hidden="true">/</span> {copy("BORN IN THE PAMIRS", "РОДОМ ИЗ ПАМИРА")}</p>
           <h1>{copy("Rent a motorcycle.", "Арендуйте мотоцикл.")}<br /><span>{copy("Choose your road.", "Выбирайте дорогу.")}</span></h1>
           <p className="hero-lede">{copy("Motorcycle rental comes first. Need a 4×4 or a ready-made tour? We arrange those too. Based in Tajikistan, planning journeys across the CIS on request.", "Главное — аренда мотоциклов. Нужен автомобиль 4×4 или готовый тур? Организуем и это. База в Таджикистане, поездки по СНГ — по запросу.")}</p>
           <nav className="hero-services" aria-label={copy("Choose what you need", "Выберите формат поездки")}>
