@@ -4,7 +4,7 @@ import { useState, useTransition, type ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { saveCatalogAction } from "@/app/admin/catalog/actions";
-import type { CatalogKind, CatalogRecord, FaqCard, MotorcycleCard, RouteCard, TourCard, VehicleCard } from "@/lib/catalog";
+import type { CatalogKind, CatalogRecord, FaqCard, MotorcycleCard, RouteCard, TeamCard, TourCard, VehicleCard } from "@/lib/catalog";
 import type { RentalRates } from "@/lib/rental-pricing";
 import type { Localized } from "@/lib/utils";
 import { ImagePicker } from "./ImagePicker";
@@ -142,7 +142,9 @@ function Frame({
           </Link>
           <h1 className="mt-2 font-serif text-4xl">{title}</h1>
           <p className="mt-2 max-w-2xl text-ink-soft">
-            {mode === "create"
+            {kind === "team"
+              ? "Человек появится на странице «О нас». Пока никого нет, раздела на сайте не видно."
+              : mode === "create"
               ? "Карточка уже заполнена по образцу. Поменяйте название, фото и текст, затем сохраните. Ссылку писать не нужно: адрес страницы и кнопка заявки соберутся сами."
               : "Пустое русское поле на сайте заменяется английским, и наоборот. Ссылка страницы остаётся прежней."}
             {kind === "tour" || kind === "route" ? " Карта тоже строится по названию." : ""}
@@ -220,7 +222,7 @@ export function CatalogEditor({ kind, mode, slug, published: initialPublished, s
     message,
     pending,
     preview:
-      kind === "faq" ? "/en/faq" : kind === "vehicle" ? `/en/cars/${slug}` : kind === "motorcycle" ? `/en/motorcycles/${slug}` : `/en/${kind}s/${slug}`,
+      kind === "team" ? "/en/about" : kind === "faq" ? "/en/faq" : kind === "vehicle" ? `/en/cars/${slug}` : kind === "motorcycle" ? `/en/motorcycles/${slug}` : `/en/${kind}s/${slug}`,
   };
 
   if (kind === "motorcycle") {
@@ -229,6 +231,7 @@ export function CatalogEditor({ kind, mode, slug, published: initialPublished, s
   if (kind === "tour") return <TourForm {...frame} initial={data as TourCard} onSubmit={persist} />;
   if (kind === "vehicle") return <VehicleForm {...frame} initial={data as VehicleCard} onSubmit={persist} />;
   if (kind === "route") return <RouteForm {...frame} initial={data as RouteCard} onSubmit={persist} />;
+  if (kind === "team") return <TeamForm {...frame} initial={data as TeamCard} onSubmit={persist} />;
   return <FaqForm {...frame} initial={data as FaqCard} onSubmit={persist} />;
 }
 
@@ -512,6 +515,44 @@ function RouteForm({ initial, onSubmit, ...frame }: FrameProps & { initial: Rout
         <Pair label="Какой опыт нужен" value={route.experience} onChange={(experience) => set({ experience })} />
         <Pair label="Разрешения" value={route.permits} onChange={(permits) => set({ permits })} />
         <Pair label="Сопровождение" value={route.supportOptions} onChange={(supportOptions) => set({ supportOptions })} />
+      </section>
+    </Frame>
+  );
+}
+
+const TEAM_ROLES: Localized[] = [
+  { en: "Owner", ru: "Владелец" },
+  { en: "Co-owner", ru: "Совладелец" },
+  { en: "General Director", ru: "Генеральный директор" },
+  { en: "Assistant", ru: "Помощник" },
+  { en: "Manager", ru: "Менеджер" },
+  { en: "Guide", ru: "Гид" },
+  { en: "Mechanic", ru: "Механик" },
+];
+
+function TeamForm({ initial, onSubmit, ...frame }: FrameProps & { initial: TeamCard; onSubmit: (data: TeamCard) => void }) {
+  const [person, setPerson] = useState(initial);
+  const set = (patch: Partial<TeamCard>) => setPerson((prev) => ({ ...prev, ...patch }));
+  return (
+    <Frame {...frame} title={frame.mode === "create" ? "Новый человек" : person.name || "Человек"} onSubmit={() => onSubmit(person)}>
+      <section className="editor-section">
+        <label className="field">
+          Имя
+          <input value={person.name} onChange={(event) => set({ name: event.target.value })} />
+        </label>
+        <div className="editor-block">
+          <p className="font-semibold">Быстрый выбор должности</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {TEAM_ROLES.map((role) => (
+              <button key={role.en} type="button" className="btn btn-light" onClick={() => set({ role })}>
+                {role.ru}
+              </button>
+            ))}
+          </div>
+        </div>
+        <Pair label="Должность" value={person.role} onChange={(role) => set({ role })} rows={1} />
+        <Pair label="О человеке" hint="Необязательно." value={person.bio} onChange={(bio) => set({ bio })} />
+        <ImagePicker label="Фото" value={person.photo} onChange={(photo) => set({ photo })} />
       </section>
     </Frame>
   );

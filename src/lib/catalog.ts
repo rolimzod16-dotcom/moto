@@ -5,7 +5,7 @@ import { motorcycleUnits } from "@/lib/motorcycle-units";
 import { hasRentalRate, sharedRentalRates, type RentalRates } from "@/lib/rental-pricing";
 import type { Localized } from "@/lib/utils";
 
-export const CATALOG_KINDS = ["motorcycle", "tour", "vehicle", "route", "faq"] as const;
+export const CATALOG_KINDS = ["motorcycle", "tour", "vehicle", "route", "faq", "team"] as const;
 export type CatalogKind = (typeof CATALOG_KINDS)[number];
 
 export function isCatalogKind(value: string): value is CatalogKind {
@@ -23,7 +23,15 @@ export type FaqCard = {
   answer: Localized;
 };
 
-export type CatalogRecord = MotorcycleCard | TourCard | VehicleCard | RouteCard | FaqCard;
+export type TeamCard = {
+  slug: string;
+  name: string;
+  role: Localized;
+  bio: Localized;
+  photo: string;
+};
+
+export type CatalogRecord = MotorcycleCard | TourCard | VehicleCard | RouteCard | FaqCard | TeamCard;
 
 type Row = {
   slug: string;
@@ -79,7 +87,15 @@ export function staticFaqs(): FaqCard[] {
   });
 }
 
+const blankTeam: TeamCard = { slug: "", name: "", role: { en: "", ru: "" }, bio: { en: "", ru: "" }, photo: "" };
+
+/** People are added only in the admin, so the team has no built-in card to copy from. */
+function templateOf(kind: CatalogKind, base: CatalogRecord[]): CatalogRecord | undefined {
+  return kind === "team" ? blankTeam : base[0];
+}
+
 function baseItems(kind: CatalogKind): CatalogRecord[] {
+  if (kind === "team") return [];
   if (kind === "motorcycle") return motorcycleUnits;
   if (kind === "tour") return tours;
   if (kind === "vehicle") return vehicles;
@@ -323,7 +339,20 @@ function normalizeFaq(data: unknown, fallback: FaqCard): FaqCard | null {
   };
 }
 
+function normalizeTeam(data: unknown, fallback: TeamCard): TeamCard | null {
+  if (!data || typeof data !== "object") return null;
+  const row = data as Record<string, unknown>;
+  return {
+    slug: text(row.slug, fallback.slug, 80),
+    name: text(row.name, fallback.name, 120),
+    role: localized(row.role, fallback.role),
+    bio: localized(row.bio, fallback.bio),
+    photo: safeImage(text(row.photo, "", 2000)),
+  };
+}
+
 function normalize(kind: CatalogKind, data: unknown, fallback: CatalogRecord) {
+  if (kind === "team") return normalizeTeam(data, fallback as TeamCard);
   if (kind === "motorcycle") return normalizeMotorcycle(data, fallback as MotorcycleCard);
   if (kind === "tour") return normalizeTour(data, fallback as TourCard);
   if (kind === "vehicle") return normalizeVehicle(data, fallback as VehicleCard);
@@ -332,6 +361,7 @@ function normalize(kind: CatalogKind, data: unknown, fallback: CatalogRecord) {
 }
 
 function requirement(kind: CatalogKind, data: CatalogRecord) {
+  if (kind === "team") return (data as TeamCard).name ? "" : "Укажите имя.";
   if (kind === "motorcycle") {
     const bike = data as MotorcycleCard;
     if (!bike.model || !bike.unitNumber) return "Укажите модель и номер, например CRF-13.";
@@ -376,7 +406,7 @@ function mergePublic<T extends CatalogRecord>(base: T[], rows: Row[], kind: Cata
     placed.push({ order: row?.sortOrder ?? index, item: { ...next, slug: item.slug } as T });
   });
 
-  const template = base[0];
+  const template = templateOf(kind, base);
   rows.forEach((row, index) => {
     if (seen.has(row.slug) || row.removed || !row.published || !template) return;
     const next = normalize(kind, row.data, template);
@@ -448,11 +478,16 @@ export async function getPublicRoute(slug: string) {
   return items.find((item) => item.slug === slug) ?? null;
 }
 
+export function getPublicTeam(): Promise<TeamCard[]> {
+  return readKind<TeamCard>("team", []);
+}
+
 export function getPublicFaqs(): Promise<FaqCard[]> {
   return readKind("faq", staticFaqs());
 }
 
 function cardTitle(kind: CatalogKind, data: CatalogRecord) {
+  if (kind === "team") return (data as TeamCard).name;
   if (kind === "motorcycle") {
     const bike = data as MotorcycleCard;
     return `${bike.model} ${bike.unitNumber}`.trim();
@@ -467,6 +502,7 @@ function cardTitle(kind: CatalogKind, data: CatalogRecord) {
 }
 
 function cardMeta(kind: CatalogKind, data: CatalogRecord) {
+  if (kind === "team") return (data as TeamCard).role.ru;
   if (kind === "motorcycle") {
     const bike = data as MotorcycleCard;
     return `${bike.year} · ${bike.mileageKm.toLocaleString("en")} km · ${bike.publicStatus}`;
@@ -484,6 +520,7 @@ function cardMeta(kind: CatalogKind, data: CatalogRecord) {
 }
 
 function cardImage(kind: CatalogKind, data: CatalogRecord) {
+  if (kind === "team") return (data as TeamCard).photo || "/images/pamir-moto-emblem.webp";
   if (kind === "faq") return "/images/karakul.jpg";
   const images = (data as { images?: string[] }).images;
   return images?.[0] || "/images/hero.jpg";
@@ -513,7 +550,7 @@ export async function getAdminList(kind: CatalogKind): Promise<AdminRow[]> {
     });
   });
 
-  const template = base[0];
+  const template = templateOf(kind, base);
   rows.forEach((row, index) => {
     if (seen.has(row.slug) || !template) return;
     const data = normalize(kind, row.data, template);
@@ -551,6 +588,7 @@ function nextUnitNumber(base: MotorcycleCard[], rows: Row[]) {
 }
 
 function blankFrom(kind: CatalogKind, source: CatalogRecord, rows: Row[], base: CatalogRecord[]): CatalogRecord {
+  if (kind === "team") return clone(blankTeam);
   if (kind === "motorcycle") {
     const bikes = base as MotorcycleCard[];
     const unitNumber = nextUnitNumber(bikes, rows);
@@ -583,7 +621,7 @@ function blankFrom(kind: CatalogKind, source: CatalogRecord, rows: Row[], base: 
 export async function getEditorState(kind: CatalogKind, slug: string | null, fromSlug: string | null): Promise<EditorState | null> {
   const base = baseItems(kind);
   const rows = await loadRows(kind);
-  const template = base[0];
+  const template = templateOf(kind, base);
   if (!template) return null;
 
   if (!slug) {
@@ -617,6 +655,7 @@ export async function getEditorState(kind: CatalogKind, slug: string | null, fro
 }
 
 function desiredSlug(kind: CatalogKind, data: CatalogRecord) {
+  if (kind === "team") return slugify((data as TeamCard).name);
   if (kind === "motorcycle") return slugify((data as MotorcycleCard).unitNumber);
   if (kind === "tour") return slugify((data as TourCard).title.ru || (data as TourCard).title.en);
   if (kind === "vehicle") return slugify(`${(data as VehicleCard).make} ${(data as VehicleCard).model}`);
@@ -633,7 +672,7 @@ export async function writeCatalog(input: {
   data: unknown;
 }) {
   const base = baseItems(input.kind);
-  const template = base[0];
+  const template = templateOf(input.kind, base);
   if (!template) return { ok: false as const, error: "В каталоге нет образца для этой карточки." };
   const rows = await loadRows(input.kind);
   const editing = input.originalSlug?.trim() || "";
@@ -715,6 +754,7 @@ export async function removeCatalogItem(kind: CatalogKind, slug: string) {
 }
 
 export function catalogLabel(kind: CatalogKind) {
+  if (kind === "team") return { title: "Команда", add: "Добавить человека", singular: "Человек" };
   if (kind === "motorcycle") return { title: "Мотоциклы", add: "Добавить мотоцикл", singular: "Мотоцикл" };
   if (kind === "tour") return { title: "Туры", add: "Добавить тур", singular: "Тур" };
   if (kind === "vehicle") return { title: "Машины", add: "Добавить машину", singular: "Машина" };
@@ -723,6 +763,7 @@ export function catalogLabel(kind: CatalogKind) {
 }
 
 export function publicHref(kind: CatalogKind, slug: string) {
+  if (kind === "team") return "/en/about";
   if (kind === "motorcycle") return `/en/motorcycles/${slug}`;
   if (kind === "tour") return `/en/tours/${slug}`;
   if (kind === "vehicle") return `/en/cars/${slug}`;

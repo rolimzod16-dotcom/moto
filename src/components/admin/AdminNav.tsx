@@ -11,6 +11,7 @@ const items = [
   { href: "/admin/catalog/vehicle", label: "Машины" },
   { href: "/admin/catalog/route", label: "Маршруты" },
   { href: "/admin/catalog/faq", label: "Вопросы" },
+  { href: "/admin/catalog/team", label: "Команда" },
   { href: "/admin/availability", label: "Календарь" },
 ];
 

@@ -2,8 +2,11 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/PageHero";
 import { InquiryBand } from "@/components/InquiryBand";
 import { staticMetadata } from "@/lib/seo";
+import { getPublicTeam } from "@/lib/catalog";
 import { partners } from "@/lib/site";
 import { t } from "@/lib/utils";
+
+export const dynamic = "force-dynamic";
 
 export const generateMetadata = staticMetadata({
   path: "/about",
@@ -16,6 +19,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
   setRequestLocale(locale);
   const copy = await getTranslations("about");
+  const people = await getPublicTeam();
 
   return (
     <>
@@ -30,6 +34,29 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
         <img src="/images/guesthouse.jpg" alt="" className="h-full max-h-[560px] w-full rounded-2xl object-cover" />
       </div>
+      {people.length > 0 ? (
+        <div className="shell pb-16 lg:pb-24">
+          <h2 className="font-serif text-3xl md:text-4xl">{copy("people")}</h2>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {people.map((person) => (
+              <article key={person.slug} className="feature-card overflow-hidden">
+                {person.photo ? (
+                  <img src={person.photo} alt={person.name} className="aspect-[4/5] w-full object-cover" />
+                ) : (
+                  <div className="flex aspect-[4/5] items-center justify-center bg-paper-2 font-serif text-5xl text-rust/50">
+                    {person.name.charAt(0).toUpperCase()}
+                  </div>
+                )}
+                <div className="p-5">
+                  <h3 className="font-serif text-xl">{person.name}</h3>
+                  {t(person.role, locale) ? <p className="mt-1 text-sm font-semibold text-rust">{t(person.role, locale)}</p> : null}
+                  {t(person.bio, locale) ? <p className="mt-2 text-sm text-ink-soft">{t(person.bio, locale)}</p> : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      ) : null}
       <div className="bg-paper-2">
         <div className="shell py-16">
           <h2 className="font-serif text-3xl">{copy("partners")}</h2>
