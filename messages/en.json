@@ -6,8 +6,8 @@
     "motorcyclesDescription": "Twelve Honda CRF300L motorcycles for the Pamir Highway and Wakhan. Each bike has its own card. Availability is confirmed by the team in Dushanbe.",
     "carsTitle": "4x4 rental for the Pamir Highway",
     "carsDescription": "Toyota Land Cruiser and Prado rental in Tajikistan, with a driver or self-drive where permitted. Support vehicles for motorcycle groups.",
-    "toursTitle": "Pamir Highway motorcycle tours",
-    "toursDescription": "Supported motorcycle expeditions on the Pamir Highway and Wakhan Valley. Scheduled 2027 dates and private departures. Price on request.",
+    "toursTitle": "Pamir tours: motorcycle, 4x4 and trekking",
+    "toursDescription": "Supported motorcycle expeditions, 4x4 overland trips, Pamir lake treks and a snow leopard expedition in Tajikistan. Scheduled and private departures.",
     "routesTitle": "Pamir Highway and Wakhan routes",
     "routesDescription": "Practical notes for the Pamir Highway, Wakhan Valley, Murghab and Karakul: season, road surface, permits and support.",
     "servicesTitle": "Guides, mechanics and support 4x4",
@@ -126,8 +126,8 @@
     "package": "Full tour package"
   },
   "tours": {
-    "title": "Motorcycle tours",
-    "intro": "Scheduled departures and private dates. Each tour lists itinerary, distance, altitude, difficulty and what is included.",
+    "title": "Tours",
+    "intro": "Motorcycle expeditions, 4x4 journeys and treks. Each tour lists the itinerary, altitude, difficulty and what is included.",
     "scheduled": "Scheduled",
     "private": "Private",
     "duration": "{days} days",
