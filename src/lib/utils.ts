@@ -41,3 +41,27 @@ export function formatStatus(status: string, locale: string) {
   };
   return t(map[status] ?? { en: status, ru: status }, locale);
 }
+
+export type JourneyKind = "moto" | "car" | "trek" | "wildlife";
+
+/** What kind of trip a tour is, read from its vehicle field. */
+export function journeyKind(vehicleType: string): JourneyKind {
+  if (/wildlife/i.test(vehicleType)) return "wildlife";
+  if (/trek|walk/i.test(vehicleType)) return "trek";
+  if (/^private 4x4|land cruiser|^4x4/i.test(vehicleType)) return "car";
+  return "moto";
+}
+
+export const journeyLabel: Record<JourneyKind, Localized> = {
+  moto: { en: "Motorcycle journey", ru: "Мотопутешествие" },
+  car: { en: "4x4 journey", ru: "Путешествие на 4x4" },
+  trek: { en: "Trekking journey", ru: "Пеший тур" },
+  wildlife: { en: "Wildlife expedition", ru: "Экспедиция за дикой природой" },
+};
+
+export const journeyTitle: Record<JourneyKind, Localized> = {
+  moto: { en: "Motorcycle", ru: "мототур" },
+  car: { en: "4x4", ru: "тур на 4x4" },
+  trek: { en: "Trekking", ru: "пеший тур" },
+  wildlife: { en: "Wildlife", ru: "экспедиция" },
+};

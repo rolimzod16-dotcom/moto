@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { getPublicTour, getPublicTours } from "@/lib/catalog";
-import { mapEmbed, t, upcomingDates } from "@/lib/utils";
+import { journeyKind, journeyTitle, mapEmbed, t, upcomingDates } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { InquiryBand } from "@/components/InquiryBand";
@@ -25,14 +25,14 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const tour = await getPublicTour(slug);
   if (!tour) return {};
-  const byCar = /^private 4x4/i.test(tour.vehicleType);
+  const kind = journeyTitle[journeyKind(tour.vehicleType)];
   return pageMetadata({
     locale,
     path: `/tours/${slug}`,
     title:
       locale === "ru"
-        ? `${t(tour.title, locale)} — ${byCar ? "тур" : "мототур"} на ${tour.itinerary.length} дн.`
-        : `${t(tour.title, locale)}: ${tour.itinerary.length}-Day ${byCar ? "4x4" : "Motorcycle"} Tour`,
+        ? `${t(tour.title, locale)} — ${kind.ru} на ${tour.itinerary.length} дн.`
+        : `${t(tour.title, locale)}: ${tour.itinerary.length}-Day ${kind.en} Tour`,
     description: t(tour.summary, locale),
     image: tour.images[0],
   });
@@ -64,7 +64,7 @@ export default async function TourDetailPage({
           description: t(tour.summary, locale),
           url: absoluteUrl(locale, `/tours/${slug}`),
           image: absoluteImage(tour.images[0]),
-          touristType: "Motorcycle riders",
+          touristType: { moto: "Motorcycle riders", car: "4x4 travellers", trek: "Trekkers", wildlife: "Wildlife watchers" }[journeyKind(tour.vehicleType)],
           provider: { "@id": `${SITE_URL}/#business` },
           itinerary: {
             "@type": "ItemList",

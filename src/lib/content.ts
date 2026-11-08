@@ -1,4 +1,5 @@
 import type { Localized } from "./utils";
+import { operatorTours } from "./operator-tours";
 
 export const motorcycles = [
   {
@@ -582,6 +583,7 @@ export const tours = [
     mapQuery: "Wakhan Valley Tajikistan",
     images: ["/images/wakhan.jpg", "/images/guesthouse.jpg"],
   },
+  ...operatorTours,
   {
     slug: "private-pamir-dates",
     type: "private",

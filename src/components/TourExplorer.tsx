@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { ArrowRight, CalendarDays, Clock3, Mountain, Users } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { tours } from "@/lib/content";
-import { t } from "@/lib/utils";
+import { journeyKind, journeyLabel, t } from "@/lib/utils";
 
 type Tour = (typeof tours)[number];
 
@@ -71,7 +71,7 @@ export function TourExplorer({ items, locale }: { items: Tour[]; locale: string 
             </div>
             <div className="flex flex-col justify-between p-7 sm:p-10">
               <div>
-                <p className="eyebrow text-rust">{/^private 4x4/i.test(tour.vehicleType) ? (ru ? "Путешествие на 4x4" : "4x4 journey") : ru ? "Мотопутешествие" : "Motorcycle journey"}</p>
+                <p className="eyebrow text-rust">{t(journeyLabel[journeyKind(tour.vehicleType)], locale)}</p>
                 <h3 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl">{t(tour.title, locale)}</h3>
                 <p className="mt-5 max-w-xl text-ink-soft">{t(tour.summary, locale)}</p>
                 <div className="mt-7 flex flex-wrap gap-3">
