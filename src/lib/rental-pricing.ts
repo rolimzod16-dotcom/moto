@@ -42,3 +42,12 @@ export function dailyFromLabel(rates: RentalRates, ru: boolean) {
   const from = Math.min(...amounts);
   return ru ? `от $${from} / день` : `from $${from} / day`;
 }
+
+// A CRF300L-class bike rents for far more than this in Central Asia; anything lower is a draft or a typo
+// in the admin, so the public site shows "on request" until a real rate is entered.
+export const MIN_PUBLIC_DAILY_RATE = 20;
+
+export function publicRentalRates(rates: RentalRates): RentalRates {
+  const keep = (amount: number | null) => (amount != null && amount >= MIN_PUBLIC_DAILY_RATE ? amount : null);
+  return { upTo10: keep(rates.upTo10), days11To30: keep(rates.days11To30), day31Plus: keep(rates.day31Plus) };
+}

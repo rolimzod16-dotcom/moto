@@ -13,7 +13,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd, pageMetadata, rentalServiceLd } from "@/lib/seo";
 import { t } from "@/lib/utils";
 
-export const dynamic = "force-dynamic";
+// Cached and refreshed every 5 minutes; admin saves refresh every page at once.
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const items = await getPublicMotorcycles();
@@ -37,6 +38,8 @@ export async function generateMetadata({
       ? `${t(bike.note, locale)} Honda CRF300L для Памирского тракта, Душанбе. Цена по запросу.`
       : `${t(bike.note, locale)} Honda CRF300L for the Pamir Highway, based in Dushanbe. Price on request.`,
     image: bike.images[0],
+    // The twelve CRF300L units are near-identical; search engines get the one fleet page (/motorcycles) instead.
+    index: false,
   });
 }
 

@@ -9,7 +9,8 @@ import { InquiryBand } from "@/components/InquiryBand";
 import { JsonLd } from "@/components/JsonLd";
 import { absoluteImage, absoluteUrl, breadcrumbLd, pageMetadata } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+// Cached and refreshed every 5 minutes; admin saves refresh every page at once.
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const items = await getPublicRoutes();
@@ -29,7 +30,7 @@ export async function generateMetadata({
   return pageMetadata({
     locale,
     path: `/routes/${slug}`,
-    title: ru ? `${title}: маршрут` : `${title} motorcycle route`,
+    title: ru ? `${title}: маршрут на мотоцикле` : /route/i.test(title) ? title : `${title} by Motorcycle: Route Guide`,
     description: t(route.summary, locale),
     image: route.images[0],
   });

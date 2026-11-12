@@ -11,7 +11,14 @@ import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd, pageMetadata, rentalServiceLd } from "@/lib/seo";
 import { t } from "@/lib/utils";
 
-export const dynamic = "force-dynamic";
+// Support vans are a group of models, so the Russian page names them in Russian.
+function carName(car: { slug: string; make: string; model: string }, ru: boolean) {
+  if (ru && car.slug === "support-vehicles") return "Машины сопровождения Toyota Hilux, Mitsubishi Delica";
+  return `${car.make} ${car.model}`;
+}
+
+// Cached and refreshed every 5 minutes; admin saves refresh every page at once.
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const items = await getPublicVehicles();
@@ -26,12 +33,12 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const car = await getPublicVehicle(slug);
   if (!car) return {};
-  const name = `${car.make} ${car.model}`;
   const ru = locale === "ru";
+  const name = carName(car, ru);
   return pageMetadata({
     locale,
     path: `/cars/${slug}`,
-    title: ru ? `Аренда ${name}` : `${name} 4x4 rental`,
+    title: ru ? (slug === "support-vehicles" ? "Машины сопровождения для Памирского тракта" : `Аренда ${name}`) : `${name} 4x4 rental`,
     description: t(car.routeSuitability, locale),
     image: car.images[0],
   });
@@ -86,7 +93,7 @@ export default async function CarDetailPage({
           <div>
             <StatusBadge status={car.publicStatus} locale={locale} />
             <h1 className="mt-4 font-serif text-4xl md:text-5xl">
-              {car.make} {car.model}
+              {carName(car, locale === "ru")}
             </h1>
             <p className="mt-3">{copy("minDays", { days: car.minDays })}</p>
             <p className="mt-6 text-2xl font-semibold text-gold">{home("priceOnRequest")}</p>

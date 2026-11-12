@@ -2,7 +2,7 @@ import type { Prisma } from "@prisma/client";
 import { getDb } from "@/lib/db";
 import { faqs, routes, tours, vehicles } from "@/lib/content";
 import { motorcycleUnits } from "@/lib/motorcycle-units";
-import { hasRentalRate, sharedRentalRates, type RentalRates } from "@/lib/rental-pricing";
+import { hasRentalRate, publicRentalRates, sharedRentalRates, type RentalRates } from "@/lib/rental-pricing";
 import type { Localized } from "@/lib/utils";
 
 export const CATALOG_KINDS = ["motorcycle", "tour", "vehicle", "route", "faq", "team"] as const;
@@ -440,7 +440,7 @@ async function readKind<T extends CatalogRecord>(kind: CatalogKind, base: T[]): 
 }
 
 export async function getPublicMotorcycles(): Promise<MotorcycleCard[]> {
-  const items = await readKind("motorcycle", motorcycleUnits);
+  const items = (await readKind("motorcycle", motorcycleUnits)).map((item) => ({ ...item, rentalRates: publicRentalRates(item.rentalRates) }));
   const shared = sharedRentalRates(items.map((item) => item.rentalRates));
   if (!hasRentalRate(shared)) return items;
   return items.map((item) => (hasRentalRate(item.rentalRates) ? item : { ...item, rentalRates: shared }));

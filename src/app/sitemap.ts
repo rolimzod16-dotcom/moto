@@ -2,7 +2,8 @@ import type { MetadataRoute } from "next";
 import { getPublicMotorcycles, getPublicRoutes, getPublicTours, getPublicVehicles } from "@/lib/catalog";
 import { absoluteImage, absoluteUrl } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+// Cached and refreshed every 5 minutes; admin saves refresh every page at once.
+export const revalidate = 300;
 
 const locales = ["en", "ru"] as const;
 const pages = [
@@ -40,8 +41,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (list?.length) images.set(path, list.slice(0, 10).map(absoluteImage));
     return path;
   };
+  withImages("/motorcycles", [...new Set(motorcycles.flatMap((item) => item.images))]);
   const extra = [
-    ...motorcycles.map((item) => withImages(`/motorcycles/${item.slug}`, item.images)),
+    // Individual bike units are noindex (near-duplicates of the fleet page), so they stay out of the sitemap.
     ...vehicles.map((item) => withImages(`/cars/${item.slug}`, item.images)),
     ...tours.map((item) => withImages(`/tours/${item.slug}`, item.images)),
     ...routes.map((item) => `/routes/${item.slug}`),

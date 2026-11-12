@@ -18,6 +18,9 @@ export function StitchHero({ locale }: { locale: string }) {
   const [playing, setPlaying] = useState(true);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [failed, setFailed] = useState<number[]>([]);
+  // Video is a desktop extra: it starts loading only after the page has loaded, and never on phones or Save-Data,
+  // where the poster photos rotate instead. This keeps the first paint light for mobile search visitors.
+  const [videoReady, setVideoReady] = useState(false);
   const videos = useRef<(HTMLVideoElement | null)[]>([]);
   const copy = (en: string, ruText: string) => (ru ? ruText : en);
 
@@ -27,6 +30,16 @@ export function StitchHero({ locale }: { locale: string }) {
     update();
     preference.addEventListener("change", update);
     return () => preference.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    if (window.matchMedia("(max-width: 767px)").matches || connection?.saveData) return;
+    let timer = 0;
+    const start = () => { timer = window.setTimeout(() => setVideoReady(true), 1200); };
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start, { once: true });
+    return () => { window.removeEventListener("load", start); window.clearTimeout(timer); };
   }, []);
 
   useEffect(() => {
@@ -43,10 +56,10 @@ export function StitchHero({ locale }: { locale: string }) {
   }, [index, playing, reduceMotion, failed]);
 
   useEffect(() => {
-    if (!playing || reduceMotion || !failed.includes(index)) return;
+    if (!playing || reduceMotion || (videoReady && !failed.includes(index))) return;
     const timer = window.setTimeout(() => setIndex((current) => (current + 1) % clips.length), 8500);
     return () => window.clearTimeout(timer);
-  }, [index, playing, reduceMotion, failed]);
+  }, [index, playing, reduceMotion, failed, videoReady]);
 
   const selectClip = (next: number) => {
     const video = videos.current[next];
@@ -59,7 +72,7 @@ export function StitchHero({ locale }: { locale: string }) {
       {clips.map((clip, i) => (
         <div key={clip.src} className={i === index ? "home-hero-image scene-active" : "home-hero-image"} aria-hidden="true" style={{ opacity: i === index ? 1 : 0, transition: reduceMotion ? "none" : "opacity .7s ease" }}>
           <Image src={clip.poster} alt="" fill priority={i === 0} sizes="100vw" className="object-cover" />
-          {!reduceMotion && !failed.includes(i) && (
+          {videoReady && !reduceMotion && !failed.includes(i) && (
             <video
               ref={(element) => { videos.current[i] = element; }}
               className="absolute inset-0 h-full w-full object-cover"
@@ -78,7 +91,7 @@ export function StitchHero({ locale }: { locale: string }) {
       <div className="shell hero-main relative z-10">
         <div className="hero-copy">
           <p className="hero-kicker">PAMIR MOTO ADVENTURE <span aria-hidden="true">/</span> {copy("BORN IN THE PAMIRS", "РОДОМ ИЗ ПАМИРА")}</p>
-          <h1>{copy("Rent a motorcycle.", "Арендуйте мотоцикл.")}<br /><span>{copy("Choose your road.", "Выбирайте дорогу.")}</span></h1>
+          <h1>{copy("Motorcycle rental in Dushanbe.", "Аренда мотоцикла в Душанбе.")}<br /><span>{copy("Choose your road.", "Выбирайте дорогу.")}</span></h1>
           <p className="hero-lede">{copy("Motorcycle rental comes first. Need a 4×4 or a ready-made tour? We arrange those too. Based in Tajikistan, planning journeys across the CIS on request.", "Главное — аренда мотоциклов. Нужен автомобиль 4×4 или готовый тур? Организуем и это. База в Таджикистане, поездки по СНГ — по запросу.")}</p>
           <nav className="hero-services" aria-label={copy("Choose what you need", "Выберите формат поездки")}>
             <Link href="/motorcycles"><span>01</span>{copy("Motorcycles", "Мотоциклы")}</Link>
@@ -96,7 +109,7 @@ export function StitchHero({ locale }: { locale: string }) {
       <div className="shell relative z-10 hero-bottom">
         <div className="clip-bar" aria-label={copy("Choose a video scene", "Выберите видео")}>
           {clips.map((clip, i) => <button key={clip.src} type="button" className={i === index ? "clip-btn active" : "clip-btn"} aria-pressed={i === index} onClick={() => selectClip(i)}>
-            <span className="clip-track" aria-hidden="true">{i === index && playing && !reduceMotion && !failed.includes(i) ? <span key={index} className="clip-track-progress" style={{ animationDuration: `${clip.duration}s` }} /> : null}</span>
+            <span className="clip-track" aria-hidden="true">{i === index && playing && !reduceMotion && videoReady && !failed.includes(i) ? <span key={index} className="clip-track-progress" style={{ animationDuration: `${clip.duration}s` }} /> : null}</span>
             <span className="clip-number">0{i + 1}</span> {ru ? clip.label.ru : clip.label.en}
           </button>)}
           <button type="button" className="clip-btn clip-pause" onClick={() => setPlaying((value) => !value)} aria-label={playing ? copy("Pause video", "Остановить видео") : copy("Play video", "Включить видео")}>{playing ? <Pause size={17} /> : <Play size={17} />}</button>

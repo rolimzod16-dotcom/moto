@@ -6,7 +6,8 @@ import { getPublicTeam } from "@/lib/catalog";
 import { partners } from "@/lib/site";
 import { t } from "@/lib/utils";
 
-export const dynamic = "force-dynamic";
+// Cached and refreshed every 5 minutes; admin saves refresh every page at once.
+export const revalidate = 300;
 
 export const generateMetadata = staticMetadata({
   path: "/about",

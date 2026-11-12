@@ -10,7 +10,8 @@ import { InquiryBand } from "@/components/InquiryBand";
 import { JsonLd } from "@/components/JsonLd";
 import { absoluteImage, absoluteUrl, breadcrumbLd, pageMetadata, SITE_URL } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+// Cached and refreshed every 5 minutes; admin saves refresh every page at once.
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const items = await getPublicTours();
@@ -31,8 +32,8 @@ export async function generateMetadata({
     path: `/tours/${slug}`,
     title:
       locale === "ru"
-        ? `${t(tour.title, locale)} — ${kind.ru} на ${tour.itinerary.length} дн.`
-        : `${t(tour.title, locale)}: ${tour.itinerary.length}-Day ${kind.en} Tour`,
+        ? `${t(tour.title, locale)} — ${kind.ru} на ${tour.durationDays} дн.`
+        : `${t(tour.title, locale)}: ${tour.durationDays}-Day ${kind.en} Tour`,
     description: t(tour.summary, locale),
     image: tour.images[0],
   });
@@ -115,7 +116,7 @@ export default async function TourDetailPage({
         </div>
         <aside className="lg:sticky lg:top-28 lg:self-start">
           <div className="feature-card p-7">
-            <p className="font-semibold text-rust">{ru ? "Цена по запросу" : "Price on request"}</p>
+            <p className="font-semibold text-rust">{ru ? "Стоимость" : "Price"}</p>
             <p className="mt-2 text-sm text-ink-soft">{t(tour.priceBasis, locale)}</p>
             <dl className="mt-6 grid gap-4">
               <div>

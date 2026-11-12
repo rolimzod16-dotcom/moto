@@ -43,7 +43,7 @@ export function pageMetadata({
     },
     robots: index
       ? { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } }
-      : { index: false, follow: false },
+      : { index: false, follow: true },
     openGraph: {
       title,
       description,
@@ -106,7 +106,7 @@ export function businessGraph(locale: string) {
         name: site.name,
         url: SITE_URL,
         image: `${SITE_URL}/images/hero.jpg`,
-        logo: `${SITE_URL}/logo.svg`,
+        logo: `${SITE_URL}/images/pamir-moto-emblem.webp`,
         telephone: site.whatsapp,
         email: site.email,
         address: {

@@ -40,6 +40,8 @@ function refresh(kind: CatalogKind, slug: string) {
   const page = publicHref(kind, slug);
   if (page !== "/en/faq") targets.push(page, page.replace("/en/", "/ru/"));
   for (const path of targets) revalidatePath(path);
+  // Catalog items also appear on pages not listed above (about/team, related tours, route pages), so refresh everything.
+  revalidatePath("/", "layout");
 }
 
 export async function saveCatalogAction(input: {
