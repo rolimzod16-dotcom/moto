@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { getPublicTour, getPublicTours } from "@/lib/catalog";
 import { journeyKind, journeyTitle, mapEmbed, t, upcomingDates } from "@/lib/utils";
+import { ecoTourUrl } from "@/lib/partner-tours";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { InquiryBand } from "@/components/InquiryBand";
@@ -27,7 +28,8 @@ export async function generateMetadata({
   const tour = await getPublicTour(slug);
   if (!tour) return {};
   const kind = journeyTitle[journeyKind(tour.vehicleType)];
-  return pageMetadata({
+  const twin = ecoTourUrl(slug);
+  const meta = pageMetadata({
     locale,
     path: `/tours/${slug}`,
     title:
@@ -37,6 +39,9 @@ export async function generateMetadata({
     description: t(tour.summary, locale),
     image: tour.images[0],
   });
+  if (!twin) return meta;
+  // Partner tour: English copy lives on pamirecotourism.com; Russian is unique to this site.
+  return { ...meta, alternates: { canonical: locale === "ru" ? meta.alternates?.canonical : twin } };
 }
 
 export default async function TourDetailPage({
@@ -143,6 +148,7 @@ export default async function TourDetailPage({
               </div>
             </dl>
             <p className="mt-6 text-sm text-ink-soft">{ru ? "Доступность подтверждает команда." : "Availability is confirmed by the team."}</p>
+            {ecoTourUrl(tour.slug) ? <p className="mt-3 text-sm text-ink-soft">{ru ? "Тур проводит наш партнёр на Памире — " : "Run with our partner in the Pamirs, "}<a href={ecoTourUrl(tour.slug)!} className="font-semibold text-rust underline">Pamir Ecotourism</a>.</p> : null}
             <Link href={`/request?type=TOUR&tour=${tour.slug}`} className="btn btn-primary mt-6 w-full">
               {isPrivate ? copy("requestPrivate") : copy("request")}
             </Link>

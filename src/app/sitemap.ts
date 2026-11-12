@@ -1,3 +1,4 @@
+import { ecoTourUrl } from "@/lib/partner-tours";
 import type { MetadataRoute } from "next";
 import { getPublicMotorcycles, getPublicRoutes, getPublicTours, getPublicVehicles } from "@/lib/catalog";
 import { absoluteImage, absoluteUrl } from "@/lib/seo";
@@ -48,9 +49,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...tours.map((item) => withImages(`/tours/${item.slug}`, item.images)),
     ...routes.map((item) => `/routes/${item.slug}`),
   ];
+  // Partner tours: the English copy belongs to pamirecotourism.com, so only the Russian page is listed here.
+  const partnerTour = (path: string) => path.startsWith("/tours/") && Boolean(ecoTourUrl(path.slice("/tours/".length)));
   return locales.flatMap((locale) =>
-    [...pages, ...extra].map((path) => {
+    [...pages, ...extra].filter((path) => !(locale === "en" && partnerTour(path))).map((path) => {
       const pagePath = path === "" ? "/" : path;
+      if (partnerTour(path)) {
+        return { url: absoluteUrl(locale, pagePath), changeFrequency: "monthly" as const, priority: priority(path), ...(images.has(path) && { images: images.get(path) }) };
+      }
       return {
         url: absoluteUrl(locale, pagePath),
         changeFrequency: path === "" ? "weekly" : "monthly",
